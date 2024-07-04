@@ -37,7 +37,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
  require('header.php');
 
 ?>
-   
+<!--    
        
         <?php
    while ($data = $respond -> fetch()) {
@@ -49,7 +49,55 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
     
     }
 
-?>
+?> -->
 
+
+ 
+<div class="posts">
+    <?php
+
+ $show = $db->query('SELECT posts.content, users.username ,users.id
+ FROM posts 
+ INNER JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC');
+
+
+
+
+              
+while ($data = $show->fetch(PDO::FETCH_ASSOC)) {
+    echo '<div class="post">';
+    echo "<h3 onclick=\"window.location.href='info.php?id={$data['id']}'\">" . htmlspecialchars($data['username']) . '</h3>';
+    echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    echo '</div>';
+}
+
+
+?>
+    </div>
+
+    <style>
+     *{
+        box-sizing: border-box;
+     }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           
+        }
+        
+        
+        .posts {
+            margin-top: 50px;
+        }
+        .post {
+            width: 400px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+            </style>
 </body>
 </html>

@@ -40,10 +40,10 @@
     <div class="posts">
     <?php
  $userid = $_SESSION["user_id"];
- $show = $db->prepare('SELECT posts.content, users.username 
+ $show = $db->prepare('SELECT posts.content, users.username ,DATE(posts.created_at) AS  date
  FROM posts 
  INNER JOIN users ON posts.user_id = users.id 
- WHERE users.id=:id');
+ WHERE users.id=:id  ORDER BY posts.created_at DESC');
 
 
 
@@ -54,6 +54,7 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<div class="post">';
     echo '<h3>' . htmlspecialchars($data['username']) . '</h3>';
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    echo '<p>' . htmlspecialchars($data['date']) . '</p>'; 
     echo '</div>';
 }
  

@@ -17,6 +17,10 @@ require("auth.php");
     <title>Document</title>
 </head>
 <body>
+
+<?php
+  require('header.php');
+?>
     <b>Username: </b>
     <span><?php echo $data['username'];  ?></span> <br><br>
     <b>Email: </b>
@@ -30,7 +34,7 @@ require("auth.php");
  $show = $db->prepare('SELECT posts.content, users.username 
  FROM posts 
  INNER JOIN users ON posts.user_id = users.id 
- WHERE users.id=:id');
+ WHERE users.id=:id ORDER BY posts.created_at DESC');
 
 
 
