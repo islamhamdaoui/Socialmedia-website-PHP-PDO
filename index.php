@@ -15,20 +15,66 @@ if(isset($_SESSION['user'])){
     <title>Document</title>
 </head>
 <body>
-    <!-- Registration Form -->
-<form method="post" action="signup.php">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <input type="email" name="email" placeholder="Email (optional)"><br>
-    <input type="submit" name="register" value="Register">
-</form>
+
+<?php
+ require('header.php');
+
+?>
 
 <!-- Login Form -->
-<form method="post" action="login.php">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <input type="submit" name="login" value="Login">
-</form>
+ <div class="login">
 
+
+<form method="post" action="login.php">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <div class="warning" id="loginWarning">Login failed. Invalid username or password.</div><br>
+    <input type="submit" name="login" value="Login">
+    <a href="signup.php">Create new account</a>
+</form>
+</div>
+
+<style>
+    .warning {
+    display: none;
+    color: red;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.login {
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    max-width: 350px;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 20px;
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    padding: 5px 10px;
+    background-color: #fff;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type=submit] {
+    background-color: #0866ff;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+
+}
+</style>
 </body>
 </html>

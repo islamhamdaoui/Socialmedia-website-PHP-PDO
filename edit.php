@@ -15,3 +15,4 @@ $repond -> execute(array(
 ));
 
 header('location:profile.php');
+die;

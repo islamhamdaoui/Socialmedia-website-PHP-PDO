@@ -27,7 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirect to another page or do something else after successful login
         } else {
             echo"<div>Login failed. Invalid username or password</div>";
+            header("location:logout.php");
         }
     }
 }
 ?>
+
