@@ -26,7 +26,7 @@ if(isset($_SESSION['user'])){
 
 
 <form method="post" action="login.php">
-    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Password" required>
     <input type="submit" name="login" value="Login">
     <a href="signupform.php">Create new account</a>

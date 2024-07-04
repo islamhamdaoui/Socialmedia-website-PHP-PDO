@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require("connection.php");
 session_start(); // Start session
 
@@ -31,5 +31,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
+?> -->
+<?php
+require("connection.php");
+session_start(); // Start session
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['login'])) {
+        $email = $_POST['email']; 
+        $password = $_POST['password'];
+        $_SESSION['user'] = true;
+
+        
+        $stmt = $db->prepare("SELECT id, username, password FROM users WHERE email = :email"); // Change 'username' to 'email'
+
+        
+        $stmt->execute(array(
+            "email" => $email, 
+        ));
+
+        // Fetch the user
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verify password
+        if ($user && $password === $user['password']) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            header('location:home.php');
+            exit; 
+        } else {
+            echo "<div>Login failed. Invalid email or password</div>";
+            header("location:logout.php");
+        }
+    }
+}
+?>
