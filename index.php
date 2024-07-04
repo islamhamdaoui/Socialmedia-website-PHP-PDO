@@ -73,7 +73,12 @@ input[type=submit] {
     color: #fff;
     font-weight: bold;
     width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
 
+} 
+input[type=submit]:hover {
+    opacity: 0.7;
 }
 </style>
 </body>

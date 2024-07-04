@@ -1,7 +1,7 @@
 <?php
 require("connection.php");
 require("auth.php");
-session_start();
+
 if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
     $id = $_SESSION["user_id"];
     $username = $_SESSION["username"];
@@ -33,10 +33,11 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
     </style>
 </head>
 <body>
-    <header>
-        <a href="logout.php">Logout</a>
-        <br><br>
-        <a href="profile.php">Profile</a>
+<?php
+ require('header.php');
+
+?>
+   
        
         <?php
    while ($data = $respond -> fetch()) {
@@ -49,6 +50,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
     }
 
 ?>
-    </header>
+
 </body>
 </html>
