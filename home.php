@@ -37,7 +37,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
        
         <?php
    while ($data = $respond -> fetch()) {
-    echo"<div class='user'>";
+    echo"<div class='user' onclick=\"window.location.href='info.php?id=$data[0]'\">";
     
       echo"<h1>". $data['username'] ."</h1>";
       echo"<span>". $data['email'] ."</span>";
