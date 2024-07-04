@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "password"=> $password,
                 "email"=> $email
             ));
-            header("location:home.php");
+            header("location:index.php");
         } catch (PDOException $e) {
             echo "Registration failed: " . $e->getMessage();
         }
     }
 }
-?>
+
