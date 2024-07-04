@@ -34,6 +34,8 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 <body>
     <header>
         <a href="logout.php">Logout</a>
+        <br><br>
+        <a href="profile.php">Profile</a>
        
         <?php
    while ($data = $respond -> fetch()) {
