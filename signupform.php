@@ -19,13 +19,72 @@ if(isset($_SESSION['user'])){
  require('header.php');
 
 ?>
+
+ <div class="signup">
         <!-- Registration Form -->
 <form method="post" action="signup.php">
     <input type="text" name="username" placeholder="Username" required><br>
     <input type="password" name="password" placeholder="Password" required><br>
     <input type="email" name="email" placeholder="Email (optional)"><br>
     <input type="submit" name="register" value="Register">
-</form>
+    <span style="display: flex; align-items: center; justify-content:center;">
+    Have an account? 
+    <a style="padding: 0; margin: 0; margin-left: 5px; color:#0866ff;" href="index.php">Log in</a>
+</span></form>
 
+</div>
+
+
+
+<style>
+.signup {
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           
+        }
+*{
+    box-sizing: border-box;
+}
+
+
+
+form {
+    max-width: 350px;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 20px;
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    padding: 5px 10px;
+    background-color: #fff;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type=submit] {
+    background-color: #0866ff;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+} 
+input[type=submit]:hover {
+    opacity: 0.7;
+}
+</style>
 </body>
 </html>

@@ -28,17 +28,13 @@ if(isset($_SESSION['user'])){
 <form method="post" action="login.php">
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
-    <div class="warning" id="loginWarning">Login failed. Invalid username or password.</div><br>
     <input type="submit" name="login" value="Login">
-    <a href="signup.php">Create new account</a>
+    <a href="signupform.php">Create new account</a>
 </form>
 </div>
 
 <style>
-    .warning {
-    display: none;
-    color: red;
-}
+
 
 *{
     box-sizing: border-box;
