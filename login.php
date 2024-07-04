@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $_SESSION['user'] = true;
 
         // Prepare the SQL statement
         $stmt = $db->prepare("SELECT id, username, password FROM users WHERE username = :username");
@@ -25,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('location:home.php');
             // Redirect to another page or do something else after successful login
         } else {
-            echo "Login failed. Invalid username or password.";
+            echo"<div>Login failed. Invalid username or password</div>";
         }
     }
 }

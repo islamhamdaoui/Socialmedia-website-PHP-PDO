@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $email = isset($_POST['email']) ? $_POST['email'] : null; // Optional field
+        $_SESSION['user'] = true;
 
         // Prepare the SQL statement
         $stmt = $db->prepare("INSERT INTO users(username, password, email) VALUES (:username, :password, :email)");
