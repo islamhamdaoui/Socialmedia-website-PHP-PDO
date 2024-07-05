@@ -36,7 +36,7 @@ echo "<div class='post'>";
 </div>
 <div class="comment">
     <form action="comment.php" method="post">
-        <input type="text" name="comment" placeholder="Add new comment..." required>
+        <input type="text" name="comment" placeholder="Add new comment..." required id="input">
         <input type="hidden" name="post_id" value="<?php echo $data['post_id'];  ?>">
         <input type="submit" value="Comment" onclick="window.location.href='postview.php?id={$data['post_id']}'">
 
@@ -52,22 +52,40 @@ if (isset($_SESSION['post_id'])) {
     
 
 
-    // $show = $db->prepare('SELECT * FROM comments WHERE post_id = :post_id ORDER BY created_at DESC');
-    $show = $db->prepare('SELECT comments.id as comment_id, comments.comment , users.username 
-    FROM comments 
-    INNER JOIN users ON comments.user_id = users.id WHERE comments.post_id = :post_id
-        ORDER BY comments.created_at DESC');
+    $show = $db->prepare('
+    SELECT 
+        comments.id as comment_id,
+        comments.created_at as created_at,
+        comments.comment,
+        users.username,
+        TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) AS seconds_ago,
+        CASE
+            WHEN TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, comments.created_at, NOW()), \'s ago\')
+            WHEN TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()), \'m ago\')
+            WHEN TIMESTAMPDIFF(HOUR, comments.created_at, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, comments.created_at, NOW()), \'h ago\')
+            ELSE CONCAT(TIMESTAMPDIFF(DAY, comments.created_at, NOW()), \'d ago\')
+        END AS time_ago
+    FROM 
+        comments 
+    INNER JOIN 
+        users ON comments.user_id = users.id 
+    WHERE 
+        comments.post_id = :post_id
+    ORDER BY 
+        comments.created_at DESC
+');
+
 
     $show->execute(array('post_id' => $post_id));
 
    
-    // Check if there are comments for the given post_id
     if ($show->rowCount() > 0) {
-        // Loop through each fetched comment
+
         while ($comment = $show->fetch(PDO::FETCH_ASSOC)) {
             echo "<div class='commentContainer'>";
-            echo "<b>" . htmlspecialchars($comment['username']) . "</b>";
+            echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
             echo htmlspecialchars($comment['comment']) . "<br>";
+            echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
 
             echo "</div>";
         }
@@ -75,8 +93,7 @@ if (isset($_SESSION['post_id'])) {
         echo "No comments found for this post.";
     }
 } else {
-    echo "No post_id set in session."; // Handle case where $_SESSION['post_id'] is not set
-}
+    echo "No post_id set in session."; /
 ?>
 
 
@@ -85,11 +102,23 @@ if (isset($_SESSION['post_id'])) {
     </form>
 </div>
 
+<script>
+    function mention(username) {
+            let input = document.getElementById('input');
+            input.value = `@${username} `; // Append username to current input value
+        }
+
+
+        
+</script>
 
 <style>
 
+
+
 *{
         box-sizing: border-box;
+        margin: 0;
      }
         body {
             display: flex;
@@ -157,6 +186,11 @@ input[type=submit]:hover {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.date {
+    color: rgb(101, 103, 107);
+    font-size: 12px;
 }
 </style>
     
