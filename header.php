@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        *{
+            font-family: sans-serif;
+        }
         body {
             background-color: #f0f2f5;
             MARGIN: 0;

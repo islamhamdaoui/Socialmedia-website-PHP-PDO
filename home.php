@@ -56,7 +56,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 <div class="posts">
     <?php
 
-    
 
  $show = $db->query('SELECT posts.id as post_id, posts.content, users.username ,users.id
  FROM posts 

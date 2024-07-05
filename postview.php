@@ -88,12 +88,15 @@ if (isset($_SESSION['post_id'])) {
             echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
 
             echo "</div>";
+
+
         }
     } else {
         echo "No comments found for this post.";
     }
 } else {
-    echo "No post_id set in session."; /
+    echo "No post_id set in session."; 
+}
 ?>
 
 
