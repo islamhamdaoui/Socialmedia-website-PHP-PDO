@@ -13,6 +13,7 @@ if(isset($_POST["content"])) {
         'content'=> $content
 ));
 
+
 header('location: profile.php');
 die();
 }

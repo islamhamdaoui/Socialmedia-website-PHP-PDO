@@ -56,6 +56,8 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 <div class="posts">
     <?php
 
+    
+
  $show = $db->query('SELECT posts.id as post_id, posts.content, users.username ,users.id
  FROM posts 
  INNER JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC');
@@ -64,12 +66,14 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 
 
               
-while ($data = $show->fetch(PDO::FETCH_ASSOC)) {
+while ($data = $show->fetch()) {
     echo '<div class="post">';
     echo "<h3 onclick=\"window.location.href='info.php?id={$data['id']}'\">" . htmlspecialchars($data['username']) . '</h3>';
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">Comment</div> </div>";
     echo '</div>';
+
+    $_SESSION['post_id']= $data['post_id'];
 }
 
 

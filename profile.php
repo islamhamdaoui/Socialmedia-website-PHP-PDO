@@ -56,6 +56,9 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
     echo '<p>' . htmlspecialchars($data['date']) . '</p>'; 
     echo '</div>';
+
+ 
+
 }
  
 
