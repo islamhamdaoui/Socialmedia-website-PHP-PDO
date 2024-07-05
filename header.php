@@ -42,6 +42,7 @@
     <header>
         <a  href="home.php">Home</a>
         <a  href="profile.php">Profile</a>
+        <a  href="search.php">Search</a>
         <a  href="index.php">Login</a>
         <a href="signupform.php">Signup</a>
         <a href="logout.php">Logout</a>
