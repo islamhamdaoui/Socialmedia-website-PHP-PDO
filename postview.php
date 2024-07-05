@@ -39,6 +39,7 @@ echo "<div class='post'>";
         <input type="text" name="comment" placeholder="Add new comment..." required>
         <input type="hidden" name="post_id" value="<?php echo $data['post_id'];  ?>">
         <input type="submit" value="Comment" onclick="window.location.href='postview.php?id={$data['post_id']}'">
+
         <div class="comments">
 
 
@@ -51,15 +52,24 @@ if (isset($_SESSION['post_id'])) {
     
 
 
-    $show = $db->prepare('SELECT * FROM comments WHERE post_id = :post_id ORDER BY created_at DESC');
+    // $show = $db->prepare('SELECT * FROM comments WHERE post_id = :post_id ORDER BY created_at DESC');
+    $show = $db->prepare('SELECT comments.id as comment_id, comments.comment , users.username 
+    FROM comments 
+    INNER JOIN users ON comments.user_id = users.id WHERE comments.post_id = :post_id
+        ORDER BY comments.created_at DESC');
+
     $show->execute(array('post_id' => $post_id));
 
+   
     // Check if there are comments for the given post_id
     if ($show->rowCount() > 0) {
         // Loop through each fetched comment
         while ($comment = $show->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='commentContainer'>";
+            echo "<b>" . htmlspecialchars($comment['username']) . "</b>";
             echo htmlspecialchars($comment['comment']) . "<br>";
-            echo htmlspecialchars($comment['comment']) . "<br>";
+
+            echo "</div>";
         }
     } else {
         echo "No comments found for this post.";
@@ -68,6 +78,7 @@ if (isset($_SESSION['post_id'])) {
     echo "No post_id set in session."; // Handle case where $_SESSION['post_id'] is not set
 }
 ?>
+
 
 
         </div>
@@ -135,6 +146,17 @@ if (isset($_SESSION['post_id'])) {
 } 
 input[type=submit]:hover {
     opacity: 0.7;
+}
+
+.commentContainer {
+    display: flex;
+            flex-direction: column;
+            width: 400px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
     
