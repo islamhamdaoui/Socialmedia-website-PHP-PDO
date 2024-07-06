@@ -26,6 +26,13 @@ if(isset($_SESSION['user'])){
     <input type="text" name="username" placeholder="Username" required><br>
     <input type="email" name="email" placeholder="Email" required><br>
     <input type="password" name="password" placeholder="Password" required><br>
+    
+    <label for="animal_choice">Choose an animal:</label><br>
+        <select id="animal_choice" name="pdp" required>
+            <option value="tiger">Tiger</option>
+            <option value="monkey">Monkey</option>
+        </select><br><br>
+
     <input type="submit" name="register" value="Register">
     <span style="display: flex; align-items: center; justify-content:center;">
     Have an account? 
