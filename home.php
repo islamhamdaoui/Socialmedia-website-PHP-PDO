@@ -72,7 +72,14 @@ $show = $db->query('SELECT posts.id as post_id, posts.content, users.username, u
 echo '<div class="posts">';
 while ($data = $show->fetch()) {
     echo '<div class="post">';
-    echo "<div class='username' onclick=\"window.location.href='info.php?id={$data['id']}'\">";
+    echo "<div class='username' onclick=\"";
+    if ($data['username'] === $_SESSION['username']) {
+        echo "window.location.href = 'profile.php';";
+    } else {
+        echo "window.location.href = 'info.php?id={$data['id']}';";
+    }
+    echo "\">";
+    
     // Display the chosen animal image based on animal_choice
     if ($data['pdp'] === 'tiger') {
         echo '<img src="uploads/tiger.png" alt="Tiger Image">';

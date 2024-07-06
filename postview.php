@@ -8,8 +8,8 @@
 </head>
 <body>
 <?php
-    require("header.php");
     require("auth.php");
+    require("header.php");
     require("connection.php");
 
 
