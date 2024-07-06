@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : ven. 05 juil. 2024 à 21:20
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jul 06, 2024 at 04:02 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `login`
+-- Database: `login`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -36,7 +36,7 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `comments`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VALUES
@@ -56,12 +56,21 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (16, 23, 2, 'hi', '2024-07-05 19:39:00'),
 (17, 24, 2, 'hi', '2024-07-05 20:09:16'),
 (18, 23, 2, '@islamputh ', '2024-07-05 20:18:26'),
-(19, 24, 2, '@islamputh ', '2024-07-05 20:19:29');
+(19, 24, 2, '@islamputh ', '2024-07-05 20:19:29'),
+(0, 24, 2, 'hi', '2024-07-06 12:00:29'),
+(0, 0, 2, 'gg', '2024-07-06 14:31:43'),
+(0, 22, 2, 's', '2024-07-06 14:32:09'),
+(0, 24, 2, 's', '2024-07-06 14:32:14'),
+(0, 24, 2, '@islam puth ', '2024-07-06 14:43:33'),
+(0, 24, 2, '@islam puth  thanks', '2024-07-06 14:43:37'),
+(0, 0, 2, 'hh', '2024-07-06 14:44:50'),
+(0, 2, 2, 'hh', '2024-07-06 14:47:27'),
+(0, 0, 10, 'gg', '2024-07-06 14:59:25');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -72,7 +81,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
@@ -84,93 +93,56 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
 (21, 2, 'so this is a new post man\\', '2024-07-04 21:16:24'),
 (22, 2, 'hi guys again', '2024-07-04 21:18:05'),
 (23, 3, 'hey guys im new', '2024-07-04 21:46:26'),
-(24, 2, 'this will contain comments', '2024-07-05 17:37:47');
+(24, 2, 'this will contain comments', '2024-07-05 17:37:47'),
+(0, 10, 'hi', '2024-07-06 12:12:50');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(5) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `pdp` enum('tiger','monkey') DEFAULT 'tiger'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`) VALUES
-(1, 'islam', 'islama', 'islamputh@gmail.com'),
-(2, 'islamputh', 'islam123', 'islamhamdaoui@gmail.com'),
-(3, 'rayan mazouni', 'rayan123', 'rayan@gmail.com');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `pdp`) VALUES
+(1, 'islamhamdaoui', 'islam123', 'islamhamdaoui@gmail.com', 'tiger'),
+(2, 'islam puth', 'islam123', 'islamhamdaoui2000@gmail.com', 'tiger'),
+(5, 'rayan', 'rayan123', 'rayan@gmail.com', 'tiger'),
+(6, 'anis', 'anis123', 'anis@gmail.com', 'tiger'),
+(7, 'ammar', 'omar123', 'ammar@gmail.com', 'tiger'),
+(8, 'mazouni', 'flutter', 'mazouni@gmail.com', 'tiger'),
+(9, 'galmi', 'galmi', 'galmi@gmail.com', 'tiger'),
+(10, 'user1', 'user123', 'user@gmail.com', 'monkey');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `post_id` (`post_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Index pour la table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT pour la table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `comments`
---
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Contraintes pour la table `posts`
---
-ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
