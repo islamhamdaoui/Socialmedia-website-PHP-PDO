@@ -72,15 +72,17 @@ $show = $db->query('SELECT posts.id as post_id, posts.content, users.username, u
 echo '<div class="posts">';
 while ($data = $show->fetch()) {
     echo '<div class="post">';
-    echo "<div class='username'";
+    echo "<div class='username' onclick=\"window.location.href='info.php?id={$data['id']}'\">";
     // Display the chosen animal image based on animal_choice
     if ($data['pdp'] === 'tiger') {
         echo '<img src="uploads/tiger.png" alt="Tiger Image">';
     } elseif ($data['pdp'] === 'monkey') {
         echo '<img src="uploads/monkey.png" alt="Monkey Image">';
     }
-    echo "<h3 onclick=\"window.location.href='info.php?id={$data['id']}'\">" . htmlspecialchars($data['username']) . '</h3>';
+    echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
     echo "</div>";
+
+    
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
     
@@ -96,6 +98,7 @@ echo '</div>';
     <style>
      *{
         box-sizing: border-box;
+        
      }
         body {
             display: flex;
@@ -123,9 +126,18 @@ echo '</div>';
             cursor: pointer;
         }
 
-
+        .username {
+            display: flex;
+            align-items: center;
+        }
         .username img {
             width: 25px;
+            margin-right: 7px;
+            height: 25px;
+
+        }
+        .username h3 {
+            margin: 0;
         }
             </style>
 </body>

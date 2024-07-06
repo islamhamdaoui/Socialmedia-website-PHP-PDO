@@ -26,6 +26,12 @@
         <input type="text" placeholder="Email" name="email" value="<?php echo $data['email']  ?>" > <br><br>
         <input type="text" placeholder="Password" name="password" value="<?php echo $data['password']  ?>" > <br><br>
         <input type="hidden" name="id" value="<?php echo $data['id']  ?>">
+            
+    <label for="animal_choice">Choose an animal:</label><br>
+        <select id="animal_choice" name="pdp" required>
+            <option value="tiger">Tiger</option>
+            <option value="monkey">Monkey</option>
+        </select><br><br>
         <input type="submit" value="Save profile">
 
     </form>
