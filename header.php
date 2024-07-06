@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: ;
+            
             background-color: #FFF;
             height: 50px;
             box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.2);
@@ -41,11 +41,14 @@
 <body>
     <header>
         <a  href="home.php">Home</a>
-        <a  href="profile.php">Profile</a>
-        <a  href="search.php">Search</a>
-        <a  href="index.php">Login</a>
-        <a href="signupform.php">Signup</a>
-        <a href="logout.php">Logout</a>
+        <?php if(empty($_SESSION['user'])): ?>
+            <a  href="index.php">Login</a>
+            <a href="signupform.php">Signup</a>
+            <?php  else: ?>
+                <a  href="profile.php">Profile</a>
+                <a  href="search.php">Search</a>
+                <a href="logout.php">Logout</a>
+        <?php  endif; ?>
         
     </header>
 

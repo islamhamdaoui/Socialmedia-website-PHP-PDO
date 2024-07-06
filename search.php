@@ -9,8 +9,9 @@
     
 
 <?php 
-
+require('auth.php');
 require("header.php");
+
 
 ?>
 
@@ -23,6 +24,7 @@ require("header.php");
 
  <div class="results">
  <?php
+ 
 require("connection.php");
 if(isset($_POST["search"])) {
 $search = $_POST['search'];

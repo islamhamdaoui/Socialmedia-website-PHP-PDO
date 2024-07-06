@@ -24,7 +24,7 @@ if(isset($_SESSION['user'])){
         <!-- Registration Form -->
 <form method="post" action="signup.php">
     <input type="text" name="username" placeholder="Username" required><br>
-    <input type="email" name="email" placeholder="Email (optional)"><br>
+    <input type="email" name="email" placeholder="Email" required><br>
     <input type="password" name="password" placeholder="Password" required><br>
     <input type="submit" name="register" value="Register">
     <span style="display: flex; align-items: center; justify-content:center;">
