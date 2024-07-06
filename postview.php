@@ -8,102 +8,77 @@
 </head>
 <body>
 <?php
- require("header.php");
-
-?>
-
-<div class="postcontainer">
-<?php 
-
-require("connection.php");
-
-$id = $_GET['id'];
-
-$show = $db ->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id
- FROM posts 
- INNER JOIN users ON posts.user_id = users.id where posts.id = :id");
-
- $show -> execute(array("id"=> $id));
-
- $data = $show -> fetch();
-echo "<div class='post'>";
- echo "<b>" . $data["username"] . "</b>";
- echo "<span>" . $data["content"] . "</span>";
-
- echo "</div>";
-
- ?>
-</div>
-<div class="comment">
-    <form action="comment.php" method="post">
-        <input type="text" name="comment" placeholder="Add new comment..." required id="input">
-        <input type="hidden" name="post_id" value="<?php echo $data['post_id'];  ?>">
-        <input type="submit" value="Comment" onclick="window.location.href='postview.php?id={$data['post_id']}'">
-
-        <div class="comments">
+    require("header.php");
+    require("auth.php");
+    require("connection.php");
 
 
-<?php
-session_start();
-require("connection.php");
-if (isset($_SESSION['post_id'])) {
-    $post_id = $_GET['id'];
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-    
+    $show = $db->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id
+                         FROM posts 
+                         INNER JOIN users ON posts.user_id = users.id 
+                         WHERE posts.id = :id");
 
-
-    $show = $db->prepare('
-    SELECT 
-        comments.id as comment_id,
-        comments.created_at as created_at,
-        comments.comment,
-        users.username,
-        TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) AS seconds_ago,
-        CASE
-            WHEN TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, comments.created_at, NOW()), \'s ago\')
-            WHEN TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()), \'m ago\')
-            WHEN TIMESTAMPDIFF(HOUR, comments.created_at, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, comments.created_at, NOW()), \'h ago\')
-            ELSE CONCAT(TIMESTAMPDIFF(DAY, comments.created_at, NOW()), \'d ago\')
-        END AS time_ago
-    FROM 
-        comments 
-    INNER JOIN 
-        users ON comments.user_id = users.id 
-    WHERE 
-        comments.post_id = :post_id
-    ORDER BY 
-        comments.created_at DESC
-');
-
-
-    $show->execute(array('post_id' => $post_id));
-
-   
-    if ($show->rowCount() > 0) {
-
-        while ($comment = $show->fetch(PDO::FETCH_ASSOC)) {
-            echo "<div class='commentContainer'>";
-            echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
-            echo htmlspecialchars($comment['comment']) . "<br>";
-            echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
-
-            echo "</div>";
-
-
-        }
-    } else {
-        echo "No comments found for this post.";
-    }
-} else {
-    echo "No post_id set in session."; 
-}
-?>
-
-
-
+    $show->execute(array("id"=> $id));
+    $data = $show->fetch();
+    ?>
+    <div class="postcontainer">
+        <div class='post'>
+            <b><?php echo htmlspecialchars($data["username"]); ?></b>
+            <span><?php echo htmlspecialchars($data["content"]); ?></span>
         </div>
-    </form>
-</div>
+    </div>
+
+    <div class="comment">
+        <form action="comment.php" method="post">
+            <input type="text" name="comment" placeholder="Add new comment..." required id="input">
+            <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($data['post_id']); ?>">
+            <input type="submit" value="Comment">
+        </form>
+ </div>
+        <div class="comments">
+            <?php
+            
+            $showComments = $db->prepare('
+                SELECT 
+                    comments.id as comment_id,
+                    comments.created_at as created_at,
+                    comments.comment,
+                    users.username,
+                    TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) AS seconds_ago,
+                    CASE
+                        WHEN TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, comments.created_at, NOW()), \'s ago\')
+                        WHEN TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, comments.created_at, NOW()), \'m ago\')
+                        WHEN TIMESTAMPDIFF(HOUR, comments.created_at, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, comments.created_at, NOW()), \'h ago\')
+                        ELSE CONCAT(TIMESTAMPDIFF(DAY, comments.created_at, NOW()), \'d ago\')
+                    END AS time_ago
+                FROM 
+                    comments 
+                INNER JOIN 
+                    users ON comments.user_id = users.id 
+                WHERE 
+                    comments.post_id = :post_id
+                ORDER BY 
+                    comments.created_at DESC
+            ');
+
+            $showComments->execute(array('post_id' => $id));
+
+            if ($showComments->rowCount() > 0) {
+                while ($comment = $showComments->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<div class='commentContainer'>";
+                    echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
+                    echo htmlspecialchars($comment['comment']) . "<br>";
+                    echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
+                    echo "</div>";
+                }
+            } else {
+                echo "No comments found for this post.";
+            }
+            ?>
+        </div>
+   
 
 <script>
     function mention(username) {
