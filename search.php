@@ -32,8 +32,8 @@ $result -> execute(array(':search' => '%' . $search . '%'));
 
 if($result->rowCount() > 0) {
 while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
-    echo "<div class='result'>";
-    echo "<b onclick=\"window.location.href='info.php?id={$data['id']}'\">" . $data['username'] . "</b>";
+    echo "<div class='result' onclick=\"window.location.href='info.php?id={$data['id']}'\">";
+    echo "<b >" . $data['username'] . "</b>";
     echo $data['email'];
 
     echo "</div>";
