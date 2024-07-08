@@ -136,9 +136,63 @@ echo '</div>';
  function displayFollowed(){
     
     require('connection.php');
+    $follower_id = $_SESSION['user_id'];
+
+    $followed = $db->prepare("
+    SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
+    FROM posts
+    INNER JOIN users ON posts.user_id = users.id
+    INNER JOIN follow ON users.id = follow.followed_id
+    LEFT JOIN comments ON posts.id = comments.post_id
+    WHERE follow.follower_id = :follower_id
+    GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
+    ORDER BY posts.created_at DESC");
 
 
- }
+ 
+ $followed ->execute(array("follower_id"=> $follower_id));
+
+
+ while ($data = $followed->fetch(PDO::FETCH_ASSOC)) {
+    echo '<div class="post">';
+    echo "<div class='username' onclick=\"";
+    if ($data['username'] === $_SESSION['username']) {
+        echo "window.location.href = 'profile.php';";
+    } else {
+        echo "window.location.href = 'info.php?id={$data['id']}';";
+    }
+    echo "\">";
+    
+    if ($data['pdp'] === 'default') {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    } elseif ($data['pdp'] === 'sara') {
+        echo "<img src='uploads/sara.png' alt='sara Image'>";
+    } elseif ($data['pdp'] === 'dalia') {
+        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+    }  elseif ($data['pdp'] === 'islam') {
+        echo"<img src='uploads/islam.png' alt='islam Image'>";
+    }
+    elseif ($data['pdp'] === 'mohamed') {
+        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+    } else {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    }
+    echo "<div class='userdiv' >";
+    echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
+    echo "<span>" .$data['post_date'] . "</span>";
+    echo '</div>';
+
+    echo "</div>";
+
+    
+    echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
+    
+    
+    
+    echo '</div>';
+}
+}
 ?>
     </div>
 
