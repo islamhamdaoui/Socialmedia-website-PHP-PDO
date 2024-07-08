@@ -44,7 +44,8 @@ require("auth.php");
     <span><?php echo $data['username'];  ?></span> <br><br>
     <b>Email: </b>
     <span><?php echo $data['email'];  ?></span>
-
+    <button id="follow" onclick="window.location.href='follow.php?followed_id=<?php echo $data['id']; ?>'">Follow</button>
+    <button id="unfollow" onclick="window.location.href='unfollow.php?followed_id=<?php echo $data['id']; ?>'">Unfollow</button>
 
      
     <div class="posts">
@@ -86,5 +87,28 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
     </style>
+
+
+<script>
+
+ function follow(){
+    let follow =document.getElementById('follow')
+    let unfollow =document.getElementById('unfollow')
+    follow.style.display = 'none'
+    unfollow.style.display = 'block'
+
+    window.location.href='follow.php?followed_id=<?php echo $data['id']; ?>
+ }
+
+ 
+ function unfollow(){
+    let follow =document.getElementById('follow')
+    let unfollow =document.getElementById('unfollow')
+    follow.style.display = 'block'
+    unfollow.style.display = 'none'
+    window.location.href='unfollow.php?followed_id=<?php echo $data['id']; ?>
+    
+ }
+</script>
 </body>
 </html>

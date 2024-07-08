@@ -52,11 +52,27 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 ?> -->
 
 
- 
-<div class="posts">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <button type="submit" name="all">Show All</button>
+    <button type="submit" name="followed">Show Followed</button>
+</form>
+
+
+<div class="posts"  id='all'>
 <?php
+
 // index.php
 
+if (isset($_POST['all'])) {
+    displayAll();
+    
+} elseif (isset($_POST['followed'])) {
+    displayFollowed();
+    
+} else {
+    displayAll();
+}
+    function displayAll(){
 require("connection.php");
 
 // Fetch posts with user information including pdp
@@ -69,7 +85,7 @@ $show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.create
                    ORDER BY posts.created_at DESC');
 
 // Display posts and user information
-echo '<div class="posts">';
+
 while ($data = $show->fetch()) {
     echo '<div class="post">';
     echo "<div class='username' onclick=\"";
@@ -110,8 +126,20 @@ while ($data = $show->fetch()) {
     echo '</div>';
 }
 echo '</div>';
+} 
 ?>
 
+    </div>
+
+    <div class="followed" id='followed'>
+<?php
+ function displayFollowed(){
+    
+    require('connection.php');
+
+
+ }
+?>
     </div>
 
     <style>
@@ -164,6 +192,29 @@ echo '</div>';
             font-size: 12px;
             color: rgb(101, 103, 107);
         }
+
+        .followed {
+            display: none;
+        }
             </style>
+
+
+
+<script>
+    function all(){
+        let all =document.getElementById("all")
+        let followed =document.getElementById("followed")
+
+        all.style.display = 'block'
+        followed.style.display = 'none'
+    }
+    function followed(){
+        let all =document.getElementById("all")
+        let followed =document.getElementById("followed")
+
+        all.style.display = 'none'
+        followed.style.display = 'block'
+    }
+</script>
 </body>
 </html>
