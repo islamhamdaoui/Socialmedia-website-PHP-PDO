@@ -29,8 +29,11 @@
             
     <label for="animal_choice">Choose an animal:</label><br>
         <select id="animal_choice" name="pdp" required>
-            <option value="tiger">Tiger</option>
-            <option value="monkey">Monkey</option>
+            <option value="default">Default</option>
+            <option value="sara">Sara</option>
+            <option value="dalia">Dalia</option>
+            <option value="islam">Islam</option>
+            <option value="mohamed">Mohamed</option>
         </select><br><br>
         <input type="submit" value="Save profile">
 

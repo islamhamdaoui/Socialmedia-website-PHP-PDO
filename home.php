@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 require("connection.php");
 
 // Fetch posts with user information including pdp
-$show = $db->query('SELECT posts.id as post_id, posts.content, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
+$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
                    FROM posts 
                    INNER JOIN users ON posts.user_id = users.id 
                    LEFT JOIN comments ON posts.id = comments.post_id
@@ -80,13 +80,25 @@ while ($data = $show->fetch()) {
     }
     echo "\">";
     
-    // Display the chosen animal image based on animal_choice
-    if ($data['pdp'] === 'tiger') {
-        echo '<img src="uploads/tiger.png" alt="Tiger Image">';
-    } elseif ($data['pdp'] === 'monkey') {
-        echo '<img src="uploads/monkey.png" alt="Monkey Image">';
+    if ($data['pdp'] === 'default') {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    } elseif ($data['pdp'] === 'sara') {
+        echo "<img src='uploads/sara.png' alt='sara Image'>";
+    } elseif ($data['pdp'] === 'dalia') {
+        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+    }  elseif ($data['pdp'] === 'islam') {
+        echo"<img src='uploads/islam.png' alt='islam Image'>";
     }
+    elseif ($data['pdp'] === 'mohamed') {
+        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+    } else {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    }
+    echo "<div class='userdiv' >";
     echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
+    echo "<span>" .$data['post_date'] . "</span>";
+    echo '</div>';
+
     echo "</div>";
 
     
@@ -138,13 +150,19 @@ echo '</div>';
             align-items: center;
         }
         .username img {
-            width: 25px;
+            width: 38px;
             margin-right: 7px;
-            height: 25px;
-
+            height: 38px;
+           
         }
+    
         .username h3 {
             margin: 0;
+        }
+
+        .userdiv span {
+            font-size: 12px;
+            color: rgb(101, 103, 107);
         }
             </style>
 </body>
