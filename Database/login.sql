@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2024 at 04:02 PM
+-- Generation Time: Jul 08, 2024 at 01:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,31 +41,13 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VALUES
 (2, 23, 2, 'hi', '2024-07-05 18:17:20'),
-(3, 22, 2, 'hi', '2024-07-05 18:19:18'),
-(5, 22, 2, 'hh', '2024-07-05 18:20:16'),
-(6, 22, 2, 'ki', '2024-07-05 18:20:20'),
-(7, 24, 2, 'hi', '2024-07-05 18:37:55'),
-(8, 24, 2, 'first comment', '2024-07-05 18:38:21'),
-(9, 24, 2, 'hi', '2024-07-05 18:40:08'),
-(10, 24, 2, 'dude', '2024-07-05 18:47:30'),
-(11, 24, 3, 'hhh islam ak hna', '2024-07-05 19:00:19'),
-(12, 2, 3, 'wash kho', '2024-07-05 19:01:00'),
-(13, 2, 2, 'sa7aa', '2024-07-05 19:02:06'),
-(14, 24, 2, '@rayan mazouni hii', '2024-07-05 19:22:32'),
-(15, 24, 2, 'hi', '2024-07-05 19:31:13'),
 (16, 23, 2, 'hi', '2024-07-05 19:39:00'),
-(17, 24, 2, 'hi', '2024-07-05 20:09:16'),
 (18, 23, 2, '@islamputh ', '2024-07-05 20:18:26'),
-(19, 24, 2, '@islamputh ', '2024-07-05 20:19:29'),
-(0, 24, 2, 'hi', '2024-07-06 12:00:29'),
-(0, 0, 2, 'gg', '2024-07-06 14:31:43'),
-(0, 22, 2, 's', '2024-07-06 14:32:09'),
-(0, 24, 2, 's', '2024-07-06 14:32:14'),
-(0, 24, 2, '@islam puth ', '2024-07-06 14:43:33'),
-(0, 24, 2, '@islam puth  thanks', '2024-07-06 14:43:37'),
-(0, 0, 2, 'hh', '2024-07-06 14:44:50'),
-(0, 2, 2, 'hh', '2024-07-06 14:47:27'),
-(0, 0, 10, 'gg', '2024-07-06 14:59:25');
+(21, 0, 2, 'gg', '2024-07-06 14:31:43'),
+(26, 0, 2, 'hh', '2024-07-06 14:44:50'),
+(28, 0, 10, 'gg', '2024-07-06 14:59:25'),
+(55, 24, 2, 'hi', '2024-07-08 11:47:31'),
+(56, 25, 2, 'hi', '2024-07-08 11:48:09');
 
 -- --------------------------------------------------------
 
@@ -94,7 +76,7 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
 (22, 2, 'hi guys again', '2024-07-04 21:18:05'),
 (23, 3, 'hey guys im new', '2024-07-04 21:46:26'),
 (24, 2, 'this will contain comments', '2024-07-05 17:37:47'),
-(0, 10, 'hi', '2024-07-06 12:12:50');
+(25, 10, 'hi', '2024-07-06 12:12:50');
 
 -- --------------------------------------------------------
 
@@ -107,7 +89,7 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `pdp` enum('tiger','monkey') DEFAULT 'tiger'
+  `pdp` enum('default','sara','dalia','islam','mohamed') DEFAULT 'default'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -115,18 +97,30 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `pdp`) VALUES
-(1, 'islamhamdaoui', 'islam123', 'islamhamdaoui@gmail.com', 'tiger'),
-(2, 'islam puth', 'islam123', 'islamhamdaoui2000@gmail.com', 'tiger'),
-(5, 'rayan', 'rayan123', 'rayan@gmail.com', 'tiger'),
-(6, 'anis', 'anis123', 'anis@gmail.com', 'tiger'),
-(7, 'ammar', 'omar123', 'ammar@gmail.com', 'tiger'),
-(8, 'mazouni', 'flutter', 'mazouni@gmail.com', 'tiger'),
-(9, 'galmi', 'galmi', 'galmi@gmail.com', 'tiger'),
-(10, 'user1', 'user123', 'user@gmail.com', 'monkey');
+(1, 'islam hamdaoui', 'islam123', 'islamhamdaoui@gmail.com', 'mohamed'),
+(2, 'islam puth', 'islam123', 'islamhamdaoui2000@gmail.com', 'sara'),
+(5, 'rayan', 'rayan123', 'rayan@gmail.com', ''),
+(6, 'anis', 'anis123', 'anis@gmail.com', ''),
+(7, 'ammar', 'omar123', 'ammar@gmail.com', ''),
+(8, 'mazouni', 'flutter', 'mazouni@gmail.com', ''),
+(9, 'galmi', 'galmi', 'galmi@gmail.com', ''),
+(10, 'user1', 'user123', 'user@gmail.com', 'dalia');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -137,6 +131,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `users`
