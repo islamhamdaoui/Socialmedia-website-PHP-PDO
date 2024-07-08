@@ -46,6 +46,8 @@
                     comments.created_at as created_at,
                     comments.comment,
                     users.username,
+
+    
                     TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) AS seconds_ago,
                     CASE
                         WHEN TIMESTAMPDIFF(SECOND, comments.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, comments.created_at, NOW()), \'s ago\')
@@ -68,9 +70,15 @@
             if ($showComments->rowCount() > 0) {
                 while ($comment = $showComments->fetch(PDO::FETCH_ASSOC)) {
                     echo "<div class='commentContainer'>";
+                    echo "<div class='commentinfo'> ";
                     echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
                     echo htmlspecialchars($comment['comment']) . "<br>";
                     echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
+                    echo "</div>";
+                    if($comment['username'] === $_SESSION['username']){
+echo "<div class='deletebtn' onclick=\"window.location.href='delete/deletecomment.php?id=" . $comment['comment_id'] . "&post_id=" . $data['post_id'] . "'\">Delete</div>";
+
+                    }
                     echo "</div>";
                 }
             } else {
@@ -157,18 +165,37 @@ input[type=submit]:hover {
 
 .commentContainer {
     display: flex;
-            flex-direction: column;
-            width: 400px;
+    width: 400px;
             padding: 10px;
             margin-bottom: 10px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            justify-content: space-between;
+}
+.commentinfo {
+    display: flex;
+            flex-direction: column;
+            
 }
 
 .date {
     color: rgb(101, 103, 107);
     font-size: 12px;
+}
+
+.deletebtn {
+    background-color: red;
+    color: white;
+    height: fit-content;
+    padding: 5px 7px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 8px;
+   
+}
+.deletebtn:hover {
+    opacity: 0.5;
 }
 </style>
     
