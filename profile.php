@@ -22,7 +22,7 @@ $followingCount = $following -> fetch();
 
 
 <?php
-// following code
+// followers code
 $followed_id = $_SESSION["user_id"];
 $followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
 $followers -> execute(array("followed_id"=> $followed_id));
@@ -39,11 +39,62 @@ $followersCount = $followers -> fetch();
     <title>Document</title>
 </head>
 <body>
+   
 
 <?php
  require('header.php');
 
 ?>
+
+<div class="profileContainer">
+
+<div class="followers">
+    <?php
+
+$user_id = $_SESSION['user_id'];
+
+$followersP = $db ->prepare ("SELECT users.id, users.username, users.email, users.pdp
+    FROM users
+    JOIN follow ON users.id = follow.follower_id
+    WHERE follow.followed_id = :user_id");
+    $followersP -> execute(array("user_id"=> $user_id));
+
+    while($peoplefollow = $followersP -> fetch()){
+
+
+?>
+<div class="followersProfile">
+            
+            <?php
+if ($peoplefollow['pdp'] === 'default') {
+echo '<img src="uploads/default.png" alt="default Image">';
+} elseif ($peoplefollow['pdp'] === 'sara') {
+echo "<img src='uploads/sara.png' alt='sara Image'>";
+} elseif ($peoplefollow['pdp'] === 'dalia') {
+echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+}  elseif ($peoplefollow['pdp'] === 'islam') {
+echo"<img src='uploads/islam.png' alt='islam Image'>";
+}
+elseif ($peoplefollow['pdp'] === 'mohamed') {
+echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+} else {
+echo '<img src="uploads/default.png" alt="default Image">';
+}
+
+?>
+                <div class="followersInfo">
+                <b><?php echo $peoplefollow['username']; ?></b>
+                <span><?php echo $peoplefollow['email']; ?></span>
+            </div>
+            </div>
+            <?php } ?>
+
+</div>
+
+
+
+
+
 <div class="userprofile">
 
 
@@ -128,16 +179,23 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
 
 ?>
     </div>
+    </div>
 
     <style>
      *{
         box-sizing: border-box;
      }
         body {
+         
+            position: relative;
+           
+        }
+        .profileContainer {
+            width: 100%;
+            
             display: flex;
             flex-direction: column;
             align-items: center;
-           
         }
         
         .addpost {
@@ -265,6 +323,45 @@ margin: 0;
         height: 150px;
     }
 
+
+    .followers {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 360px;
+    padding: 20px;
+    border-radius: 8px;
+  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    }
+
+    .followers img {
+        height: 48px;
+        width: 48px;
+    }
+
+    .followersProfile {
+        display: flex;
+        border-radius: 8px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    .followersProfile:hover {
+     background-color: #e4e4e4;
+    }
+
+    .followersInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 10px;
+    }
   
     </style>
 </body>
