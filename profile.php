@@ -47,6 +47,7 @@ elseif ($data['pdp'] === 'mohamed') {
     <span><?php echo $data['username'] ?></span> <br><br>
     <b>Your email: </b>
     <span><?php echo $data['email'] ?></span> <br><br>
+    <span>Following: </span>
     <button onclick="location.href='editform.php'">Edit profile</button>
 
     <div class="addpost" >
