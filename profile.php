@@ -48,12 +48,16 @@ $followersCount = $followers -> fetch();
 
 <div class="profileContainer">
 
-<div class="followers">
+<div class="followers" id="followers">
+    <div class="close">
+    <img onclick="closeFollowers()" src="icons/close.png" alt="close">
+    </div>
+    <b>Followers</b><br>
     <?php
 
 $user_id = $_SESSION['user_id'];
 
-$followersP = $db ->prepare ("SELECT users.id, users.username, users.email, users.pdp
+$followersP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
     FROM users
     JOIN follow ON users.id = follow.follower_id
     WHERE follow.followed_id = :user_id");
@@ -63,7 +67,7 @@ $followersP = $db ->prepare ("SELECT users.id, users.username, users.email, user
 
 
 ?>
-<div class="followersProfile">
+<div class="followersProfile" onclick="window.location.href = 'info.php?id=<?php echo $peoplefollow['id']; ?>'">
             
             <?php
 if ($peoplefollow['pdp'] === 'default') {
@@ -82,7 +86,7 @@ echo '<img src="uploads/default.png" alt="default Image">';
 }
 
 ?>
-                <div class="followersInfo">
+                <div class="followersInfo" >
                 <b><?php echo $peoplefollow['username']; ?></b>
                 <span><?php echo $peoplefollow['email']; ?></span>
             </div>
@@ -132,7 +136,7 @@ elseif ($data['pdp'] === 'mohamed') {
          <span>Posts</span>
     </div>
      
-     <div >
+     <div onclick="showFollowers()">
         <b><?php echo $followersCount['follower_num']; ?></b>
      <span>Followers</span>
      </div>  
@@ -325,7 +329,7 @@ margin: 0;
 
 
     .followers {
-        display: flex;
+        display: none;
         flex-direction: column;
         position: fixed;
     top: 50%;
@@ -338,6 +342,8 @@ margin: 0;
   
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1000;
+
+
     }
 
     .followers img {
@@ -349,7 +355,8 @@ margin: 0;
         display: flex;
         border-radius: 8px;
         padding: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 7px;
+        cursor: pointer;
     }
 
     .followersProfile:hover {
@@ -363,6 +370,33 @@ margin: 0;
         margin-left: 10px;
     }
   
+
+    .close {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .close img {
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+       float: right;
+    }
     </style>
+
+
+
+<script>
+    function closeFollowers() {
+        
+ let followers =document.getElementById('followers')
+
+ followers.style.display = 'none'
+    }
+
+    function showFollowers() {
+        let followers =document.getElementById('followers')
+ followers.style.display = 'flex'
+    }
+</script>
 </body>
 </html>
