@@ -11,6 +11,26 @@
     $data = $select -> fetch();
 ?>
 
+<?php
+// following code
+$follower_id = $_SESSION["user_id"];
+$following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
+$following -> execute(array("follower_id"=> $follower_id));
+
+$followingCount = $following -> fetch();
+?>
+
+
+<?php
+// following code
+$followed_id = $_SESSION["user_id"];
+$followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
+$followers -> execute(array("followed_id"=> $followed_id));
+
+$followersCount = $followers -> fetch();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +67,8 @@ elseif ($data['pdp'] === 'mohamed') {
     <span><?php echo $data['username'] ?></span> <br><br>
     <b>Your email: </b>
     <span><?php echo $data['email'] ?></span> <br><br>
-    <span>Following: </span>
+    <span>Following: <?php echo $followingCount['following_num']; ?> </span>
+    <span>Followers: <?php echo $followersCount['follower_num']; ?> </span>
     <button onclick="location.href='editform.php'">Edit profile</button>
 
     <div class="addpost" >
