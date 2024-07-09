@@ -13,25 +13,59 @@ require("auth.php");
 <?php
 // following code
 $follower_id = $_GET['id'];
-$follower = $_SESSION['user_id'];
-$following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
-$following -> execute(array("follower_id"=> $follower_id));
+
+$following = $db -> prepare("SELECT count(followed_id) as following_num  FROM follow WHERE follower_id = :follower_id");
+$following -> execute(array(
+    "follower_id"=> $follower_id,
+    
+
+
+));
+
+
 
 $followingCount = $following -> fetch();
+
 
 ?>
 
 
 <?php
-// following code
-$followed = isset($_GET['followed']) && $_GET['followed'] === 'yes' ? 'yes' : '';
+// followers code
+$status = '';
 $followed_id = $_GET['id'];
-$followers = $db -> prepare("SELECT count(follower_id) as follower_num ,status FROM follow WHERE followed_id = :followed_id");
+
+$followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
 $followers -> execute(array("followed_id"=> $followed_id));
 
 $followersCount = $followers -> fetch();
-$status = $followersCount['status'];
+
 ?>
+
+<?php
+// status code
+$follower_id = $_SESSION['user_id'];
+$followed_id = $_GET['id'];
+
+$statusRespond = $db->prepare("SELECT status FROM follow WHERE follower_id = :follower_id and followed_id = :followed_id" );
+$statusRespond->execute(array(
+
+    
+    "follower_id" => $follower_id,
+    "followed_id" => $followed_id
+
+));
+
+if ($statusRespond->rowCount() > 0) {
+    $statusf = $statusRespond->fetch();
+    $status = $statusf['status'];
+} 
+?>
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +110,7 @@ echo '<img src="uploads/default.png" alt="default Image">';
     
 <button id="follow" onclick="window.location.href='follow.php?followed_id=<?php echo $data['id']; ?>'">Follow</button>
 
-<?php elseif($status === 'followed') : ?>
+<?php elseif($status == 'followed') : ?>
     <button id="unfollow" onclick="window.location.href='unfollow.php?followed_id=<?php echo $data['id']; ?>'">Unfollow</button>
     <?php endif; ?>
 </div>
