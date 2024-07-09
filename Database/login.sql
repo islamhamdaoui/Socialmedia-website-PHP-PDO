@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2024 at 04:41 PM
+-- Generation Time: Jul 09, 2024 at 04:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,7 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (21, 0, 2, 'gg', '2024-07-06 14:31:43'),
 (26, 0, 2, 'hh', '2024-07-06 14:44:50'),
 (28, 0, 10, 'gg', '2024-07-06 14:59:25'),
-(57, 25, 2, 'hi', '2024-07-08 15:34:06');
+(58, 25, 2, 'hh', '2024-07-09 14:43:41');
 
 -- --------------------------------------------------------
 
@@ -57,17 +57,16 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 CREATE TABLE `follow` (
   `id` int(11) NOT NULL,
   `follower_id` int(11) NOT NULL,
-  `followed_id` int(11) NOT NULL
+  `followed_id` int(11) NOT NULL,
+  `status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `follow`
 --
 
-INSERT INTO `follow` (`id`, `follower_id`, `followed_id`) VALUES
-(20, 2, 1),
-(23, 2, 2),
-(21, 2, 10);
+INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
+(86, 2, 5, 'followed');
 
 -- --------------------------------------------------------
 
@@ -164,13 +163,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `posts`
