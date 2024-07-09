@@ -44,7 +44,10 @@ $followersCount = $followers -> fetch();
  require('header.php');
 
 ?>
-    <div>
+<div class="userprofile">
+
+
+    <div class="userpdp">
         <?php
 if ($data['pdp'] === 'default') {
     echo '<img src="uploads/default.png" alt="default Image">';
@@ -63,13 +66,33 @@ elseif ($data['pdp'] === 'mohamed') {
 
 ?>
     </div>
-    <b>Your username: </b>
-    <span><?php echo $data['username'] ?></span> <br><br>
-    <b>Your email: </b>
-    <span><?php echo $data['email'] ?></span> <br><br>
-    <span>Following: <?php echo $followingCount['following_num']; ?> </span>
-    <span>Followers: <?php echo $followersCount['follower_num']; ?> </span>
+    <div class="userinfo">
+    
+    <h3><?php echo $data['username'] ?></h3> 
+    <span><?php echo $data['email'] ?></span> 
     <button onclick="location.href='editform.php'">Edit profile</button>
+    </div>
+    </div>
+
+
+    <div class="stats">
+    <div >   
+        <b><?php echo $followersCount['follower_num']; ?></b>
+         <span>Posts</span>
+    </div>
+     
+     <div >
+        <b><?php echo $followersCount['follower_num']; ?></b>
+     <span>Followers</span>
+     </div>  
+     <div >
+     <b> <?php echo $followingCount['following_num']; ?> </b>
+     <span>Following</span>
+     </div>
+
+    </div>
+  
+    
 
     <div class="addpost" >
         <form action="post.php" method="post">
@@ -166,6 +189,83 @@ input[type=submit]:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+.stats {
+    display: flex;
+    width: 100%;
+    max-width: fit-content;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.stats div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 25px;
+    cursor: pointer;
+    width: 115px;
+
+}
+
+.stats div:hover {
+    background-color: #f0f2f5;
+}
+
+.stats div:first-child {
+    cursor: text;
+}
+.stats div:nth-child(2) {
+   
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+
+
+    .userprofile {
+        display: flex;
+        width: 365px;
+        margin: 30px 0 30px;
+    }
+    .userinfo {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+    }
+
+    .userinfo h3 {
+font-size: xx-large;   
+margin: 0;
+
+}
+
+.userinfo button {
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 4px;
+    width: fit-content;
+    padding: 5px 35px;
+    background-color:#fff;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+
+   
+}
+    .userpdp img {
+        width: 150px;
+        height: 150px;
+    }
+
+  
     </style>
 </body>
 </html>
