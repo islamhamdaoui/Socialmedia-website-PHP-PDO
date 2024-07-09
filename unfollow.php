@@ -13,5 +13,5 @@ $unfollow -> execute(array(
     ) );
 
    
-     header("location: info.php?id=$followed_id&followed=no");
+     header("location: info.php?id=$followed_id");
     exit();    

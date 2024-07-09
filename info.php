@@ -13,10 +13,12 @@ require("auth.php");
 <?php
 // following code
 $follower_id = $_GET['id'];
+$follower = $_SESSION['user_id'];
 $following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
 $following -> execute(array("follower_id"=> $follower_id));
 
 $followingCount = $following -> fetch();
+
 ?>
 
 
@@ -24,10 +26,11 @@ $followingCount = $following -> fetch();
 // following code
 $followed = isset($_GET['followed']) && $_GET['followed'] === 'yes' ? 'yes' : '';
 $followed_id = $_GET['id'];
-$followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
+$followers = $db -> prepare("SELECT count(follower_id) as follower_num ,status FROM follow WHERE followed_id = :followed_id");
 $followers -> execute(array("followed_id"=> $followed_id));
 
 $followersCount = $followers -> fetch();
+$status = $followersCount['status'];
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +71,12 @@ echo '<img src="uploads/default.png" alt="default Image">';
 
 <h3><?php echo $data['username'] ?></h3> 
 <span><?php echo $data['email'] ?></span> 
-<?php if ($followed !== 'yes') : ?>
+
+<?php if ($status !== 'followed') : ?>
+    
 <button id="follow" onclick="window.location.href='follow.php?followed_id=<?php echo $data['id']; ?>'">Follow</button>
-<?php else : ?>
+
+<?php elseif($status === 'followed') : ?>
     <button id="unfollow" onclick="window.location.href='unfollow.php?followed_id=<?php echo $data['id']; ?>'">Unfollow</button>
     <?php endif; ?>
 </div>
