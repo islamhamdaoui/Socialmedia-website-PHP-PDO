@@ -11,5 +11,6 @@ $follow -> execute(array(
     "follower_id"=> $follower_id
     ) );
 
-    header("location: info.php?id=$followed_id");
+    header("location: info.php?id=$followed_id&followed=yes");
+    
     exit();    

@@ -22,6 +22,7 @@ $followingCount = $following -> fetch();
 
 <?php
 // following code
+$followed = isset($_GET['followed']) && $_GET['followed'] === 'yes' ? 'yes' : '';
 $followed_id = $_GET['id'];
 $followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
 $followers -> execute(array("followed_id"=> $followed_id));
@@ -67,8 +68,11 @@ echo '<img src="uploads/default.png" alt="default Image">';
 
 <h3><?php echo $data['username'] ?></h3> 
 <span><?php echo $data['email'] ?></span> 
+<?php if ($followed !== 'yes') : ?>
 <button id="follow" onclick="window.location.href='follow.php?followed_id=<?php echo $data['id']; ?>'">Follow</button>
+<?php else : ?>
     <button id="unfollow" onclick="window.location.href='unfollow.php?followed_id=<?php echo $data['id']; ?>'">Unfollow</button>
+    <?php endif; ?>
 </div>
 </div>
 
