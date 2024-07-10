@@ -96,7 +96,55 @@ echo '<img src="uploads/default.png" alt="default Image">';
 </div>
 
 
+    <div class="followers" id="following">
 
+    <div class="close">
+    <img onclick="closeFollowing()" src="icons/close.png" alt="close">
+    </div>
+    <b>following</b><br>
+    <?php
+
+$user_id = $_SESSION['user_id'];
+
+$followingP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
+    FROM users
+    JOIN follow ON users.id = follow.followed_id
+    WHERE follow.follower_id = :user_id");
+    $followingP -> execute(array("user_id"=> $user_id));
+
+    while($peopleIfollow = $followingP -> fetch()){
+
+
+?>
+<div class="followersProfile" onclick="window.location.href = 'info.php?id=<?php echo $peopleIfollow['id']; ?>'">
+            
+            <?php
+if ($peopleIfollow['pdp'] === 'default') {
+echo '<img src="uploads/default.png" alt="default Image">';
+} elseif ($peopleIfollow['pdp'] === 'sara') {
+echo "<img src='uploads/sara.png' alt='sara Image'>";
+} elseif ($peopleIfollow['pdp'] === 'dalia') {
+echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+}  elseif ($peopleIfollow['pdp'] === 'islam') {
+echo"<img src='uploads/islam.png' alt='islam Image'>";
+}
+elseif ($peopleIfollow['pdp'] === 'mohamed') {
+echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+} else {
+echo '<img src="uploads/default.png" alt="default Image">';
+}
+
+?>
+                <div class="followersInfo" >
+                <b><?php echo $peopleIfollow['username']; ?></b>
+                <span><?php echo $peopleIfollow['email']; ?></span>
+            </div>
+            </div>
+            <?php } ?>
+
+
+
+    </div>
 
 
 <div class="userprofile">
@@ -140,7 +188,7 @@ elseif ($data['pdp'] === 'mohamed') {
         <b><?php echo $followersCount['follower_num']; ?></b>
      <span>Followers</span>
      </div>  
-     <div >
+     <div onclick="showFollowing()">
      <b> <?php echo $followingCount['following_num']; ?> </b>
      <span>Following</span>
      </div>
@@ -339,7 +387,8 @@ margin: 0;
     width: 360px;
     padding: 20px;
     border-radius: 8px;
-  
+        max-height: calc(100vh - 190px);
+        overflow-y: scroll;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 
@@ -396,6 +445,17 @@ margin: 0;
     function showFollowers() {
         let followers =document.getElementById('followers')
  followers.style.display = 'flex'
+    }
+    function closeFollowing() {
+        
+ let followers =document.getElementById('following')
+
+ following.style.display = 'none'
+    }
+
+    function showFollowing() {
+        let following =document.getElementById('following')
+ following.style.display = 'flex'
     }
 </script>
 </body>
