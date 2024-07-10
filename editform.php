@@ -22,7 +22,7 @@
 </head>
 <body>
     <form action="edit.php" method="post">
-        <input type="text" placeholder="Username" name="username" value="<?php echo $data['username']  ?>"> <br><br>
+        <input type="text" placeholder="Username" name="username" value="<?php echo $data['username']  ?>" onkeydown="preventSpace(event)"> <br><br>
         <input type="text" placeholder="Email" name="email" value="<?php echo $data['email']  ?>" > <br><br>
         <input type="text" placeholder="Password" name="password" value="<?php echo $data['password']  ?>" > <br><br>
         <input type="hidden" name="id" value="<?php echo $data['id']  ?>">
@@ -38,5 +38,13 @@
         <input type="submit" value="Save profile">
 
     </form>
+
+    <script>
+             function preventSpace(event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        }
+    </script>
 </body>
 </html>

@@ -23,7 +23,7 @@ if(isset($_SESSION['user'])){
  <div class="signup">
         <!-- Registration Form -->
 <form method="post" action="signup.php">
-    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="text" name="username" placeholder="Username" onkeydown="preventSpace(event)" required><br>
     <input type="email" name="email" placeholder="Email" required><br>
     <input type="password" name="password" placeholder="Password" required><br>
     
@@ -96,5 +96,14 @@ input[type=submit]:hover {
     opacity: 0.7;
 }
 </style>
+
+
+<script>
+         function preventSpace(event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        }
+</script>
 </body>
 </html>
