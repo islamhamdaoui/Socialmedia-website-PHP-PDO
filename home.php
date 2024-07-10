@@ -52,6 +52,8 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 ?> -->
 
 
+
+
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <button type="submit" name="all">Show All</button>
     <button type="submit" name="followed">Show Followed</button>
@@ -76,12 +78,14 @@ if (isset($_POST['all'])) {
 }
     function displayAll(){
 require("connection.php");
+$user = $_SESSION["user_id"];
 
 // Fetch posts with user information including pdp
-$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
+$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp,likes.status as liked, COUNT(DISTINCT comments.id) as comments_count, COUNT(DISTINCT likes.user_id) as likes_count
                    FROM posts 
                    INNER JOIN users ON posts.user_id = users.id 
                    LEFT JOIN comments ON posts.id = comments.post_id
+                   LEFT JOIN likes on posts.id = likes.post_id
                    GROUP BY 
                         posts.id, posts.content, users.username, users.id, users.pdp
                    ORDER BY posts.created_at DESC');
@@ -89,7 +93,7 @@ $show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.create
 // Display posts and user information
 
 while ($data = $show->fetch()) {
-    echo '<div class="post">';
+    echo '<div class="post" id="post_' . $data['post_id'] . '">';
     echo "<div class='username' onclick=\"";
     if ($data['username'] === $_SESSION['username']) {
         echo "window.location.href = 'profile.php';";
@@ -100,27 +104,27 @@ while ($data = $show->fetch()) {
     
     if ($data['pdp'] === 'default') {
         echo '<img src="uploads/default.png" alt="default Image">';
-    } elseif ($data['pdp'] === 'sara') {
-        echo "<img src='uploads/sara.png' alt='sara Image'>";
-    } elseif ($data['pdp'] === 'dalia') {
-        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-    }  elseif ($data['pdp'] === 'islam') {
-        echo"<img src='uploads/islam.png' alt='islam Image'>";
-    }
-    elseif ($data['pdp'] === 'mohamed') {
-        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
     } else {
-        echo '<img src="uploads/default.png" alt="default Image">';
+        echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
     }
+
+    
     echo "<div class='userdiv' >";
     echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
     echo "<span>" .$data['post_date'] . "</span>";
     echo '</div>';
 
     echo "</div>";
-
-    
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+    
+    if($data["liked"] ==='liked' & $data['id'] === $user) { 
+        echo "<button onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">Dislike</button>";
+        
+    } else {
+    echo "<button onclick=\"window.location.href='like.php?id={$data['post_id']}'\">Like</button>";
+    }
+    
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
     
     

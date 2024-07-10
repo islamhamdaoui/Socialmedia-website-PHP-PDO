@@ -227,8 +227,9 @@ elseif ($data['pdp'] === 'mohamed') {
             </div>
         </form>
     </div>
-
+    
     <div class="posts">
+      <div style="max-width: 470px; width:100%;"><h3 style="margin-top: 0;">Your posts</h3></div>
     <?php
 $userid = $_SESSION["user_id"];
 
@@ -363,7 +364,6 @@ input[type=submit]:hover {
 }
 
 .posts {
-    margin-top: 50px;
 }
 .post {
     width:100%;
