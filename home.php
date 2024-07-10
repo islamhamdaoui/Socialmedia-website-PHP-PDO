@@ -116,18 +116,28 @@ while ($data = $show->fetch()) {
 
     echo "</div>";
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
-    echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+   
     
+    echo "<div class='reactions'>";
     if($data["liked"] ==='liked' & $data['id'] === $user) { 
-        echo "<button onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">Dislike</button>";
+        // echo "<button onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">Dislike</button>";
+        echo '<div>';
+        echo "<img class='like' src='icons/liked.png' onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\"> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
         
     } else {
-    echo "<button onclick=\"window.location.href='like.php?id={$data['post_id']}'\">Like</button>";
+    // echo "<button onclick=\"window.location.href='like.php?id={$data['post_id']}'\">Like</button>";
+    echo '<div>';
+    echo "<img class='like' src='icons/like.png' onclick=\"window.location.href='like.php?id={$data['post_id']}'\"> ";
+    echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+    echo '</div>';
     }
     
-    echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
-    
-    
+    echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'> {$data['comments_count']} Comment</div> ";
+    echo "<div><img src='icons/view.png'> View post</div>";
+    echo "</div>";
+ 
     
     echo '</div>';
 }
@@ -234,11 +244,36 @@ echo '</div>';
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .comment {
-            background-color: #f6f6f6;
-            padding: 5px 10px;
+        .reactions {
+            
+           
             cursor: pointer;
+            color: #65676B;
+            display: flex;
+            justify-content: space-between;
         }
+
+        .reactions img {
+            height: 22px;
+            width: 22px;
+            margin-right: 5px;
+            
+        }
+
+        .reactions div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            flex: 1;
+            border-radius: 4px;
+            padding: 4px 0;
+        }
+
+        .reactions div:hover {
+            background-color: #F2F2F2;
+        }
+
 
         .username {
             display: flex;
@@ -263,10 +298,15 @@ echo '</div>';
         .followed {
             display: none;
         }
+
+        .like {
+            height: 22px;
+            width: 22px;
+        }
+
             </style>
 
-
-
+      
 <script>
     function all(){
         let all =document.getElementById("all")
