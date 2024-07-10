@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /login-signup/
+
+# Rewrite rule to handle profile URLs
+RewriteRule ^info/([0-9]+) info.php?id=$1

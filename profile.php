@@ -206,29 +206,53 @@ elseif ($data['pdp'] === 'mohamed') {
 
     <div class="posts">
     <?php
- $userid = $_SESSION["user_id"];
- $show = $db->prepare('SELECT posts.content, users.username ,DATE(posts.created_at) AS  date
- FROM posts 
- INNER JOIN users ON posts.user_id = users.id 
- WHERE users.id=:id  ORDER BY posts.created_at DESC');
+$userid = $_SESSION["user_id"];
 
+$show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, 
+                            users.username, users.id , users.pdp, 
+                            COUNT(comments.id) as comments_count
+                     FROM posts 
+                     INNER JOIN users ON posts.user_id = users.id 
+                     LEFT JOIN comments ON posts.id = comments.post_id
+                     WHERE users.id = :user_id
+                     GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
+                     ORDER BY posts.created_at DESC');
 
-
-$show->execute(array('id' => $userid));
+$show->execute([':user_id' => $userid]);
               
 
 while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<div class="post">';
-    echo '<h3>' . htmlspecialchars($data['username']) . '</h3>';
-    echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
-    echo '<p>' . htmlspecialchars($data['date']) . '</p>'; 
-    
+    echo "<div class='username'>";
+    if ($data['pdp'] === 'default') {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    } elseif ($data['pdp'] === 'sara') {
+        echo "<img src='uploads/sara.png' alt='sara Image'>";
+    } elseif ($data['pdp'] === 'dalia') {
+        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+    }  elseif ($data['pdp'] === 'islam') {
+        echo"<img src='uploads/islam.png' alt='islam Image'>";
+    }
+    elseif ($data['pdp'] === 'mohamed') {
+        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+    } else {
+        echo '<img src="uploads/default.png" alt="default Image">';
+    }
+    echo "<div class='userdiv' >";
+    echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
+    echo "<span>" .$data['post_date'] . "</span>";
     echo '</div>';
 
- 
+    echo "</div>";
 
-}
+    
+    echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
+    
  
+    echo '</div>';
+}
+
 
 ?>
     </div>
@@ -431,6 +455,51 @@ margin: 0;
         cursor: pointer;
        float: right;
     }
+
+     
+    .posts {
+            margin-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           padding: 0 10px;
+        }
+        .post {
+            width: 100%;
+            max-width: 470px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment {
+            background-color: #f6f6f6;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .username {
+            display: flex;
+            align-items: center;
+        }
+        .username img {
+            width: 38px;
+            margin-right: 7px;
+            height: 38px;
+           
+        }
+    
+        .username h3 {
+            margin: 0;
+        }
+
+        .userdiv span {
+            font-size: 12px;
+            color: rgb(101, 103, 107);
+        }
     </style>
 
 

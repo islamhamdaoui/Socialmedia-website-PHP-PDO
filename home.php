@@ -211,14 +211,20 @@ echo '</div>';
         
         .posts {
             margin-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           padding: 0 10px;
         }
         .post {
-            width: 400px;
+            width: 100%;
+            max-width: 470px;
             padding: 10px;
-            margin-bottom: 10px;
-            background-color: #e0f2f1;
+            margin-bottom: 15px;
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
         .comment {
