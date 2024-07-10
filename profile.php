@@ -222,6 +222,7 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<h3>' . htmlspecialchars($data['username']) . '</h3>';
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
     echo '<p>' . htmlspecialchars($data['date']) . '</p>'; 
+    
     echo '</div>';
 
  
