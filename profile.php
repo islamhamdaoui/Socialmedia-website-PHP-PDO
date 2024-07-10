@@ -70,6 +70,7 @@ $followersP = $db ->prepare ("SELECT users.id as id, users.username, users.email
 <div class="followersProfile" onclick="window.location.href = 'info.php?id=<?php echo $peoplefollow['id']; ?>'">
             
             <?php
+            
 if ($peoplefollow['pdp'] === 'default') {
 echo '<img src="uploads/default.png" alt="default Image">';
 } elseif ($peoplefollow['pdp'] === 'sara') {
@@ -199,8 +200,31 @@ elseif ($data['pdp'] === 'mohamed') {
 
     <div class="addpost" >
         <form action="post.php" method="post">
-            <input type="text" name="content" placeholder="Add new post..." required>
-            <input type="submit" value="Add">
+            <div class="input">
+        <?php
+if ($data['pdp'] === 'default') {
+    echo '<img src="uploads/default.png" alt="default Image">';
+} elseif ($data['pdp'] === 'sara') {
+    echo "<img src='uploads/sara.png' alt='sara Image'>";
+} elseif ($data['pdp'] === 'dalia') {
+    echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
+}  elseif ($data['pdp'] === 'islam') {
+    echo"<img src='uploads/islam.png' alt='islam Image'>";
+}
+elseif ($data['pdp'] === 'mohamed') {
+    echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+} else {
+    echo '<img src="uploads/default.png" alt="default Image">';
+}
+
+?>
+
+            <textarea  name="content" placeholder="Add new post..." required></textarea>
+            </div>
+            <div class="btn">
+            <input  type="submit" value="Add">
+
+            </div>
         </form>
     </div>
 
@@ -263,23 +287,23 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
         box-sizing: border-box;
      }
         body {
-         
+            padding: 0;
             position: relative;
            
         }
         .profileContainer {
             width: 100%;
-            
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
         .addpost {
-            max-width: 350px;
+            max-width: 470px;
             width: 100%;
             display: flex;
-            align-items: center;
+           
             justify-content: center;
             background-color: #fff;
             flex-direction: column;
@@ -288,36 +312,62 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
             border-radius: 8px;
         }
 
-        .addpost form input {
+        .addpost .btn {
             width: 100%;
-    max-width: 350px;
-    margin-bottom: 20px;
-    height: 45px;
-    border-radius: 8px;
+            margin-top: 10px;
+        }
+        .input {
+            display: flex;
+            justify-content: center;
+        }
+
+        .input img {
+            height: 48px;
+            width: 48px;
+            margin-right: 7px;
+
+        }
+
+        .addpost form textarea {
+            width: 100%;
+    min-height: 70px; 
+   
+    
+    padding: 10px;
+    resize: none; 
+    outline: none;
     border: none;
-    padding: 5px 10px;
-    background-color: #fff;
-    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px; 
+    line-height: 1.5; 
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    
         }
 
         .addpost form input[type=submit] {
     background-color: #0866ff;
+    border: none;
+   border-radius:100px;
+    padding: 10px 40px;
     color: #fff;
     font-weight: bold;
-    width: 100%;
+    float: right;
+   
     margin-bottom: 5px;
     cursor: pointer;
 
 } 
 input[type=submit]:hover {
     opacity: 0.7;
+ 
 }
 
 .posts {
     margin-top: 50px;
 }
 .post {
-    width: 400px;
+    width:100%;
+    max-width: 400px;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #e0f2f1;
@@ -367,7 +417,8 @@ input[type=submit]:hover {
 
     .userprofile {
         display: flex;
-        width: 365px;
+        max-width: 365px;
+        width: 100%;
         margin: 30px 0 30px;
     }
     .userinfo {
@@ -377,8 +428,9 @@ input[type=submit]:hover {
     }
 
     .userinfo h3 {
-font-size: xx-large;   
+font-size: 2rem;   
 margin: 0;
+
 
 }
 
@@ -500,6 +552,28 @@ margin: 0;
             font-size: 12px;
             color: rgb(101, 103, 107);
         }
+
+        @media (max-width: 768px) {
+
+            .userpdp img {
+        width: 90px;
+        height: 90px;
+    }
+
+    
+    .userinfo h3 {
+font-size: 1.7rem;   
+
+}
+
+
+.userinfo span {
+font-size: 15px;    
+
+
+
+}
+        }
     </style>
 
 
@@ -514,7 +588,11 @@ margin: 0;
 
     function showFollowers() {
         let followers =document.getElementById('followers')
+        let following =document.getElementById('following')
+        
  followers.style.display = 'flex'
+ following.style.display = 'none'
+ 
     }
     function closeFollowing() {
         
@@ -525,7 +603,10 @@ margin: 0;
 
     function showFollowing() {
         let following =document.getElementById('following')
+        let followers =document.getElementById('followers')
+
  following.style.display = 'flex'
+ followers.style.display = 'none'
     }
 </script>
 </body>

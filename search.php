@@ -15,8 +15,9 @@ require("header.php");
 
 ?>
 
+<div class="searchContainer">
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-    <input type="text" name="search" required>
+    <input type="text" name="search" placeholder="Search..." required>
     <input type="submit" value="Search">
 </form>
 
@@ -49,16 +50,22 @@ while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
 
 
  </div>
+ </div>
 
  <style>
      *{
         box-sizing: border-box;
      }
-        body {
+      
+        .searchContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
-           
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .results {
@@ -75,6 +82,36 @@ while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             cursor: pointer;
         }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        input[type=text]{
+            width: 100%;
+            max-width: 310px;
+            height: 40px;
+            border: none;
+            outline: none;
+            border-radius: 8px 0 0 8px;
+            padding-left: 10px ;
+            font-weight: bold;
+        }
+
+        input[type=submit] {
+            width: 90px;
+           border: none;
+           font-weight: bold;
+           color: #fff;
+           background-color: #0866ff;
+           border-radius: 0 8px 8px 0;
+           cursor: pointer;
+        }
+
+
  </style>
 </body>
 </html>

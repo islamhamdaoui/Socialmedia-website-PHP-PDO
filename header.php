@@ -10,7 +10,8 @@
         }
         body {
             background-color: #f0f2f5;
-            MARGIN: 0;
+            margin: 0;
+            padding: 0;
         }
         header {
             width: 100%;

@@ -58,7 +58,9 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 </form>
 
 
+
 <div class="posts"  id='all'>
+    
 <?php
 
 // index.php
@@ -205,7 +207,7 @@ echo '</div>';
             display: flex;
             flex-direction: column;
             align-items: center;
-           
+          
         }
         
         
@@ -215,7 +217,8 @@ echo '</div>';
             display: flex;
             flex-direction: column;
             align-items: center;
-           padding: 0 10px;
+            padding: 0 15px;
+           
         }
         .post {
             width: 100%;
