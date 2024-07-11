@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 09:32 PM
+-- Generation Time: Jul 11, 2024 at 04:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VALUES
-(62, 73, 53, 'hhh', '2024-07-10 19:54:44'),
-(64, 73, 53, '@islamputh HI', '2024-07-10 19:54:50');
+(76, 74, 54, 'hi', '2024-07-11 14:00:26'),
+(77, 72, 55, 'hi dude', '2024-07-11 14:15:36'),
+(78, 75, 53, 'hhh', '2024-07-11 14:21:22'),
+(79, 70, 55, 'Hi', '2024-07-11 14:40:15');
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,8 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (36, 87, 53, 'followed'),
 (37, 88, 53, 'followed'),
 (38, 89, 53, 'followed'),
-(40, 53, 62, 'followed');
+(41, 53, 89, 'followed'),
+(44, 53, 63, 'followed');
 
 -- --------------------------------------------------------
 
@@ -114,10 +117,38 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
-(103, 74, 53, 'liked'),
-(105, 72, 53, 'liked'),
-(107, 70, 53, 'liked'),
-(108, 74, 54, 'liked');
+(127, 69, 53, 'liked'),
+(132, 67, 53, 'liked'),
+(149, 72, 53, 'liked'),
+(150, 74, 54, 'liked');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `is_read` varchar(3) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, `is_read`, `created_at`) VALUES
+(8, 74, 53, 53, 'islamputh commented on your post', '0', '2024-07-11 12:55:02'),
+(9, 74, 54, 53, 'rayanmazouni commented on your post', '0', '2024-07-11 12:55:57'),
+(10, 74, 54, 53, 'rayanmazouni commented on your post', 'No', '2024-07-11 13:00:26'),
+(11, 72, 55, 53, 'user commented on your post', 'No', '2024-07-11 13:15:36'),
+(12, 75, 53, 55, 'islamputh commented on your post', 'No', '2024-07-11 13:21:22'),
+(13, 70, 55, 53, 'user commented on your post', 'No', '2024-07-11 13:40:15');
 
 -- --------------------------------------------------------
 
@@ -144,7 +175,8 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
 (71, 53, 'hhh', '2024-07-10 11:43:50'),
 (72, 53, 'Hello guys', '2024-07-10 14:46:29'),
 (73, 53, 'Hh', '2024-07-10 14:46:35'),
-(74, 53, 'Hu', '2024-07-10 14:46:38');
+(74, 53, 'Hu', '2024-07-10 14:46:38'),
+(75, 55, 'hi its m\r\n', '2024-07-11 13:17:56');
 
 -- --------------------------------------------------------
 
@@ -234,6 +266,14 @@ ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
@@ -253,25 +293,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -289,6 +335,13 @@ ALTER TABLE `users`
 ALTER TABLE `follow`
   ADD CONSTRAINT `fk_followed_id` FOREIGN KEY (`followed_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_follower_id` FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
