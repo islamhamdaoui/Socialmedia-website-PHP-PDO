@@ -27,4 +27,4 @@ $notification -> execute(array(
 
 ));
 
-//  header("location:postview.php?id=$post_id");
+ header("location:postview.php?id=$post_id");
