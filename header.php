@@ -12,16 +12,18 @@
             background-color: #f0f2f5;
             margin: 0;
             padding: 0;
+            position: relative;
         }
         header {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            
+            position: fixed;
             background-color: #FFF;
             height: 50px;
             box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
 
         a {

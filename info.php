@@ -82,6 +82,9 @@ if ($statusRespond->rowCount() > 0) {
   require('header.php');
 ?>
 
+<div class="infoContainer">
+
+
 
 <div class="followers" id="followers">
     <div class="close">
@@ -258,17 +261,21 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
 
 ?>
     </div>
-
+    </div>
 
     <style>
            *{
         box-sizing: border-box;
      }
-        body {
+   
+
+        .infoContainer {
+           
+            width: 100%;
+            padding: 50px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-           
         }
 
 

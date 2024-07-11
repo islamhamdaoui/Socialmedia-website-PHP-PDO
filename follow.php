@@ -1,6 +1,7 @@
 <?php
 require("connection.php");
 session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 $followed_id = $_GET['followed_id'];
 $follower_id = $_SESSION['user_id'];
@@ -15,3 +16,4 @@ $follow -> execute(array(
     
     
     exit();    
+}

@@ -293,8 +293,9 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
            
         }
         .profileContainer {
+           
             width: 100%;
-            padding: 10px;
+            padding: 50px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -363,8 +364,7 @@ input[type=submit]:hover {
  
 }
 
-.posts {
-}
+
 .post {
     width:100%;
     max-width: 400px;

@@ -36,9 +36,12 @@ $result -> execute(array(':search' => '%' . $search . '%'));
 if($result->rowCount() > 0) {
 while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
     echo "<div class='result' onclick=\"window.location.href='info.php?id={$data['id']}'\">";
-    echo "<b >" . $data['username'] . "</b>";
+    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+   echo"  <div class='userinfo'> ";
+    echo "<b >" . $data['username'] . "</b> <br>";
     echo $data['email'];
 
+    echo "</div>";
     echo "</div>";
 }
 } else {
@@ -62,7 +65,7 @@ while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding: 10px;
+            padding: 60px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -73,7 +76,7 @@ while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
         }
         .result {
             display: flex;
-            flex-direction: column;
+            
             width: 400px;
             padding: 10px;
             margin-bottom: 10px;
@@ -82,6 +85,15 @@ while ($data = $result -> fetch(PDO::FETCH_ASSOC)) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             cursor: pointer;
         }
+
+        .result img {
+            width: 38px;
+            margin-right: 7px;
+            height: 38px;
+           
+        }
+
+       
 
         form {
             margin-top: 20px;

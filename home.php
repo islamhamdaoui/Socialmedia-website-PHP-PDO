@@ -36,7 +36,24 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 <?php
  require('header.php');
 
+
+
 ?>
+
+<div class="suggestions">
+<div>
+    <span>Suggested for you</span>
+</div>
+
+<?php
+
+ require('suggestions.php');
+
+
+
+?>
+</div>
+
 <!--    
        
         <?php
@@ -52,7 +69,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
 ?> -->
 
 
-
+<div class="homeContainer">
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <button type="submit" name="all">Show All</button>
@@ -121,15 +138,15 @@ while ($data = $show->fetch()) {
     echo "<div class='reactions'>";
     if($data["liked"] ==='liked' & $data['id'] === $user) { 
         // echo "<button onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">Dislike</button>";
-        echo '<div>';
-        echo "<img class='like' src='icons/liked.png' onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\"> ";
+        echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
+        echo "<img class='like' src='icons/liked.png' > ";
         echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
         echo '</div>';
         
     } else {
     // echo "<button onclick=\"window.location.href='like.php?id={$data['post_id']}'\">Like</button>";
-    echo '<div>';
-    echo "<img class='like' src='icons/like.png' onclick=\"window.location.href='like.php?id={$data['post_id']}'\"> ";
+    echo "<div onclick=\"window.location.href='like.php?id={$data['post_id']}'\">";
+    echo "<img class='like' src='icons/like.png' > ";
     echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
     echo '</div>';
     }
@@ -211,20 +228,39 @@ echo '</div>';
 }
 ?>
     </div>
+    </div>
 
     <style>
      *{
         box-sizing: border-box;
         
      }
-        body {
+      
+        
+        .homeContainer {
+            padding: 60px 0;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-          
+            position: relative;
+            min-height: 100vh;
+
         }
-        
-        
+        .suggestions {
+            position: absolute;
+            top: 9%;
+            z-index: 400;
+            right: 4%;
+        }
+
+        .suggestions div:first-child {
+            display: flex;
+            justify-content: space-between;
+         padding: 0 10px;
+         margin-bottom: 5px;
+
+        }
         .posts {
             margin-top: 50px;
             width: 100%;
@@ -249,9 +285,11 @@ echo '</div>';
            
             cursor: pointer;
             color: #65676B;
+            
             display: flex;
             justify-content: space-between;
         }
+   
 
         .reactions img {
             height: 22px;
@@ -303,7 +341,12 @@ echo '</div>';
             height: 22px;
             width: 22px;
         }
+        @media (max-width: 1180px) {
 
+.suggestions {
+display: none;
+}
+  }
             </style>
 
       
