@@ -39,6 +39,72 @@
             background-color: #f0f2f5;
 
         }
+
+        .notificationContainer {
+            height: 40px;
+            width: 40px;
+            border-radius: 100px;
+            background-color: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+        }
+        .notificationContainer:hover {
+            background-color: #D8DADF;
+
+        }
+
+        .notificationContainer img {
+            width: 21px;
+            height: 19px;
+        }
+
+        .notific {
+        display: none;
+       
+        position: fixed;
+    top: 25%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 360px;
+    padding: 20px;
+    border-radius: 8px;
+        max-height: calc(100vh - 190px);
+        overflow-y: scroll;
+        
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    overflow-x: hidden;
+    white-space: nowrap;
+
+
+    }
+    
+    .close {
+        width: 100%;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .close img {
+        height: 23px;
+        width: 23px;
+        cursor: pointer;
+       float: right;
+    }
+    @media (max-width: 615px) {
+
+.notific {
+left: 50%;
+}
+  }
+
+
         </style>
 </head>
 <body>
@@ -50,11 +116,40 @@
             <?php  else: ?>
                 <a  href="profile.php">Profile</a>
                 <a  href="search.php">Search</a>
+                <div class="notificationContainer" onclick="showNotifications()"><img src="icons/bell.png" alt=""></div>
                 <a href="logout.php">Logout</a>
         <?php  endif; ?>
         
     </header>
 
+    <div class="notific" id="notifications">
+
+<div class="close">
+<b>Notifications</b><br>
+<img onclick="closeNotifications()" src="icons/close.png" alt="close">
+</div>
+
+<?php require('notifications.php'); ?>
+</div>
+
+
+
+<script>
+     function closeNotifications() {
+        
+        let followers =document.getElementById('notifications')
+       
+        notifications.style.display = 'none'
+           }
+       
+           function showNotifications() {
+               let notifications =document.getElementById('notifications')
+               
+       
+        notifications.style.display = 'block'
+        
+           }
+</script>
  
 </body>
 </html>
