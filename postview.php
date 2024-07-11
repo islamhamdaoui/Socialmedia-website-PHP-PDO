@@ -34,6 +34,7 @@
         <form action="comment.php" method="post">
             <input type="text" name="comment" placeholder="Add new comment..." required id="input">
             <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($data['post_id']); ?>">
+            <input type="hidden" name="owner_id" value="<?php echo htmlspecialchars($data['id']); ?>">
             <input type="submit" value="Comment">
         </form>
  </div>
