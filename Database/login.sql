@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2024 at 04:16 PM
+-- Generation Time: Jul 12, 2024 at 10:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,7 +43,14 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (76, 74, 54, 'hi', '2024-07-11 14:00:26'),
 (77, 72, 55, 'hi dude', '2024-07-11 14:15:36'),
 (78, 75, 53, 'hhh', '2024-07-11 14:21:22'),
-(79, 70, 55, 'Hi', '2024-07-11 14:40:15');
+(79, 70, 55, 'Hi', '2024-07-11 14:40:15'),
+(80, 74, 55, 'Hello', '2024-07-11 15:54:56'),
+(81, 75, 53, 'hh', '2024-07-11 15:55:25'),
+(82, 74, 54, 'Helo', '2024-07-12 11:24:47'),
+(83, 83, 55, 'h', '2024-07-12 14:16:40'),
+(84, 82, 55, 'Haha', '2024-07-12 15:52:07'),
+(85, 85, 55, 'H', '2024-07-12 16:04:55'),
+(86, 85, 55, 'Hh', '2024-07-12 16:41:57');
 
 -- --------------------------------------------------------
 
@@ -63,9 +70,7 @@ CREATE TABLE `follow` (
 --
 
 INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
-(6, 55, 53, 'followed'),
 (7, 54, 55, 'followed'),
-(8, 54, 53, 'followed'),
 (9, 60, 53, 'followed'),
 (10, 61, 53, 'followed'),
 (11, 62, 53, 'followed'),
@@ -97,7 +102,10 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (37, 88, 53, 'followed'),
 (38, 89, 53, 'followed'),
 (41, 53, 89, 'followed'),
-(44, 53, 63, 'followed');
+(65, 53, 63, 'followed'),
+(69, 54, 53, 'followed'),
+(70, 53, 54, 'followed'),
+(78, 55, 53, 'followed');
 
 -- --------------------------------------------------------
 
@@ -117,10 +125,23 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
-(127, 69, 53, 'liked'),
-(132, 67, 53, 'liked'),
-(149, 72, 53, 'liked'),
-(150, 74, 54, 'liked');
+(252, 82, 54, 'liked'),
+(253, 82, 53, 'liked'),
+(254, 82, 53, 'liked'),
+(261, 83, 54, 'liked'),
+(262, 83, 54, 'liked'),
+(263, 83, 54, 'liked'),
+(264, 83, 53, 'liked'),
+(265, 83, 54, 'liked'),
+(266, 83, 53, 'liked'),
+(267, 82, 55, 'liked'),
+(274, 84, 55, 'liked'),
+(275, 81, 55, 'liked'),
+(276, 77, 55, 'liked'),
+(277, 79, 55, 'liked'),
+(278, 83, 53, 'liked'),
+(279, 83, 53, 'liked'),
+(280, 78, 53, 'liked');
 
 -- --------------------------------------------------------
 
@@ -130,7 +151,7 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
 
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
@@ -143,12 +164,16 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, `is_read`, `created_at`) VALUES
-(8, 74, 53, 53, 'islamputh commented on your post', '0', '2024-07-11 12:55:02'),
-(9, 74, 54, 53, 'rayanmazouni commented on your post', '0', '2024-07-11 12:55:57'),
-(10, 74, 54, 53, 'rayanmazouni commented on your post', 'No', '2024-07-11 13:00:26'),
-(11, 72, 55, 53, 'user commented on your post', 'No', '2024-07-11 13:15:36'),
-(12, 75, 53, 55, 'islamputh commented on your post', 'No', '2024-07-11 13:21:22'),
-(13, 70, 55, 53, 'user commented on your post', 'No', '2024-07-11 13:40:15');
+(440, 84, 55, 53, 'user liked your post.', 'No', '2024-07-12 14:57:39'),
+(447, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:04:55'),
+(448, 81, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:32'),
+(449, 77, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:34'),
+(450, NULL, 55, 53, 'user followed you.', 'No', '2024-07-12 15:18:12'),
+(451, 79, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:24:17'),
+(452, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:41:57'),
+(453, 83, 53, 55, 'islamputh liked your post.', 'No', '2024-07-12 19:46:44'),
+(454, 83, 53, 55, 'islamputh liked your post.', 'No', '2024-07-12 19:46:49'),
+(455, 78, 53, 54, 'islamputh liked your post.', 'No', '2024-07-12 19:46:53');
 
 -- --------------------------------------------------------
 
@@ -168,15 +193,15 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
-(67, 53, 'hi', '2024-07-10 11:41:13'),
-(68, 53, 'hello', '2024-07-10 11:41:15'),
-(69, 53, 'hhh', '2024-07-10 11:42:07'),
-(70, 53, 'ff', '2024-07-10 11:42:09'),
-(71, 53, 'hhh', '2024-07-10 11:43:50'),
-(72, 53, 'Hello guys', '2024-07-10 14:46:29'),
-(73, 53, 'Hh', '2024-07-10 14:46:35'),
-(74, 53, 'Hu', '2024-07-10 14:46:38'),
-(75, 55, 'hi its m\r\n', '2024-07-11 13:17:56');
+(77, 53, 'hello everyone', '2024-07-12 11:45:23'),
+(78, 54, 'Hi', '2024-07-12 11:45:48'),
+(79, 53, 'ff', '2024-07-12 11:49:02'),
+(80, 53, 'gg', '2024-07-12 11:50:02'),
+(81, 53, 'h', '2024-07-12 11:51:46'),
+(82, 53, 'ho', '2024-07-12 13:05:06'),
+(83, 55, 'hi', '2024-07-12 13:15:50'),
+(84, 53, '1', '2024-07-12 14:55:45'),
+(85, 53, '2', '2024-07-12 14:55:46');
 
 -- --------------------------------------------------------
 
@@ -189,57 +214,59 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `pdp` enum('default','sara','dalia','islam','mohamed') DEFAULT 'default'
+  `pdp` enum('default','sara','dalia','islam','mohamed') DEFAULT 'default',
+  `verified` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `pdp`) VALUES
-(53, 'islamputh', 'islam123', 'islamhamdaoui2000@gmail.com', 'islam'),
-(54, 'rayanmazouni', 'rayan123', 'rayan@gmail.com', 'mohamed'),
-(55, 'user', 'user123', 'user@gmail.com', 'default'),
-(56, 'Alice', 'password123', 'alice@example.com', 'default'),
-(57, 'Aaron', 'password123', 'aaron@example.com', 'sara'),
-(58, 'Aiden', 'password123', 'aiden@example.com', 'dalia'),
-(59, 'Amelia', 'password123', 'amelia@example.com', 'islam'),
-(60, 'Andrew', 'password123', 'andrew@example.com', 'mohamed'),
-(61, 'Ava', 'password123', 'ava@example.com', 'default'),
-(62, 'Asher', 'password123', 'asher@example.com', 'sara'),
-(63, 'Abigail', 'password123', 'abigail@example.com', 'dalia'),
-(64, 'Anthony', 'password123', 'anthony@example.com', 'islam'),
-(65, 'Aurora', 'password123', 'aurora@example.com', 'mohamed'),
-(66, 'Adam', 'password123', 'adam@example.com', 'default'),
-(67, 'Ariana', 'password123', 'ariana@example.com', 'sara'),
-(68, 'Alexander', 'password123', 'alexander@example.com', 'dalia'),
-(69, 'Alyssa', 'password123', 'alyssa@example.com', 'islam'),
-(70, 'Austin', 'password123', 'austin@example.com', 'mohamed'),
-(71, 'Addison', 'password123', 'addison@example.com', 'default'),
-(72, 'Adrian', 'password123', 'adrian@example.com', 'sara'),
-(73, 'Aria', 'password123', 'aria@example.com', 'dalia'),
-(74, 'Axel', 'password123', 'axel@example.com', 'islam'),
-(75, 'Aubrey', 'password123', 'aubrey@example.com', 'mohamed'),
-(76, 'Ashton', 'password123', 'ashton@example.com', 'default'),
-(77, 'Andrea', 'password123', 'andrea@example.com', 'sara'),
-(78, 'Amos', 'password123', 'amos@example.com', 'dalia'),
-(79, 'Angela', 'password123', 'angela@example.com', 'islam'),
-(80, 'Alvin', 'password123', 'alvin@example.com', 'mohamed'),
-(81, 'Adele', 'password123', 'adele@example.com', 'default'),
-(82, 'Amos', 'password123', 'amos@example.com', 'sara'),
-(83, 'Alec', 'password123', 'alec@example.com', 'dalia'),
-(84, 'Anya', 'password123', 'anya@example.com', 'islam'),
-(85, 'Arnold', 'password123', 'arnold@example.com', 'mohamed'),
-(86, 'Anabelle', 'password123', 'anabelle@example.com', 'default'),
-(87, 'Alfred', 'password123', 'alfred@example.com', 'sara'),
-(88, 'Amy', 'password123', 'amy@example.com', 'dalia'),
-(89, 'Albert', 'password123', 'albert@example.com', 'islam'),
-(90, 'Autumn', 'password123', 'autumn@example.com', 'mohamed'),
-(91, 'Arthur', 'password123', 'arthur@example.com', 'default'),
-(92, 'Ann', 'password123', 'ann@example.com', 'sara'),
-(93, 'Aubrey', 'password123', 'aubrey@example.com', 'dalia'),
-(94, 'Alma', 'password123', 'alma@example.com', 'islam'),
-(95, 'Alex', 'password123', 'alex@example.com', 'mohamed');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `pdp`, `verified`) VALUES
+(53, 'islamputh', 'islam123', 'islamhamdaoui2000@gmail.com', 'islam', 'verified'),
+(54, 'rayanmazouni', 'rayan123', 'rayan@gmail.com', 'mohamed', ''),
+(55, 'user', 'user123', 'user@gmail.com', 'default', ''),
+(56, 'Alice', 'password123', 'alice@example.com', 'default', ''),
+(57, 'Aaron', 'password123', 'aaron@example.com', 'sara', ''),
+(58, 'Aiden', 'password123', 'aiden@example.com', 'dalia', ''),
+(59, 'Amelia', 'password123', 'amelia@example.com', 'islam', ''),
+(60, 'Andrew', 'password123', 'andrew@example.com', 'mohamed', ''),
+(61, 'Ava', 'password123', 'ava@example.com', 'default', ''),
+(62, 'Asher', 'password123', 'asher@example.com', 'sara', ''),
+(63, 'Abigail', 'password123', 'abigail@example.com', 'dalia', ''),
+(64, 'Anthony', 'password123', 'anthony@example.com', 'islam', ''),
+(65, 'Aurora', 'password123', 'aurora@example.com', 'mohamed', ''),
+(66, 'Adam', 'password123', 'adam@example.com', 'default', ''),
+(67, 'Ariana', 'password123', 'ariana@example.com', 'sara', ''),
+(68, 'Alexander', 'password123', 'alexander@example.com', 'dalia', ''),
+(69, 'Alyssa', 'password123', 'alyssa@example.com', 'islam', ''),
+(70, 'Austin', 'password123', 'austin@example.com', 'mohamed', ''),
+(71, 'Addison', 'password123', 'addison@example.com', 'default', ''),
+(72, 'Adrian', 'password123', 'adrian@example.com', 'sara', ''),
+(73, 'Aria', 'password123', 'aria@example.com', 'dalia', ''),
+(74, 'Axel', 'password123', 'axel@example.com', 'islam', ''),
+(75, 'Aubrey', 'password123', 'aubrey@example.com', 'mohamed', ''),
+(76, 'Ashton', 'password123', 'ashton@example.com', 'default', ''),
+(77, 'Andrea', 'password123', 'andrea@example.com', 'sara', ''),
+(78, 'Amos', 'password123', 'amos@example.com', 'dalia', ''),
+(79, 'Angela', 'password123', 'angela@example.com', 'islam', ''),
+(80, 'Alvin', 'password123', 'alvin@example.com', 'mohamed', ''),
+(81, 'Adele', 'password123', 'adele@example.com', 'default', ''),
+(82, 'Amos', 'password123', 'amos@example.com', 'sara', ''),
+(83, 'Alec', 'password123', 'alec@example.com', 'dalia', ''),
+(84, 'Anya', 'password123', 'anya@example.com', 'islam', ''),
+(85, 'Arnold', 'password123', 'arnold@example.com', 'mohamed', ''),
+(86, 'Anabelle', 'password123', 'anabelle@example.com', 'default', ''),
+(87, 'Alfred', 'password123', 'alfred@example.com', 'sara', ''),
+(88, 'Amy', 'password123', 'amy@example.com', 'dalia', ''),
+(89, 'Albert', 'password123', 'albert@example.com', 'islam', ''),
+(90, 'Autumn', 'password123', 'autumn@example.com', 'mohamed', ''),
+(91, 'Arthur', 'password123', 'arthur@example.com', 'default', ''),
+(92, 'Ann', 'password123', 'ann@example.com', 'sara', ''),
+(93, 'Aubrey', 'password123', 'aubrey@example.com', 'dalia', ''),
+(94, 'Alma', 'password123', 'alma@example.com', 'islam', ''),
+(95, 'Alex', 'password123', 'alex@example.com', 'mohamed', ''),
+(96, 'Islam hamd', 'islam123', 'islamhamdaoui@gmail.com', 'dalia', '');
 
 --
 -- Indexes for dumped tables
@@ -293,37 +320,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=457;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- Constraints for dumped tables
