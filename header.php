@@ -63,9 +63,9 @@
 
         .notific {
         display: none;
-       
+       height: 50vh;
         position: fixed;
-    top: 25%;
+    top: 30%;
     left: 65%;
     transform: translate(-50%, -50%);
     background-color: white;

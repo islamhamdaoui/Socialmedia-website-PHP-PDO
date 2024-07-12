@@ -1,17 +1,8 @@
-<?php
- require("connection.php");
 
- require("auth.php");
-
- $id = $_SESSION["user_id"];
- $select = $db ->prepare("SELECT * FROM users WHERE id= :id");
- $select -> execute(array("id"=> $id));
-
-
-    $data = $select -> fetch();
-?>
 
 <?php
+require("auth.php");
+require("connection.php");
 // following code
 $follower_id = $_SESSION["user_id"];
 $following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
@@ -150,9 +141,23 @@ echo '<img src="uploads/default.png" alt="default Image">';
 
 <div class="userprofile">
 
+<?php
+ require("connection.php");
 
+
+
+ $id = $_SESSION["user_id"];
+ $select = $db ->prepare("SELECT * FROM users WHERE id= :id");
+ $select -> execute(array("id"=> $id));
+
+
+    $data = $select -> fetch();
+    
+?>
     <div class="userpdp">
         <?php
+
+        
 if ($data['pdp'] === 'default') {
     echo '<img src="uploads/default.png" alt="default Image">';
 } elseif ($data['pdp'] === 'sara') {
