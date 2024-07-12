@@ -441,6 +441,27 @@ margin: 0;
            -webkit-user-drag: none;
             
         }
+
+        @media (max-width: 768px) {
+
+.userpdp img {
+width: 90px;
+height: 90px;
+}
+
+.userinfo h3 {
+font-size: 1.6rem;   
+
+}
+
+
+.userinfo span {
+font-size: 14px;    
+
+
+
+}
+        }
     </style>
 
 

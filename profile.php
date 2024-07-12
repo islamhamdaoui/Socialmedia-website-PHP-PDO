@@ -587,13 +587,13 @@ margin: 0;
 
     
     .userinfo h3 {
-font-size: 1.7rem;   
+font-size: 1.6rem;   
 
 }
 
 
 .userinfo span {
-font-size: 15px;    
+font-size: 14px;    
 
 
 
