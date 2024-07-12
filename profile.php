@@ -176,9 +176,15 @@ elseif ($data['pdp'] === 'mohamed') {
 ?>
     </div>
     <div class="userinfo">
-    
-    <h3><?php echo $data['username'] ?></h3> 
-    <span><?php echo $data['email'] ?></span> 
+    <div class="usertop">
+
+        <h3><?php echo $data['username'] ?></h3> 
+        <?php
+if($data['verified']) {
+    echo "<img src='icons/verified.png' class='verified'>";
+} ?>
+    </div>
+        <span><?php echo $data['email'] ?></span> 
     <button onclick="location.href='editform.php'">Edit profile</button>
     </div>
     </div>
@@ -556,6 +562,20 @@ margin: 0;
         .userdiv span {
             font-size: 12px;
             color: rgb(101, 103, 107);
+        }
+
+        .usertop {
+            display: flex;
+           align-items: center;
+          }
+        .usertop img {
+            margin:0 3px;
+            height: 18px;
+            width: 18px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
         }
 
         @media (max-width: 768px) {

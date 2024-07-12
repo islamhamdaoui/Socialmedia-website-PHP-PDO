@@ -208,8 +208,13 @@ echo '<img src="uploads/default.png" alt="default Image">';
 ?>
 </div>
 <div class="userinfo">
-
+<div class="usertop">
 <h3><?php echo $data['username'] ?></h3> 
+<?php
+if($data['verified']) {
+    echo "<img src='icons/verified.png' class='verified'>";
+} ?>
+</div>
 <span><?php echo $data['email'] ?></span> 
 
 <?php if ($status !== 'followed') : ?>
@@ -422,6 +427,20 @@ margin: 0;
         cursor: pointer;
        float: right;
     }
+
+    .usertop {
+            display: flex;
+           align-items: center;
+          }
+        .usertop img {
+            margin:0 3px;
+            height: 18px;
+            width: 18px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
+        }
     </style>
 
 
