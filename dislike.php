@@ -13,4 +13,10 @@ $delete -> execute(array(
 
 ));
 
+
+$dislike = $db -> prepare('DELETE FROM notifications WHERE user_id = :user_id && post_id = :post_id');
+$dislike -> execute(array(
+    'user_id'=> $user_id,
+    'post_id'=> $post_id
+ ));
 header("location:home.php#post_$post_id");

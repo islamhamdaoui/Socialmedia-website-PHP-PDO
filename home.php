@@ -95,10 +95,10 @@ if (isset($_POST['all'])) {
 }
     function displayAll(){
 require("connection.php");
+
 $user = $_SESSION["user_id"];
 
-// Fetch posts with user information including pdp
-$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp,likes.status as liked, COUNT(DISTINCT comments.id) as comments_count, COUNT(DISTINCT likes.user_id) as likes_count
+$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id as user_id, likes.user_id as liker_id,likes.post_id as likespost_id, users.pdp, COUNT(DISTINCT comments.id) as comments_count, COUNT(DISTINCT likes.user_id) as likes_count
                    FROM posts 
                    INNER JOIN users ON posts.user_id = users.id 
                    LEFT JOIN comments ON posts.id = comments.post_id
@@ -115,7 +115,7 @@ while ($data = $show->fetch()) {
     if ($data['username'] === $_SESSION['username']) {
         echo "window.location.href = 'profile.php';";
     } else {
-        echo "window.location.href = 'info.php?id={$data['id']}';";
+        echo "window.location.href = 'info.php?id={$data['user_id']}';";
     }
     echo "\">";
     
@@ -136,19 +136,20 @@ while ($data = $show->fetch()) {
    
     
     echo "<div class='reactions'>";
-    if($data["liked"] ==='liked' & $data['id'] === $user) { 
-        // echo "<button onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">Dislike</button>";
+    if ( $data['liker_id'] == $user && $data['user_id'] !== $user && $data['likespost_id'] ===$data['post_id'] ) { 
         echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
-        echo "<img class='like' src='icons/liked.png' > ";
+        echo "<img class='like' src='icons/liked.png'> ";
         echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
         echo '</div>';
-        
-    } else {
-    // echo "<button onclick=\"window.location.href='like.php?id={$data['post_id']}'\">Like</button>";
-    echo "<div onclick=\"window.location.href='like.php?id={$data['post_id']}'\">";
-    echo "<img class='like' src='icons/like.png' > ";
-    echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
-    echo '</div>';
+    } elseif ($data['user_id'] !== $user) { // Display like button if the user is not the owner
+        echo "<div onclick=\"window.location.href='like.php?post_id={$data['post_id']}&owner_id={$data['user_id']}'\">";
+        echo "<img class='like' src='icons/like.png'> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
+    } else { // Display like count only to the post owner
+        echo '<div>';
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
     }
     
     echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'> {$data['comments_count']} Comment</div> ";

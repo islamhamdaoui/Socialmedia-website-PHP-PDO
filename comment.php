@@ -16,7 +16,7 @@ $add -> execute(array(
 ));
 
 
-$message = "{$username} commented on your post";
+$message = "{$username} commented on your post.";
 
 $notification = $db->prepare("INSERT INTO notifications (post_id, user_id,owner_id, message ,is_read) VALUES (:post_id, :user_id,:owner_id, :message, 'No')");
 $notification -> execute(array(

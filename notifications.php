@@ -54,7 +54,7 @@ require("connection.php");
 $user_id = $_SESSION['user_id'];
 
 $notifications = $db -> prepare('SELECT message ,pdp ,post_id,
-TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) AS seconds_ago,
+TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) AS seconds_ago,user_id,
                     CASE
                         WHEN TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()), \'s ago\')
                         WHEN TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()), \'m ago\')
@@ -72,8 +72,13 @@ FROM notifications
 
 $notifications -> execute(array('user_id'=> $user_id));
     while($data = $notifications -> fetch()) {
+        if ($data['post_id']=== NULL){
+            echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
+        }else {
 
+       
         echo "<div class='notification' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">";
+    }
         echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
         echo "<div>";
         echo "<span class='message'>". $data['message'] . "</span>";
