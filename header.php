@@ -49,6 +49,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            position: relative;
 
         }
         .notificationContainer:hover {
@@ -97,6 +98,16 @@
         cursor: pointer;
        float: right;
     }
+    .notifnum {
+        background-color: red;
+        color:#fff;
+        padding: 4px 6px;
+        border-radius: 100px;
+        position: absolute;
+        top: -4%;
+        font-size: 11px;
+        right: -15%;
+    }
     @media (max-width: 615px) {
 
 .notific {
@@ -108,6 +119,20 @@ left: 50%;
         </style>
 </head>
 <body>
+<?php
+require("connection.php");
+$user_id = $_SESSION['user_id'];
+$notificNum = $db->prepare('SELECT COUNT(*) as notific_num
+FROM notifications
+WHERE owner_id = :user_id AND user_id != :user_id');
+
+$notificNum->execute(array('user_id' => $user_id));
+
+$countResult = $notificNum->fetch();
+$totalNotifications = $countResult['notific_num'];
+
+
+?>
     <header>
         <a  href="home.php">Home</a>
         <?php if(empty($_SESSION['user'])): ?>
@@ -116,7 +141,10 @@ left: 50%;
             <?php  else: ?>
                 <a  href="profile.php">Profile</a>
                 <a  href="search.php">Search</a>
-                <div class="notificationContainer" onclick="showNotifications()"><img src="icons/bell.png" alt=""></div>
+                <div class="notificationContainer" onclick="showNotifications()">
+                    <img src="icons/bell.png" alt="">
+                    <div class="notifnum"><span><?php echo $totalNotifications ?></span></div>
+            </div>
                 <a href="logout.php">Logout</a>
         <?php  endif; ?>
         

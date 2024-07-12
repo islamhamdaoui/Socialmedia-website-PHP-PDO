@@ -53,27 +53,33 @@ require("connection.php");
 
 $user_id = $_SESSION['user_id'];
 
-$notifications = $db -> prepare('SELECT message ,pdp ,post_id,
-TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) AS seconds_ago,user_id,
-                    CASE
-                        WHEN TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()), \'s ago\')
-                        WHEN TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()), \'m ago\')
-                        WHEN TIMESTAMPDIFF(HOUR, notifications.created_at, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, notifications.created_at, NOW()), \'h ago\')
-                        ELSE CONCAT(TIMESTAMPDIFF(DAY, notifications.created_at, NOW()), \'d ago\')
-                    END AS time_ago
-
-
+$notifications = $db->prepare('SELECT 
+    notifications.message,
+    users.pdp,
+    notifications.post_id,
+    TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) AS seconds_ago,
+    notifications.user_id,
+    
+    CASE
+        WHEN TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()), "s ago")
+        WHEN TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()), "m ago")
+        WHEN TIMESTAMPDIFF(HOUR, notifications.created_at, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, notifications.created_at, NOW()), "h ago")
+        ELSE CONCAT(TIMESTAMPDIFF(DAY, notifications.created_at, NOW()), "d ago")
+    END AS time_ago
 FROM notifications
- INNER join users on notifications.user_id = users.id
- WHERE owner_id = :user_id and user_id != :user_id  
-  ORDER BY 
- notifications.created_at DESC');
+INNER JOIN users ON notifications.user_id = users.id
+WHERE owner_id = :user_id AND user_id != :user_id
+
+ORDER BY notifications.created_at DESC');
+
 
 
 $notifications -> execute(array('user_id'=> $user_id));
     while($data = $notifications -> fetch()) {
+        
         if ($data['post_id']=== NULL){
             echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
+          
         }else {
 
        
@@ -83,10 +89,12 @@ $notifications -> execute(array('user_id'=> $user_id));
         echo "<div>";
         echo "<span class='message'>". $data['message'] . "</span>";
         echo "<span>". $data['time_ago'] . "</span>";
+      
         
         echo "</div>";
         echo "</div>";
     }
+    
 ?>
     
 </body>
