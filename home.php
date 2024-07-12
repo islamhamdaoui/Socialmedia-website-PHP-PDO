@@ -98,7 +98,7 @@ require("connection.php");
 
 $user = $_SESSION["user_id"];
 
-$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id as user_id, likes.user_id as liker_id,likes.post_id as likespost_id, users.pdp, COUNT(DISTINCT comments.id) as comments_count, COUNT(DISTINCT likes.user_id) as likes_count
+$show = $db->query('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username,verified, users.id as user_id, likes.user_id as liker_id,likes.post_id as likespost_id, users.pdp, COUNT(DISTINCT comments.id) as comments_count, COUNT(DISTINCT likes.user_id) as likes_count
                    FROM posts 
                    INNER JOIN users ON posts.user_id = users.id 
                    LEFT JOIN comments ON posts.id = comments.post_id
@@ -127,7 +127,12 @@ while ($data = $show->fetch()) {
 
     
     echo "<div class='userdiv' >";
+    echo "<div class='usertop'>";
     echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
+    if($data['verified']) {
+    echo "<img src='icons/verified.png' class='verified'>";
+}
+    echo "</div>";
     echo "<span>" .$data['post_date'] . "</span>";
     echo '</div>';
 
@@ -333,7 +338,20 @@ echo '</div>';
             font-size: 12px;
             color: rgb(101, 103, 107);
         }
-
+        
+          .usertop {
+            display: flex;
+           align-items: center;
+          }
+        .usertop img {
+            margin:0 3px;
+            height: 14px;
+            width: 14px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
+        }
         .followed {
             display: none;
         }

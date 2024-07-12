@@ -119,8 +119,13 @@ left: 50%;
         </style>
 </head>
 <body>
+
+
 <?php
 require("connection.php");
+if(isset($_SESSION["user"])) {
+   
+
 $user_id = $_SESSION['user_id'];
 $notificNum = $db->prepare('SELECT COUNT(*) as notific_num
 FROM notifications
@@ -131,7 +136,7 @@ $notificNum->execute(array('user_id' => $user_id));
 $countResult = $notificNum->fetch();
 $totalNotifications = $countResult['notific_num'];
 
-
+} 
 ?>
     <header>
         <a  href="home.php">Home</a>
