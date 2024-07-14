@@ -69,6 +69,7 @@ if ($data['pdp'] === 'default') {
                     comments.created_at as created_at,
                     comments.comment,
                     pdp,
+                    verified,
                     users.username,
 
     
@@ -105,7 +106,13 @@ echo"</div>";
 
                     echo" <div class='commentContent'>";
                     echo "<div class='commentinfo'> ";
+                    echo "<div class='commentTop'> ";
+
                     echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
+                    if ($comment['verified']) {
+                        echo "<img src='icons/verified.png' class='verified'>";
+                    }
+                    echo "</div>";
                     echo htmlspecialchars($comment['comment']) . "<br>";
                     echo "</div>";
                     echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
@@ -188,7 +195,7 @@ echo"</div>";
    flex: 4;
     margin-bottom: 20px;
     height: 45px;
-    border-radius: 100px 0 0 100px;
+    border-radius: 8px 0 0 8px;
     border: none;
     padding: 0 15px;
     outline: none;
@@ -205,7 +212,7 @@ form {
     color: #fff;
    
     font-weight: bold;
-    border-radius: 0px 100px 100px 0;
+    border-radius: 0px 8px 8px 0;
    
     margin-bottom: 5px;
     flex: 1;
@@ -247,11 +254,26 @@ input[type=submit]:hover {
             
 }
 
+.commentinfo b {
+   
+}
+
 .commentContainer img {
     width: 38px;
             margin-right: 7px;
             height: 38px;
 }
+
+img.verified {
+    
+            margin:0 3px;
+            height: 14px;
+            width: 14px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
+        }
 
 
 .commentDiv {
