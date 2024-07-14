@@ -23,10 +23,10 @@
     $show->execute(array("id"=> $id));
     $data = $show->fetch();
     ?>
-    <div class="postcontainer">
+    <div class="container">
  
         <div class='post'>
-            <div class="usertop">
+          <div class="username">
             <?php
 if ($data['pdp'] === 'default') {
     echo '<img src="uploads/default.png" alt="default Image">';
@@ -34,25 +34,30 @@ if ($data['pdp'] === 'default') {
     echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
     }
         ?>
-
-                <b><?php echo htmlspecialchars($data["username"]); ?></b>
-                <?php
+                <div class="userdiv">
+                <div class="usertop">
+                    <b><?php echo htmlspecialchars($data["username"]); ?></b>
+                    <?php
                  if ($data['verified']) {
-echo "<img src='icons/verified.png' class='verified'>";
-} ?>
+                     echo "<img src='icons/verified.png' class='verified'>";
+                    } ?>
 
- <span><?=$data['post_date'] ?></span>
-            </div>
-            <span><?php echo htmlspecialchars($data["content"]); ?></span>
-        </div>
+
+
+</div>
+<span><?=$data['post_date'] ?></span>
+</div>
+</div>
+            <p><?php echo htmlspecialchars($data["content"]); ?></p>
+        
     </div>
-
+   
     <div class="comment">
         <form action="comment.php" method="post">
             <input type="text" name="comment" placeholder="Add new comment..." required id="input">
             <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($data['post_id']); ?>">
             <input type="hidden" name="owner_id" value="<?php echo htmlspecialchars($data['id']); ?>">
-            <input type="submit" value="Comment">
+           <input type="submit" value="Comment">
         </form>
  </div>
         <div class="comments">
@@ -63,6 +68,7 @@ echo "<img src='icons/verified.png' class='verified'>";
                     comments.id as comment_id,
                     comments.created_at as created_at,
                     comments.comment,
+                    pdp,
                     users.username,
 
     
@@ -87,25 +93,37 @@ echo "<img src='icons/verified.png' class='verified'>";
 
             if ($showComments->rowCount() > 0) {
                 while ($comment = $showComments->fetch(PDO::FETCH_ASSOC)) {
+                   
                     echo "<div class='commentContainer'>";
+                    if($comment['username'] === $_SESSION['username']){
+                        echo'<div class="deletebtn">';
+echo "<div  onclick=\"window.location.href='delete/deletecomment.php?id=" . $comment['comment_id'] . "&post_id=" . $data['post_id'] . "'\">Delete</div>";
+echo"</div>";
+                    }
+                    echo "<div class='commentDiv'>";
+                    echo "<img src='uploads/{$comment['pdp']}.png' alt='{$comment['pdp']} Image'>";
+
+                    echo" <div class='commentContent'>";
                     echo "<div class='commentinfo'> ";
                     echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
                     echo htmlspecialchars($comment['comment']) . "<br>";
+                    echo "</div>";
                     echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
                     echo "</div>";
-                    if($comment['username'] === $_SESSION['username']){
-echo "<div class='deletebtn' onclick=\"window.location.href='delete/deletecomment.php?id=" . $comment['comment_id'] . "&post_id=" . $data['post_id'] . "'\">Delete</div>";
-
-                    }
+                   
+                    echo "</div>";
+       
                     echo "</div>";
                 }
             } else {
                 echo "No comments found for this post.";
             }
+            
             ?>
+            
         </div>
    
-
+</div>
 <script>
     function mention(username) {
             let input = document.getElementById('input');
@@ -122,7 +140,7 @@ echo "<div class='deletebtn' onclick=\"window.location.href='delete/deletecommen
 
 *{
         box-sizing: border-box;
-        margin: 0;
+
      }
         body {
             display: flex;
@@ -132,97 +150,155 @@ echo "<div class='deletebtn' onclick=\"window.location.href='delete/deletecommen
         }
 
 
-        .postcontainer {
-            padding-top: 50px;
+        .container {
+           margin-top: 70px;
+          
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 15px;
+           
+        
         }
 
         .post {
-            display: flex;
-            flex-direction: column;
-            width: 400px;
+            width: 100%;
+            max-width: 470px;
             padding: 10px;
-            margin-bottom: 10px;
-            background-color: #e0f2f1;
+            
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
 
             .comment {
                 display: flex;
             flex-direction: column;
-            width: 400px;
-            background-color: #e0f2f1;
-            padding: 10px;
+            width: 100%;
+            max-width:470px ;
+           margin-top: 3px;
+           
             }
+   
         .comment form input {
             width: 100%;
-    max-width: 350px;
+
+   flex: 4;
     margin-bottom: 20px;
     height: 45px;
-    border-radius: 8px;
+    border-radius: 100px 0 0 100px;
     border: none;
-    padding: 5px 10px;
+    padding: 0 15px;
+    outline: none;
+    
     background-color: #fff;
     box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1);
         }
 
-
+form {
+    display: flex;
+}
         .comment form input[type=submit] {
     background-color: #0866ff;
     color: #fff;
+   
     font-weight: bold;
-    width: 100%;
+    border-radius: 0px 100px 100px 0;
+   
     margin-bottom: 5px;
+    flex: 1;
     cursor: pointer;
 
 } 
 input[type=submit]:hover {
     opacity: 0.7;
+  
+}
+
+.comments {
+    
+    width: 100%;
+   
+    max-width: 450px;
 }
 
 .commentContainer {
     display: flex;
-    width: 400px;
+    width: 100%;
+    max-width: 450px;
+    flex-direction: column;
             padding: 10px;
             margin-bottom: 10px;
-            background-color: #fff;
+            
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            justify-content: space-between;
+          
+          
 }
 .commentinfo {
     display: flex;
             flex-direction: column;
+            background-color:#f6f6f6;
+            background-color: #e5ecf7;
+            padding: 8px 12px;
+          
+            border-radius: 18px;
             
+}
+
+.commentContainer img {
+    width: 38px;
+            margin-right: 7px;
+            height: 38px;
+}
+
+
+.commentDiv {
+  
+    display: flex;
+    
 }
 
 .date {
     color: rgb(101, 103, 107);
     font-size: 12px;
 }
-
 .deletebtn {
+    width:100%;
+    max-width: 400px;
+
+}
+
+.deletebtn div{
     background-color: red;
     color: white;
+  
+    float: right;
     height: fit-content;
     padding: 5px 7px;
     cursor: pointer;
     font-size: 12px;
     border-radius: 8px;
+    margin-right: 0;
+    margin-left: auto;
    
 }
-.deletebtn:hover {
+.deletebtn div:hover {
     opacity: 0.5;
 }
 
 
+.username {
+            display: flex;
+            align-items: center;
+}
 .usertop {
             display: flex;
            align-items: center;
           }
 
-          .usertop img {
+          .post img {
             width: 38px;
             margin-right: 7px;
             height: 38px;
@@ -236,6 +312,16 @@ input[type=submit]:hover {
            -webkit-user-drag: none;
             
         }
+
+        .userdiv span {
+            font-size: 12px;
+            color: rgb(101, 103, 107);
+        }
+        .userdiv {
+            display: flex;
+            flex-direction: column;
+        }
+
 </style>
     
 </body>
