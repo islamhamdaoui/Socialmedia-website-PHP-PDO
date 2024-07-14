@@ -236,8 +236,8 @@ input[type=submit]:hover {
     width: 100%;
     max-width: 450px;
     flex-direction: column;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 5px 0;
+           
             
             border-radius: 8px;
           
