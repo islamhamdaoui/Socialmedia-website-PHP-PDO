@@ -15,7 +15,7 @@
 
     $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-    $show = $db->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id
+    $show = $db->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id,users.pdp,users.verified,DATE(posts.created_at) as post_date
                          FROM posts 
                          INNER JOIN users ON posts.user_id = users.id 
                          WHERE posts.id = :id");
@@ -24,8 +24,25 @@
     $data = $show->fetch();
     ?>
     <div class="postcontainer">
+ 
         <div class='post'>
-            <b><?php echo htmlspecialchars($data["username"]); ?></b>
+            <div class="usertop">
+            <?php
+if ($data['pdp'] === 'default') {
+    echo '<img src="uploads/default.png" alt="default Image">';
+    } else {
+    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+    }
+        ?>
+
+                <b><?php echo htmlspecialchars($data["username"]); ?></b>
+                <?php
+                 if ($data['verified']) {
+echo "<img src='icons/verified.png' class='verified'>";
+} ?>
+
+ <span><?=$data['post_date'] ?></span>
+            </div>
             <span><?php echo htmlspecialchars($data["content"]); ?></span>
         </div>
     </div>
@@ -198,6 +215,27 @@ input[type=submit]:hover {
 .deletebtn:hover {
     opacity: 0.5;
 }
+
+
+.usertop {
+            display: flex;
+           align-items: center;
+          }
+
+          .usertop img {
+            width: 38px;
+            margin-right: 7px;
+            height: 38px;
+          }
+        .usertop .verified {
+            margin:0 3px;
+            height: 14px;
+            width: 14px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
+        }
 </style>
     
 </body>

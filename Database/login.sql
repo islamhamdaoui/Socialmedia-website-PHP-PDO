@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2024 at 10:18 PM
+-- Generation Time: Jul 14, 2024 at 03:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -125,23 +125,15 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
-(252, 82, 54, 'liked'),
-(253, 82, 53, 'liked'),
-(254, 82, 53, 'liked'),
-(261, 83, 54, 'liked'),
-(262, 83, 54, 'liked'),
-(263, 83, 54, 'liked'),
-(264, 83, 53, 'liked'),
-(265, 83, 54, 'liked'),
-(266, 83, 53, 'liked'),
-(267, 82, 55, 'liked'),
-(274, 84, 55, 'liked'),
-(275, 81, 55, 'liked'),
-(276, 77, 55, 'liked'),
-(277, 79, 55, 'liked'),
-(278, 83, 53, 'liked'),
-(279, 83, 53, 'liked'),
-(280, 78, 53, 'liked');
+(303, 85, 54, 'liked'),
+(310, 82, 53, 'liked'),
+(315, 83, 54, 'liked'),
+(318, 85, 53, 'liked'),
+(320, 84, 54, 'liked'),
+(322, 85, 55, 'liked'),
+(323, 83, 55, 'liked'),
+(324, 83, 53, 'liked'),
+(325, 84, 53, 'liked');
 
 -- --------------------------------------------------------
 
@@ -164,16 +156,23 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, `is_read`, `created_at`) VALUES
-(440, 84, 55, 53, 'user liked your post.', 'No', '2024-07-12 14:57:39'),
 (447, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:04:55'),
 (448, 81, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:32'),
 (449, 77, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:34'),
 (450, NULL, 55, 53, 'user followed you.', 'No', '2024-07-12 15:18:12'),
 (451, 79, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:24:17'),
 (452, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:41:57'),
-(453, 83, 53, 55, 'islamputh liked your post.', 'No', '2024-07-12 19:46:44'),
-(454, 83, 53, 55, 'islamputh liked your post.', 'No', '2024-07-12 19:46:49'),
-(455, 78, 53, 54, 'islamputh liked your post.', 'No', '2024-07-12 19:46:53');
+(457, 85, 55, 53, 'user liked your post.', 'No', '2024-07-12 20:32:57'),
+(465, 78, 53, 54, 'islamhamdaoui liked your post.', 'No', '2024-07-14 11:19:56'),
+(480, 85, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:10:57'),
+(487, 82, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:27:04'),
+(492, 83, 54, 55, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:27:31'),
+(495, 85, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:31:34'),
+(497, 84, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:31:49'),
+(499, 85, 55, 53, 'user liked your post.', 'No', '2024-07-14 12:34:14'),
+(500, 83, 55, 55, 'user liked your post.', 'No', '2024-07-14 12:35:47'),
+(501, 83, 53, 55, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:36:17'),
+(502, 84, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:38:55');
 
 -- --------------------------------------------------------
 
@@ -326,19 +325,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=457;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=503;
 
 --
 -- AUTO_INCREMENT for table `posts`
