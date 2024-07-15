@@ -10,10 +10,11 @@
     display: flex;
     padding: 5px 10px;
     cursor: pointer;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     width: 100%;
     max-width: 320px; 
     word-wrap: break-word; 
+   
 }
 
 .unread {
@@ -86,7 +87,7 @@ $notifications -> execute(array('user_id'=> $user_id));
 
        
         if ($data['post_id']=== NULL){
-            echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
+            echo "<div class='notification' onclick=\"window.location.href='notificationClicked.php?user_id={$data['user_id']}&id={$data['id']}'\">";
           
         }else {
 
@@ -104,7 +105,7 @@ $notifications -> execute(array('user_id'=> $user_id));
         echo "</div>";
     } else {
         if ($data['post_id']=== NULL){
-            echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
+            echo "<div class='notification unread' onclick=\"window.location.href='notificationClicked.php?user_id={$data['user_id']}&id={$data['id']}'\">";
           
         }else {
 
@@ -117,7 +118,7 @@ $notifications -> execute(array('user_id'=> $user_id));
         echo "<span>". $data['time_ago'] . "</span>";
       
       
-        echo $data['is_read'];
+
         echo "</div>";
         echo "</div>";
     }
