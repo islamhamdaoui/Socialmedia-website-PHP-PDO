@@ -16,6 +16,10 @@
     word-wrap: break-word; 
 }
 
+.unread {
+    background-color: #E4E6E9;
+}
+
 .notification .message {
     display: block; 
     overflow: hidden;
@@ -59,6 +63,8 @@ $notifications = $db->prepare('SELECT
     notifications.post_id,
     TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) AS seconds_ago,
     notifications.user_id,
+    notifications.id,
+    is_read,
     
     CASE
         WHEN TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()), "s ago")
@@ -76,24 +82,49 @@ ORDER BY notifications.created_at DESC');
 
 $notifications -> execute(array('user_id'=> $user_id));
     while($data = $notifications -> fetch()) {
-        
+        if($data['is_read'] ==='YES')  {
+
+       
         if ($data['post_id']=== NULL){
             echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
           
         }else {
 
        
-        echo "<div class='notification' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">";
+        echo "<div class='notification' onclick=\"window.location.href='notificationClicked.php?post_id={$data['post_id']}&id={$data['id']}'\">";
     }
         echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
         echo "<div>";
         echo "<span class='message'>". $data['message'] . "</span>";
         echo "<span>". $data['time_ago'] . "</span>";
       
-        
+      
+       
+        echo "</div>";
+        echo "</div>";
+    } else {
+        if ($data['post_id']=== NULL){
+            echo "<div class='notification' onclick=\"window.location.href='info.php?id={$data['user_id']}'\">";
+          
+        }else {
+
+       
+        echo "<div class='notification unread' onclick=\"window.location.href='notificationClicked.php?post_id={$data['post_id']}&id={$data['id']}'\">";
+    }
+        echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+        echo "<div>";
+        echo "<span class='message'>". $data['message'] . "</span>";
+        echo "<span>". $data['time_ago'] . "</span>";
+      
+      
+        echo $data['is_read'];
         echo "</div>";
         echo "</div>";
     }
+    }
+
+    
+
     
 ?>
     

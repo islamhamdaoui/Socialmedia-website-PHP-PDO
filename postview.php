@@ -185,7 +185,7 @@ echo"</div>";
             flex-direction: column;
             width: 100%;
             max-width:470px ;
-           margin-top: 3px;
+           margin-top: 6px;
            
             }
    
@@ -201,10 +201,11 @@ echo"</div>";
     outline: none;
     
     background-color: #fff;
-    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
 form {
+    height: 53px;
     display: flex;
 }
         .comment form input[type=submit] {
@@ -228,7 +229,11 @@ input[type=submit]:hover {
     
     width: 100%;
    
-    max-width: 450px;
+    max-width: 470px;
+    padding: 10px 7px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .commentContainer {

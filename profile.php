@@ -323,6 +323,7 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
             margin-top: 50px;
             padding: 10px 10px;
             border-radius: 8px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
         .addpost .btn {
@@ -383,7 +384,7 @@ input[type=submit]:hover {
     margin-bottom: 10px;
     background-color: #e0f2f1;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -393,7 +394,7 @@ input[type=submit]:hover {
     max-width: fit-content;
     padding: 10px;
     background-color: #fff;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
@@ -454,7 +455,7 @@ margin: 0;
     padding: 5px 35px;
     background-color:#fff;
     border: none;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 
    
 }

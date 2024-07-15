@@ -129,7 +129,7 @@ if(isset($_SESSION["user"])) {
 $user_id = $_SESSION['user_id'];
 $notificNum = $db->prepare('SELECT COUNT(*) as notific_num
 FROM notifications
-WHERE owner_id = :user_id AND user_id != :user_id');
+WHERE owner_id = :user_id AND user_id != :user_id AND is_read = "No"');
 
 $notificNum->execute(array('user_id' => $user_id));
 

@@ -171,7 +171,7 @@ echo '</div>';
 } 
 
 echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'> {$data['comments_count']} Comment</div> ";
-echo "<div><img src='icons/view.png'> View post</div>";
+echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' > View post</div>";
 echo "</div>";
 
 echo '</div>';
@@ -396,6 +396,15 @@ display: none;
         all.style.display = 'none'
         followed.style.display = 'block'
     }
+
+
+    function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Post link copied to clipboard');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
 </script>
 </body>
 </html>
