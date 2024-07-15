@@ -27,4 +27,23 @@ $notification -> execute(array(
 
 ));
 
+
+
+ $user = $db -> prepare("SELECT username,id FROM users");
+ $user->execute();
+
+ while($userData = $user ->fetch()) {
+    if (str_contains($comment, $userData["username"])) {
+        $message = "{$username} mentioned you in a comment.";
+        $mentioned_id = $userData["id"];
+
+        $notification = $db->prepare("INSERT INTO notifications (post_id, user_id,owner_id, message ,is_read) VALUES (:post_id, :user_id,:owner_id, :message, 'No')");
+        $notification -> execute(array(
+            "post_id"=> $post_id,
+            "user_id"=> $user_id,
+            "owner_id"=> $mentioned_id,
+            "message"=> $message,
+        
+        ));
+ }}
  header("location:postview.php?id=$post_id");

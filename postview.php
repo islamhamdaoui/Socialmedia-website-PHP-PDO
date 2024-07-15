@@ -108,7 +108,7 @@ echo"</div>";
                     echo "<div class='commentinfo'> ";
                     echo "<div class='commentTop'> ";
 
-                    echo "<b onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\" id='user'>" . htmlspecialchars($comment['username']) . "</b>";
+                    echo "<b id='user'>" . htmlspecialchars($comment['username']) . "</b>";
                     if ($comment['verified']) {
                         echo "<img src='icons/verified.png' class='verified'>";
                     }
@@ -116,6 +116,7 @@ echo"</div>";
                     echo htmlspecialchars($comment['comment']) . "<br>";
                     echo "</div>";
                     echo "<span class='date'>" . htmlspecialchars($comment['time_ago']) . "</span>";
+                    echo "<span class='reply'  onclick=\"mention('" . htmlspecialchars($comment['username']) . "')\">Reply</span>";
                     echo "</div>";
                    
                     echo "</div>";
@@ -259,9 +260,6 @@ input[type=submit]:hover {
             
 }
 
-.commentinfo b {
-   
-}
 
 .commentContainer img {
     width: 38px;
@@ -290,6 +288,16 @@ img.verified {
 .date {
     color: rgb(101, 103, 107);
     font-size: 12px;
+}
+.reply {
+    color: #65676b;
+    font-size: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.reply:hover {
+    text-decoration: underline;
 }
 .deletebtn {
     width:100%;
