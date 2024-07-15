@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2024 at 03:24 PM
+-- Generation Time: Jul 15, 2024 at 05:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,7 +50,24 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (83, 83, 55, 'h', '2024-07-12 14:16:40'),
 (84, 82, 55, 'Haha', '2024-07-12 15:52:07'),
 (85, 85, 55, 'H', '2024-07-12 16:04:55'),
-(86, 85, 55, 'Hh', '2024-07-12 16:41:57');
+(86, 85, 55, 'Hh', '2024-07-12 16:41:57'),
+(87, 85, 53, '@user hi', '2024-07-15 11:49:13'),
+(88, 86, 53, 'I love it', '2024-07-15 11:56:08'),
+(89, 86, 53, 'Thank u', '2024-07-15 11:56:15'),
+(90, 86, 54, 'Dude that\'s awesome I\'m gonna follow u', '2024-07-15 13:27:39'),
+(91, 86, 53, '@rayanmazouni thanks', '2024-07-15 13:44:03'),
+(92, 86, 54, '@islamputh welcome', '2024-07-15 13:48:46'),
+(93, 86, 54, 'Hi dude', '2024-07-15 13:54:50'),
+(94, 86, 54, 'How\'s u', '2024-07-15 13:54:54'),
+(95, 86, 54, '@rayanmazouni fine wbu', '2024-07-15 14:06:47'),
+(96, 86, 53, '@rayanmazouni ', '2024-07-15 14:12:25'),
+(97, 86, 53, '@rayanmazouni ', '2024-07-15 14:12:51'),
+(98, 86, 53, '@rayanmazouni ', '2024-07-15 14:13:34'),
+(99, 86, 53, '@rayanmazouni ', '2024-07-15 14:14:14'),
+(100, 86, 53, '@rayanmazouni ', '2024-07-15 14:15:09'),
+(107, 86, 55, '@rayanmazouni wash rak dir hna hh', '2024-07-15 14:29:04'),
+(111, 86, 55, '@user ', '2024-07-15 14:46:44'),
+(112, 85, 55, '@user ', '2024-07-15 14:46:49');
 
 -- --------------------------------------------------------
 
@@ -103,9 +120,9 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (38, 89, 53, 'followed'),
 (41, 53, 89, 'followed'),
 (65, 53, 63, 'followed'),
-(69, 54, 53, 'followed'),
 (70, 53, 54, 'followed'),
-(78, 55, 53, 'followed');
+(78, 55, 53, 'followed'),
+(82, 54, 53, 'followed');
 
 -- --------------------------------------------------------
 
@@ -133,7 +150,10 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
 (322, 85, 55, 'liked'),
 (323, 83, 55, 'liked'),
 (324, 83, 53, 'liked'),
-(325, 84, 53, 'liked');
+(325, 84, 53, 'liked'),
+(326, 86, 53, 'liked'),
+(328, 86, 54, 'liked'),
+(331, 86, 55, 'liked');
 
 -- --------------------------------------------------------
 
@@ -156,23 +176,15 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, `is_read`, `created_at`) VALUES
-(447, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:04:55'),
-(448, 81, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:32'),
-(449, 77, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:17:34'),
-(450, NULL, 55, 53, 'user followed you.', 'No', '2024-07-12 15:18:12'),
-(451, 79, 55, 53, 'user liked your post.', 'No', '2024-07-12 15:24:17'),
-(452, 85, 55, 53, 'user commented on your post.', 'No', '2024-07-12 15:41:57'),
-(457, 85, 55, 53, 'user liked your post.', 'No', '2024-07-12 20:32:57'),
-(465, 78, 53, 54, 'islamhamdaoui liked your post.', 'No', '2024-07-14 11:19:56'),
-(480, 85, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:10:57'),
-(487, 82, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:27:04'),
-(492, 83, 54, 55, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:27:31'),
-(495, 85, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:31:34'),
-(497, 84, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-14 12:31:49'),
-(499, 85, 55, 53, 'user liked your post.', 'No', '2024-07-14 12:34:14'),
-(500, 83, 55, 55, 'user liked your post.', 'No', '2024-07-14 12:35:47'),
-(501, 83, 53, 55, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:36:17'),
-(502, 84, 53, 53, 'islamhamdaoui liked your post.', 'No', '2024-07-14 12:38:55');
+(511, NULL, 54, 53, 'rayanmazouni followed you.', 'YES', '2024-07-15 12:48:21'),
+(512, 86, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-15 12:48:33'),
+(513, 86, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 12:48:46'),
+(514, 86, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 12:54:50'),
+(515, 86, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 12:54:54'),
+(516, 86, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 13:06:47'),
+(541, 85, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 13:46:49'),
+(542, 85, 55, 55, 'user mentioned you in a comment.', 'No', '2024-07-15 13:46:49'),
+(549, 86, 55, 53, 'user liked your post.', 'YES', '2024-07-15 14:07:07');
 
 -- --------------------------------------------------------
 
@@ -184,23 +196,28 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `content` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `name` varchar(100) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`) VALUES
-(77, 53, 'hello everyone', '2024-07-12 11:45:23'),
-(78, 54, 'Hi', '2024-07-12 11:45:48'),
-(79, 53, 'ff', '2024-07-12 11:49:02'),
-(80, 53, 'gg', '2024-07-12 11:50:02'),
-(81, 53, 'h', '2024-07-12 11:51:46'),
-(82, 53, 'ho', '2024-07-12 13:05:06'),
-(83, 55, 'hi', '2024-07-12 13:15:50'),
-(84, 53, '1', '2024-07-12 14:55:45'),
-(85, 53, '2', '2024-07-12 14:55:46');
+INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `name`, `image`) VALUES
+(77, 53, 'hello everyone', '2024-07-12 11:45:23', '', ''),
+(79, 53, 'ff', '2024-07-12 11:49:02', '', ''),
+(80, 53, 'gg', '2024-07-12 11:50:02', '', ''),
+(81, 53, 'h', '2024-07-12 11:51:46', '', ''),
+(82, 53, 'ho', '2024-07-12 13:05:06', '', ''),
+(84, 53, '1', '2024-07-12 14:55:45', '', ''),
+(85, 53, '2', '2024-07-12 14:55:46', '', ''),
+(86, 53, 'The rags to riches story of Dick Whittington and his cat is not just a fairy tale: it is part of the folklore of London. Today there is a monument to his cat near the Whittington Stone pub at the foot of Highgate Hill where Dick sat down and heard the famous Bow Bells of East London ring out:\r\n\r\nTurn Again Whittington!\r\nThrice Lord Mayor of London!\r\n\r\nThe real Dick Whittington was Lord Mayor of London in 1397, 1406 and 1419, and was a successful textile merchant.\r\n\r\nThe figure of Sir Richard Whittington with his cat in his arms, carved in stone, was to be seen till the year 1780 over the archway of the old prison at Newgate, which he built for criminals, while the logo of the Whittington Hospital, Highgate, still encorporates his cat.', '2024-07-15 10:55:37', '', ''),
+(87, 53, 'hi', '2024-07-15 15:02:57', '', ''),
+(88, 53, 'hhh', '2024-07-15 15:12:00', 'share.png', './uploads/share.png'),
+(89, 53, 'hi', '2024-07-15 15:18:54', '5c5285e01136275b7d003df9b785b811.jpg', './uploads/5c5285e01136275b7d003df9b785b811.jpg'),
+(90, 53, 'f', '2024-07-15 15:24:11', 'medium.webp', './uploads/medium.webp');
 
 -- --------------------------------------------------------
 
@@ -319,31 +336,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=503;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=550;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `users`
