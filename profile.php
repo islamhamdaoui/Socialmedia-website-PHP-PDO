@@ -257,7 +257,10 @@ $show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.crea
 $show->execute([':user_id' => $userid]);
               
 
+if($show->rowCount() > 0){
 while ($data = $show->fetch(PDO::FETCH_ASSOC)){
+
+    
     echo '<div class="post">';
     echo "<div class='username'>";
     if ($data['pdp'] === 'default') {
@@ -288,7 +291,10 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
  
     echo '</div>';
 }
+}else {
+    echo "You haven't posted anything yet.";
 
+}
 
 ?>
     </div>

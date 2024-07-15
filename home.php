@@ -170,8 +170,8 @@ echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
 echo '</div>';
 } 
 
-echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'> {$data['comments_count']} Comment</div> ";
-echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' > View post</div>";
+echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'><span>{$data['comments_count']} Comment</span></div> ";
+echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' ><span> Share</span></div>";
 echo "</div>";
 
 echo '</div>';
@@ -253,7 +253,6 @@ echo '</div>';
         box-sizing: border-box;
         
      }
-      
         
         .homeContainer {
             padding: 60px 0;
@@ -265,6 +264,7 @@ echo '</div>';
             min-height: 100vh;
 
         }
+
         .suggestions {
             position: absolute;
             top: 9%;
@@ -377,7 +377,47 @@ echo '</div>';
 .suggestions {
 display: none;
 }
+
+
   }
+  @media (max-width: 415px) {
+    .reactions span{
+   font-size: 15px;
+}
+
+.reactions img {
+            height: 19px;
+            width: 19px;
+           
+            
+        }
+  }
+
+  @media (max-width: 380px) {
+    .reactions span{
+   font-size: 14px;
+}
+
+.reactions img {
+            height: 18px;
+            width: 18px;
+           
+            
+        }
+  }
+  @media (max-width: 322px) {
+    .reactions span{
+   font-size: 11px;
+}
+
+.reactions img {
+            height: 15px;
+            width: 15px;
+           
+            
+        }
+  }
+
             </style>
 
       

@@ -46,6 +46,7 @@
         .notification div {
             display: flex;
             flex-direction: column;
+           
         }
   
     </style>
@@ -82,6 +83,7 @@ ORDER BY notifications.created_at DESC');
 
 
 $notifications -> execute(array('user_id'=> $user_id));
+if($notifications->rowCount() > 0) {
     while($data = $notifications -> fetch()) {
         if($data['is_read'] ==='YES')  {
 
@@ -122,7 +124,12 @@ $notifications -> execute(array('user_id'=> $user_id));
         echo "</div>";
         echo "</div>";
     }
-    }
+}
+    } else {
+
+        echo "<div style='width:100%; height:200px; display:flex; align-items: center;justify-content: center;'>All caught up! No new notifications.</div>";
+    
+}
 
     
 

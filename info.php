@@ -245,6 +245,7 @@ if($data['verified']) {
     </div>
      
     <div class="posts">
+    <div style="max-width: 470px; width:100%;"><h3 style="margin-top: 0;">Posts</h3></div>
     <?php
 
  $show = $db->prepare('SELECT posts.content, users.username 
@@ -256,6 +257,8 @@ if($data['verified']) {
 
 $show->execute(array('id' => $id));
               
+if($show->rowCount() > 0) {
+
 
 while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<div class="post">';
@@ -263,7 +266,9 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
     echo '</div>';
 }
- 
+} else {
+   echo "It looks like this user hasn't shared anything.";
+}
 
 ?>
     </div>
@@ -324,6 +329,11 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
 
 .posts {
     margin-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           padding: 0 10px;
 }
 .post {
     width: 400px;
