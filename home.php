@@ -155,7 +155,12 @@ echo "<span>" . $data['post_date'] . "</span>";
 echo '</div>';
 echo "</div>";
 echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
-echo "<img class ='postImg' src='" . $data['image'] . "' alt='Image'>";
+
+if ( $data['image'] !== '') {
+    echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
+}
+
+
 echo "<div class='reactions'>";
 if ($data['liked_by_user'] > 0) { 
 
@@ -303,7 +308,7 @@ echo '</div>';
 
         .postImg {
             max-width: 100%;
-    height: 495px;
+    height: auto;
     display: block; 
     margin: auto;
         }

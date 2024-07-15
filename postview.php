@@ -15,7 +15,7 @@
 
     $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-    $show = $db->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id,users.pdp,users.verified,DATE(posts.created_at) as post_date
+    $show = $db->prepare("SELECT posts.id as post_id, posts.content, users.username ,users.id,users.pdp,users.verified,DATE(posts.created_at) as post_date,image
                          FROM posts 
                          INNER JOIN users ON posts.user_id = users.id 
                          WHERE posts.id = :id");
@@ -49,6 +49,10 @@ if ($data['pdp'] === 'default') {
 </div>
 </div>
             <p><?php echo htmlspecialchars($data["content"]); ?></p>
+            <?php if ( $data['image'] !== '') {
+    echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
+}
+ ?>
         
     </div>
    
@@ -179,7 +183,18 @@ echo"</div>";
             border-radius: 8px;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
+        .username img {
+            width: 38px;
+            margin-right: 7px;
+            height: 38px;
+          }
+        .postImg {
+            max-width: 100%;
+    height: auto;
+    display: block;
 
+    margin: auto;
+        }
 
             .comment {
                 display: flex;
@@ -333,11 +348,7 @@ img.verified {
            align-items: center;
           }
 
-          .post img {
-            width: 38px;
-            margin-right: 7px;
-            height: 38px;
-          }
+         
         .usertop .verified {
             margin:0 3px;
             height: 14px;
