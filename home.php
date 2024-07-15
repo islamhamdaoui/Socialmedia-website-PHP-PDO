@@ -108,6 +108,7 @@ users.username,
 users.verified, 
 users.pdp as pdp,
 users.id as user_id, 
+image,
 COUNT(DISTINCT comments.id) as comments_count, 
 COUNT(DISTINCT likes.id) as likes_count,
 SUM(CASE WHEN likes.user_id = ? THEN 1 ELSE 0 END) as liked_by_user
@@ -154,7 +155,7 @@ echo "<span>" . $data['post_date'] . "</span>";
 echo '</div>';
 echo "</div>";
 echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
-
+echo "<img class ='postImg' src='" . $data['image'] . "' alt='Image'>";
 echo "<div class='reactions'>";
 if ($data['liked_by_user'] > 0) { 
 
@@ -237,6 +238,8 @@ echo '</div>';
 
     
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+
+
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
     
     
@@ -298,12 +301,18 @@ echo '</div>';
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
+        .postImg {
+            max-width: 100%;
+    height: 495px;
+    display: block; 
+    margin: auto;
+        }
         .reactions {
             
            
             cursor: pointer;
             color: #65676B;
-            
+            margin-top: 5px;
             display: flex;
             justify-content: space-between;
         }

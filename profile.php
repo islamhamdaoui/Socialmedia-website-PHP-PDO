@@ -210,33 +210,34 @@ if($data['verified']) {
     
 
     <div class="addpost" >
-        <form action="post.php" method="post">
-            <div class="input">
+    <form action="post.php" method="post" enctype="multipart/form-data">
+    <div class="input">
         <?php
-if ($data['pdp'] === 'default') {
-    echo '<img src="uploads/default.png" alt="default Image">';
-} elseif ($data['pdp'] === 'sara') {
-    echo "<img src='uploads/sara.png' alt='sara Image'>";
-} elseif ($data['pdp'] === 'dalia') {
-    echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-}  elseif ($data['pdp'] === 'islam') {
-    echo"<img src='uploads/islam.png' alt='islam Image'>";
-}
-elseif ($data['pdp'] === 'mohamed') {
-    echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-} else {
-    echo '<img src="uploads/default.png" alt="default Image">';
-}
+        // Display profile picture based on $data['pdp'] value
+        if ($data['pdp'] === 'default') {
+            echo '<img src="uploads/default.png" alt="default Image">';
+        } elseif ($data['pdp'] === 'sara') {
+            echo "<img src='uploads/sara.png' alt='sara Image'>";
+        } elseif ($data['pdp'] === 'dalia') {
+            echo "<img src='uploads/dalia.png' alt='dalia Image'>";
+        } elseif ($data['pdp'] === 'islam') {
+            echo "<img src='uploads/islam.png' alt='islam Image'>";
+        } elseif ($data['pdp'] === 'mohamed') {
+            echo "<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
+        } else {
+            echo '<img src="uploads/default.png" alt="default Image">';
+        }
+        ?>
+        
+        <textarea name="content" placeholder="Add new post..." required></textarea>
+    </div>
+    
+    <div class="btn">
+        <input type="file" name="files[]" multiple />
+        <input type="submit" value="Add">
+    </div>
+</form>
 
-?>
-
-            <textarea  name="content" placeholder="Add new post..." required></textarea>
-            </div>
-            <div class="btn">
-            <input  type="submit" value="Add">
-
-            </div>
-        </form>
     </div>
     
     <div class="posts">
