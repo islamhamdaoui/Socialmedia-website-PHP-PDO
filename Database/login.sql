@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 04:24 PM
+-- Generation Time: Jul 16, 2024 at 05:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,7 +69,12 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (121, 92, 55, 'سسص', '2024-07-15 17:04:33'),
 (122, 92, 54, 'Hh', '2024-07-15 17:12:57'),
 (123, 92, 54, 'Gg', '2024-07-15 17:25:21'),
-(124, 92, 55, '@rayanmazouni hhh', '2024-07-15 19:48:06');
+(124, 92, 55, '@rayanmazouni hhh', '2024-07-15 19:48:06'),
+(125, 92, 54, 'Hi', '2024-07-16 15:50:03'),
+(126, 92, 54, 'Hi', '2024-07-16 15:54:12'),
+(127, 94, 54, 'Look at this ', '2024-07-16 15:54:34'),
+(128, 94, 54, '@islamputh look ', '2024-07-16 15:54:46'),
+(129, 94, 53, '@rayanmazouni hhh', '2024-07-16 15:55:03');
 
 -- --------------------------------------------------------
 
@@ -135,28 +140,24 @@ CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `status` varchar(10) NOT NULL,
+  `owner_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `likes`
 --
 
-INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
-(303, 85, 54, 'liked'),
-(310, 82, 53, 'liked'),
-(315, 83, 54, 'liked'),
-(318, 85, 53, 'liked'),
-(320, 84, 54, 'liked'),
-(322, 85, 55, 'liked'),
-(323, 83, 55, 'liked'),
-(324, 83, 53, 'liked'),
-(325, 84, 53, 'liked'),
-(326, 86, 53, 'liked'),
-(328, 86, 54, 'liked'),
-(331, 86, 55, 'liked'),
-(332, 92, 53, 'liked'),
-(334, 92, 54, 'liked');
+INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`, `owner_id`) VALUES
+(341, 94, 53, 'liked', 54),
+(342, 86, 53, 'liked', 53),
+(343, 92, 53, 'liked', 53),
+(344, 91, 53, 'liked', 53),
+(345, 94, 54, 'liked', 54),
+(346, 92, 54, 'liked', 53),
+(347, 91, 54, 'liked', 53),
+(348, 90, 54, 'liked', 53),
+(349, 89, 54, 'liked', 53);
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,26 @@ INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, 
 (562, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 16:12:57'),
 (563, 92, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 16:25:21'),
 (564, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 18:48:06'),
-(565, 92, 55, 54, 'user mentioned you in a comment.', 'No', '2024-07-15 18:48:06');
+(565, 92, 55, 54, 'user mentioned you in a comment.', 'No', '2024-07-15 18:48:06'),
+(566, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:50:03'),
+(567, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:12'),
+(568, 94, 54, 54, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:34'),
+(569, 94, 54, 54, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:46'),
+(570, 94, 54, 53, 'rayanmazouni mentioned you in a comment.', 'YES', '2024-07-16 14:54:46'),
+(573, 91, 53, 0, 'islamputh liked your post.', 'No', '2024-07-16 15:12:08'),
+(574, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:38'),
+(575, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:44'),
+(576, 89, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:47'),
+(578, 94, 53, 54, 'islamputh liked your post.', 'No', '2024-07-16 15:31:00'),
+(579, 94, 53, 54, 'islamputh liked your post.', 'No', '2024-07-16 15:31:40'),
+(580, 86, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:35'),
+(581, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:58'),
+(582, 91, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:33:00'),
+(583, 94, 54, 54, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:13'),
+(584, 92, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:16'),
+(585, 91, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:17'),
+(586, 90, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:18'),
+(587, 89, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:21');
 
 -- --------------------------------------------------------
 
@@ -357,7 +377,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `follow`
@@ -369,13 +389,13 @@ ALTER TABLE `follow`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=350;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=566;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=588;
 
 --
 -- AUTO_INCREMENT for table `posts`
