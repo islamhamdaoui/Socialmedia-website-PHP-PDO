@@ -138,11 +138,8 @@ echo "window.location.href = 'info.php?id={$data['user_id']}';";
 }
 echo "\">";
 
-if ($data['pdp'] === 'default') {
-echo '<img src="uploads/default.png" alt="default Image">';
-} else {
+
 echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
-}
 
 echo "<div class='userdiv'>";
 echo "<div class='usertop'>";
@@ -220,20 +217,8 @@ echo '</div>';
     }
     echo "\">";
     
-    if ($data['pdp'] === 'default') {
-        echo '<img src="uploads/default.png" alt="default Image">';
-    } elseif ($data['pdp'] === 'sara') {
-        echo "<img src='uploads/sara.png' alt='sara Image'>";
-    } elseif ($data['pdp'] === 'dalia') {
-        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-    }  elseif ($data['pdp'] === 'islam') {
-        echo"<img src='uploads/islam.png' alt='islam Image'>";
-    }
-    elseif ($data['pdp'] === 'mohamed') {
-        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-    } else {
-        echo '<img src="uploads/default.png" alt="default Image">';
-    }
+    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
     echo "<div class='userdiv' >";
     echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
     echo "<span>" .$data['post_date'] . "</span>";

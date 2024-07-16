@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2024 at 05:27 PM
+-- Generation Time: Jul 16, 2024 at 04:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,22 +52,24 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (85, 85, 55, 'H', '2024-07-12 16:04:55'),
 (86, 85, 55, 'Hh', '2024-07-12 16:41:57'),
 (87, 85, 53, '@user hi', '2024-07-15 11:49:13'),
-(88, 86, 53, 'I love it', '2024-07-15 11:56:08'),
-(89, 86, 53, 'Thank u', '2024-07-15 11:56:15'),
 (90, 86, 54, 'Dude that\'s awesome I\'m gonna follow u', '2024-07-15 13:27:39'),
-(91, 86, 53, '@rayanmazouni thanks', '2024-07-15 13:44:03'),
 (92, 86, 54, '@islamputh welcome', '2024-07-15 13:48:46'),
 (93, 86, 54, 'Hi dude', '2024-07-15 13:54:50'),
 (94, 86, 54, 'How\'s u', '2024-07-15 13:54:54'),
 (95, 86, 54, '@rayanmazouni fine wbu', '2024-07-15 14:06:47'),
-(96, 86, 53, '@rayanmazouni ', '2024-07-15 14:12:25'),
-(97, 86, 53, '@rayanmazouni ', '2024-07-15 14:12:51'),
-(98, 86, 53, '@rayanmazouni ', '2024-07-15 14:13:34'),
-(99, 86, 53, '@rayanmazouni ', '2024-07-15 14:14:14'),
-(100, 86, 53, '@rayanmazouni ', '2024-07-15 14:15:09'),
 (107, 86, 55, '@rayanmazouni wash rak dir hna hh', '2024-07-15 14:29:04'),
 (111, 86, 55, '@user ', '2024-07-15 14:46:44'),
-(112, 85, 55, '@user ', '2024-07-15 14:46:49');
+(112, 85, 55, '@user ', '2024-07-15 14:46:49'),
+(115, 90, 53, 'hi', '2024-07-15 16:49:13'),
+(116, 92, 55, 'Nice photo bro', '2024-07-15 16:49:47'),
+(117, 92, 53, '@user thnks', '2024-07-15 16:49:57'),
+(118, 92, 53, '@islamputh ', '2024-07-15 16:51:16'),
+(119, 92, 55, 'فف', '2024-07-15 16:59:12'),
+(120, 92, 55, 'سس', '2024-07-15 17:02:53'),
+(121, 92, 55, 'سسص', '2024-07-15 17:04:33'),
+(122, 92, 54, 'Hh', '2024-07-15 17:12:57'),
+(123, 92, 54, 'Gg', '2024-07-15 17:25:21'),
+(124, 92, 55, '@rayanmazouni hhh', '2024-07-15 19:48:06');
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,6 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (37, 88, 53, 'followed'),
 (38, 89, 53, 'followed'),
 (41, 53, 89, 'followed'),
-(65, 53, 63, 'followed'),
 (70, 53, 54, 'followed'),
 (78, 55, 53, 'followed'),
 (82, 54, 53, 'followed');
@@ -153,7 +154,9 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`) VALUES
 (325, 84, 53, 'liked'),
 (326, 86, 53, 'liked'),
 (328, 86, 54, 'liked'),
-(331, 86, 55, 'liked');
+(331, 86, 55, 'liked'),
+(332, 92, 53, 'liked'),
+(334, 92, 54, 'liked');
 
 -- --------------------------------------------------------
 
@@ -184,7 +187,22 @@ INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, 
 (516, 86, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 13:06:47'),
 (541, 85, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 13:46:49'),
 (542, 85, 55, 55, 'user mentioned you in a comment.', 'No', '2024-07-15 13:46:49'),
-(549, 86, 55, 53, 'user liked your post.', 'YES', '2024-07-15 14:07:07');
+(549, 86, 55, 53, 'user liked your post.', 'YES', '2024-07-15 14:07:07'),
+(550, 90, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:49:13'),
+(551, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 15:49:47'),
+(552, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:49:57'),
+(553, 92, 53, 55, 'islamputh mentioned you in a comment.', 'YES', '2024-07-15 15:49:57'),
+(554, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:51:16'),
+(555, 92, 53, 53, 'islamputh mentioned you in a comment.', 'No', '2024-07-15 15:51:16'),
+(556, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-15 15:51:39'),
+(558, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 15:59:12'),
+(559, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 16:02:53'),
+(560, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 16:04:33'),
+(561, 92, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-15 16:04:48'),
+(562, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 16:12:57'),
+(563, 92, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 16:25:21'),
+(564, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 18:48:06'),
+(565, 92, 55, 54, 'user mentioned you in a comment.', 'No', '2024-07-15 18:48:06');
 
 -- --------------------------------------------------------
 
@@ -213,11 +231,14 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `name`, `image`) 
 (82, 53, 'ho', '2024-07-12 13:05:06', '', ''),
 (84, 53, '1', '2024-07-12 14:55:45', '', ''),
 (85, 53, '2', '2024-07-12 14:55:46', '', ''),
-(86, 53, 'The rags to riches story of Dick Whittington and his cat is not just a fairy tale: it is part of the folklore of London. Today there is a monument to his cat near the Whittington Stone pub at the foot of Highgate Hill where Dick sat down and heard the famous Bow Bells of East London ring out:\r\n\r\nTurn Again Whittington!\r\nThrice Lord Mayor of London!\r\n\r\nThe real Dick Whittington was Lord Mayor of London in 1397, 1406 and 1419, and was a successful textile merchant.\r\n\r\nThe figure of Sir Richard Whittington with his cat in his arms, carved in stone, was to be seen till the year 1780 over the archway of the old prison at Newgate, which he built for criminals, while the logo of the Whittington Hospital, Highgate, still encorporates his cat.', '2024-07-15 10:55:37', '', ''),
+(86, 53, '    The rags to riches story of dack Whittington and his cat is not just a fairy tale: it is part of the folklore of London. Today there is a monument to his cat near the Whittington Stone pub at the foot of Highgate Hill where dack sat down and heard the famous Bow Bells of East London ring out: Turn Again Whittington! Thrice Lord Mayor of London! The real dack Whittington was Lord Mayor of London in 1397, 1406 and 1419, and was a successful textile merchant. The figure of Sir Richard Whittington with his cat in his arms, carved in stone, was to be seen till the year 1780 over the archway of the old prison at Newgate, which he built for criminals, while the logo of the Whittington Hospital, Highgate, still encorporates his cat.\n', '2024-07-15 10:55:37', '', ''),
 (87, 53, 'hi', '2024-07-15 15:02:57', '', ''),
 (88, 53, 'hhh', '2024-07-15 15:12:00', 'share.png', './uploads/share.png'),
 (89, 53, 'hi', '2024-07-15 15:18:54', '5c5285e01136275b7d003df9b785b811.jpg', './uploads/5c5285e01136275b7d003df9b785b811.jpg'),
-(90, 53, 'f', '2024-07-15 15:24:11', 'medium.webp', './uploads/medium.webp');
+(90, 53, 'f', '2024-07-15 15:24:11', 'medium.webp', './uploads/medium.webp'),
+(91, 53, 'sss', '2024-07-15 15:32:59', '', ''),
+(92, 53, 'ss', '2024-07-15 15:33:16', 'goju_satoru_by_ranshiiki_dfy2isq-fullview.jpg', './uploads/goju_satoru_by_ranshiiki_dfy2isq-fullview.jpg'),
+(94, 54, 'Xd', '2024-07-15 23:34:55', 'FB_IMG_1721078611604.jpg', './uploads/FB_IMG_1721078611604.jpg');
 
 -- --------------------------------------------------------
 
@@ -336,7 +357,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `follow`
@@ -348,19 +369,19 @@ ALTER TABLE `follow`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=550;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=566;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `users`
