@@ -183,6 +183,21 @@ $totalNotifications = $countResult['notific_num'];
         
            }
 </script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function loadNotifications() {
+        $.ajax({
+            url: 'notifications.php',
+            type: 'GET',
+            success: function(data) {
+                $('#notifications').html(data);
+            }
+        });
+    }
+
+   
+    setInterval(loadNotifications, 2000);
+</script> -->
  
 </body>
 </html>

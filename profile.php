@@ -192,8 +192,14 @@ if($data['verified']) {
 
     <div class="stats">
     <div >   
-        <b><?php echo $followersCount['follower_num']; ?></b>
-         <span>Posts</span>
+        <b><?php 
+        $id = $_SESSION['user_id'];
+        $likes = $db -> prepare('SELECT COUNT(id) as likes_num FROM likes WHERE user_id = :user_id');
+        $likes -> execute(array('user_id'=> $id));
+        $liked = $likes -> fetch();
+        echo $liked['likes_num'];
+        ?></b>
+         <span>Likes</span>
     </div>
      
      <div onclick="showFollowers()">
@@ -245,15 +251,44 @@ if($data['verified']) {
     <?php
 $userid = $_SESSION["user_id"];
 
-$show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, 
-                            users.username, users.id , users.pdp, 
-                            COUNT(comments.id) as comments_count
-                     FROM posts 
-                     INNER JOIN users ON posts.user_id = users.id 
-                     LEFT JOIN comments ON posts.id = comments.post_id
-                     WHERE users.id = :user_id
-                     GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
-                     ORDER BY posts.created_at DESC');
+// $show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, 
+//                             users.username, users.id , users.pdp, 
+//                             COUNT(comments.id) as comments_count
+//                      FROM posts 
+//                      INNER JOIN users ON posts.user_id = users.id 
+//                      LEFT JOIN comments ON posts.id = comments.post_id
+//                      WHERE users.id = :user_id
+//                      GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
+//                      ORDER BY posts.created_at DESC');
+
+$show = $db->prepare('SELECT 
+posts.id as post_id, 
+posts.content, 
+DATE(posts.created_at) as post_date, 
+users.username,
+users.verified, 
+users.pdp ,
+users.id, 
+image,
+COUNT(DISTINCT comments.id) as comments_count, 
+COUNT(DISTINCT likes.id) as likes_count,
+SUM(CASE WHEN likes.user_id = :user_id THEN 1 ELSE 0 END) as liked_by_user
+FROM 
+posts 
+INNER JOIN 
+users ON posts.user_id = users.id 
+LEFT JOIN 
+comments ON posts.id = comments.post_id
+LEFT JOIN 
+likes ON posts.id = likes.post_id
+ WHERE users.id = :user_id
+GROUP BY 
+posts.id, posts.content, users.username, users.id, users.pdp
+ORDER BY 
+posts.created_at DESC');
+
+
+
 
 $show->execute([':user_id' => $userid]);
               
@@ -264,20 +299,9 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     
     echo '<div class="post">';
     echo "<div class='username'>";
-    if ($data['pdp'] === 'default') {
-        echo '<img src="uploads/default.png" alt="default Image">';
-    } elseif ($data['pdp'] === 'sara') {
-        echo "<img src='uploads/sara.png' alt='sara Image'>";
-    } elseif ($data['pdp'] === 'dalia') {
-        echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-    }  elseif ($data['pdp'] === 'islam') {
-        echo"<img src='uploads/islam.png' alt='islam Image'>";
-    }
-    elseif ($data['pdp'] === 'mohamed') {
-        echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-    } else {
-        echo '<img src="uploads/default.png" alt="default Image">';
-    }
+    
+    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
     echo "<div class='userdiv' >";
     echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
     echo "<span>" .$data['post_date'] . "</span>";
@@ -287,9 +311,16 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
 
     
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    if ( $data['image'] !== '') {
+        echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
+    }
+    echo "<div class='reactions'>";
+    echo '<div><span class="like-count">' . $data['likes_count'] . ' Likes</span></div>';
+
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
-    
+    echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' ><span> Share</span></div>";
  
+    echo '</div>';
     echo '</div>';
 }
 }else {
@@ -394,6 +425,12 @@ input[type=submit]:hover {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
+.postImg {
+            max-width: 100%;
+    height: auto;
+    display: block; 
+    margin: auto;
+        }
 
 .stats {
     display: flex;
@@ -546,11 +583,6 @@ margin: 0;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .comment {
-            background-color: #f6f6f6;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
 
         .username {
             display: flex;
@@ -585,6 +617,39 @@ margin: 0;
            -webkit-user-drag: none;
             
         }
+
+        .reactions {
+            
+           
+            cursor: pointer;
+            color: #65676B;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+   
+        
+        .reactions img {
+            height: 22px;
+            width: 22px;
+            margin-right: 5px;
+            
+        }
+
+        .reactions div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            flex: 1;
+            border-radius: 4px;
+            padding: 4px 0;
+        }
+
+        .reactions div:hover {
+            background-color: #F2F2F2;
+        }
+
 
         @media (max-width: 768px) {
 
@@ -641,6 +706,17 @@ font-size: 14px;
  following.style.display = 'flex'
  followers.style.display = 'none'
     }
+
+
+    
+
+    function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Post link copied to clipboard');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
 </script>
 </body>
 </html>
