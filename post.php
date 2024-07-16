@@ -1,7 +1,7 @@
 <?php
 
-require("auth.php"); // Include your authentication file
-require("connection.php"); // Include your database connection file
+require("auth.php"); 
+require("connection.php"); 
 
 if(isset($_POST["content"])) {
     $user_id = $_SESSION['user_id'];
@@ -51,4 +51,4 @@ if(isset($_POST["content"])) {
 
 header('Location: profile.php');
 exit();
-?>
+

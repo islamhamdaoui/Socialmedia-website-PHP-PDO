@@ -28,6 +28,11 @@ if(isset($_SESSION['user'])){
 <form method="post" action="login.php">
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Password" required>
+    <?php
+     if (isset($_COOKIE['wrong']) && $_COOKIE['wrong'] == 'true') {
+        echo '<div><span>Wrong email or password</span></div>';
+       
+    }?>
     <input type="submit" name="login" value="Login">
     <a href="signupform.php">Create new account</a>
 </form>
@@ -51,11 +56,15 @@ form {
     max-width: 350px;
     width: 100%;
 }
+form div span{
 
+    color: red;
+        font-size: 13px;
+}
 input {
     width: 100%;
     max-width: 350px;
-    margin-bottom: 20px;
+    margin-top: 20px;
     height: 45px;
     border-radius: 8px;
     border: none;

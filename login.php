@@ -1,6 +1,6 @@
 <!-- <?php
 require("connection.php");
-session_start(); // Start session
+session_start(); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['login'])) {
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user'] = true;
 
         
-        $stmt = $db->prepare("SELECT id, username, password FROM users WHERE email = :email"); // Change 'username' to 'email'
+        $stmt = $db->prepare("SELECT id, username, password FROM users WHERE email = :email"); 
 
         
         $stmt->execute(array(
@@ -58,10 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             header('location:home.php');
+           
             exit; 
         } else {
-            echo "<div>Login failed. Invalid email or password</div>";
+           
+            setcookie('wrong', 'true', time() + 3, '/');
             header("location:logout.php");
+           
         }
     }
 }
