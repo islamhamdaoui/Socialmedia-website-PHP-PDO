@@ -229,8 +229,16 @@ if($data['verified']) {
 
 <div class="stats">
     <div >   
-        <b><?php echo $followersCount['follower_num']; ?></b>
-         <span>Posts</span>
+        <b>
+        <?php 
+          $id = $_GET['id'];
+        $likes = $db -> prepare('SELECT COUNT(id) as likes_num FROM likes WHERE owner_id = :user_id');
+        $likes -> execute(array('user_id'=> $id));
+        $liked = $likes -> fetch();
+        echo $liked['likes_num'];
+        ?>
+        </b>
+         <span>Likes</span>
     </div>
      
      <div  onclick="showFollowers()">

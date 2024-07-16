@@ -194,7 +194,7 @@ if($data['verified']) {
     <div >   
         <b><?php 
         $id = $_SESSION['user_id'];
-        $likes = $db -> prepare('SELECT COUNT(id) as likes_num FROM likes WHERE user_id = :user_id');
+        $likes = $db -> prepare('SELECT COUNT(id) as likes_num FROM likes WHERE owner_id = :user_id');
         $likes -> execute(array('user_id'=> $id));
         $liked = $likes -> fetch();
         echo $liked['likes_num'];

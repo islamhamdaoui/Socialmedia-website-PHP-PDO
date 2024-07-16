@@ -8,10 +8,12 @@ $post_id = $_GET['post_id'];
 $owner_id = $_GET['owner_id'];
 $username = $_SESSION['username'];
 
-$add = $db->prepare("INSERT INTO likes(post_id, user_id, status) VALUES(:post_id, :user_id, 'liked')");
+$add = $db->prepare("INSERT INTO likes(post_id, user_id, status,owner_id) VALUES(:post_id, :user_id, 'liked',:owner_id)");
 $add->execute(array(
     "post_id" => $post_id, 
-    "user_id" => $user_id
+    "user_id" => $user_id,
+    "owner_id" => $owner_id,
+
 ));
 
 
