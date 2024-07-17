@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 01:07 PM
+-- Generation Time: Jul 17, 2024 at 02:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,9 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `created_at`) VAL
 (126, 92, 54, 'Hi', '2024-07-16 15:54:12'),
 (127, 94, 54, 'Look at this ', '2024-07-16 15:54:34'),
 (128, 94, 54, '@islamputh look ', '2024-07-16 15:54:46'),
-(129, 94, 53, '@rayanmazouni hhh', '2024-07-16 15:55:03');
+(129, 94, 53, '@rayanmazouni hhh', '2024-07-16 15:55:03'),
+(145, 92, 53, 'hi', '2024-07-17 13:42:46'),
+(146, 92, 53, 'aa', '2024-07-17 13:45:34');
 
 -- --------------------------------------------------------
 
@@ -126,10 +128,9 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (37, 88, 53, 'followed'),
 (38, 89, 53, 'followed'),
 (41, 53, 89, 'followed'),
-(70, 53, 54, 'followed'),
 (78, 55, 53, 'followed'),
-(82, 54, 53, 'followed'),
-(84, 53, 61, 'followed');
+(84, 53, 61, 'followed'),
+(97, 54, 53, 'followed');
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,6 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`, `owner_id`) VALUES
-(341, 94, 53, 'liked', 54),
 (342, 86, 53, 'liked', 53),
 (343, 92, 53, 'liked', 53),
 (344, 91, 53, 'liked', 53),
@@ -158,10 +158,11 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`, `owner_id`) VALUES
 (346, 92, 54, 'liked', 53),
 (347, 91, 54, 'liked', 53),
 (348, 90, 54, 'liked', 53),
-(349, 89, 54, 'liked', 53),
-(350, 90, 53, 'liked', 53),
 (351, 98, 53, 'liked', 53),
-(352, 101, 54, 'liked', 53);
+(352, 101, 54, 'liked', 53),
+(356, 87, 53, 'liked', 53),
+(361, 94, 53, 'liked', 54),
+(365, 90, 53, 'liked', 53);
 
 -- --------------------------------------------------------
 
@@ -184,56 +185,11 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, `is_read`, `created_at`) VALUES
-(511, NULL, 54, 53, 'rayanmazouni followed you.', 'YES', '2024-07-15 12:48:21'),
-(512, 86, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-15 12:48:33'),
-(513, 86, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 12:48:46'),
-(514, 86, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 12:54:50'),
-(515, 86, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 12:54:54'),
-(516, 86, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 13:06:47'),
-(541, 85, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 13:46:49'),
 (542, 85, 55, 55, 'user mentioned you in a comment.', 'No', '2024-07-15 13:46:49'),
-(549, 86, 55, 53, 'user liked your post.', 'YES', '2024-07-15 14:07:07'),
-(550, 90, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:49:13'),
-(551, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 15:49:47'),
-(552, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:49:57'),
 (553, 92, 53, 55, 'islamputh mentioned you in a comment.', 'YES', '2024-07-15 15:49:57'),
-(554, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-15 15:51:16'),
-(555, 92, 53, 53, 'islamputh mentioned you in a comment.', 'No', '2024-07-15 15:51:16'),
-(556, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-15 15:51:39'),
-(558, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 15:59:12'),
-(559, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 16:02:53'),
-(560, 92, 55, 53, 'user commented on your post.', 'No', '2024-07-15 16:04:33'),
-(561, 92, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-15 16:04:48'),
-(562, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 16:12:57'),
-(563, 92, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 16:25:21'),
-(564, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 18:48:06'),
-(565, 92, 55, 54, 'user mentioned you in a comment.', 'YES', '2024-07-15 18:48:06'),
-(566, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:50:03'),
-(567, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:12'),
-(568, 94, 54, 54, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:34'),
-(569, 94, 54, 54, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:46'),
-(570, 94, 54, 53, 'rayanmazouni mentioned you in a comment.', 'YES', '2024-07-16 14:54:46'),
-(573, 91, 53, 0, 'islamputh liked your post.', 'No', '2024-07-16 15:12:08'),
-(574, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:38'),
-(575, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:44'),
-(576, 89, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:47'),
-(578, 94, 53, 54, 'islamputh liked your post.', 'No', '2024-07-16 15:31:00'),
-(579, 94, 53, 54, 'islamputh liked your post.', 'YES', '2024-07-16 15:31:40'),
-(580, 86, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:35'),
-(581, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:58'),
-(582, 91, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:33:00'),
-(583, 94, 54, 54, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:13'),
-(584, 92, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:16'),
-(585, 91, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:17'),
-(586, 90, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-16 15:33:18'),
-(587, 89, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-16 15:33:21'),
-(588, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:34:52'),
-(590, NULL, 53, 61, 'islamputh followed you.', 'No', '2024-07-16 15:35:03'),
-(592, NULL, 53, 54, 'root viewed your profile.', 'YES', '2024-07-17 10:36:31'),
-(593, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 10:39:29'),
-(594, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 10:39:41'),
-(595, NULL, 54, 53, 'rayanmazouni viewed your profile.', 'No', '2024-07-17 10:44:52'),
-(609, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 11:05:37');
+(665, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-17 12:40:39'),
+(666, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-17 12:42:46'),
+(667, 92, 53, 53, 'islamputh commented on your post.', 'No', '2024-07-17 12:45:34');
 
 -- --------------------------------------------------------
 
@@ -264,7 +220,6 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `name`, `image`) 
 (85, 53, '2', '2024-07-12 14:55:46', '', ''),
 (86, 53, '    The rags to riches story of dack Whittington and his cat is not just a fairy tale: it is part of the folklore of London. Today there is a monument to his cat near the Whittington Stone pub at the foot of Highgate Hill where dack sat down and heard the famous Bow Bells of East London ring out: Turn Again Whittington! Thrice Lord Mayor of London! The real dack Whittington was Lord Mayor of London in 1397, 1406 and 1419, and was a successful textile merchant. The figure of Sir Richard Whittington with his cat in his arms, carved in stone, was to be seen till the year 1780 over the archway of the old prison at Newgate, which he built for criminals, while the logo of the Whittington Hospital, Highgate, still encorporates his cat.\n', '2024-07-15 10:55:37', '', ''),
 (87, 53, 'hi', '2024-07-15 15:02:57', '', ''),
-(88, 53, 'hhh', '2024-07-15 15:12:00', 'share.png', './uploads/share.png'),
 (89, 53, 'hi', '2024-07-15 15:18:54', '5c5285e01136275b7d003df9b785b811.jpg', './uploads/5c5285e01136275b7d003df9b785b811.jpg'),
 (90, 53, 'f', '2024-07-15 15:24:11', 'medium.webp', './uploads/medium.webp'),
 (91, 53, 'sss', '2024-07-15 15:32:59', '', ''),
@@ -297,7 +252,30 @@ INSERT INTO `profile_views` (`id`, `viewer_id`, `viewed_id`, `viewed_at`) VALUES
 (6, 53, 54, '2024-07-17 10:39:29'),
 (7, 53, 54, '2024-07-17 10:39:41'),
 (8, 54, 53, '2024-07-17 10:44:52'),
-(9, 53, 54, '2024-07-17 11:05:37');
+(9, 53, 54, '2024-07-17 11:05:37'),
+(10, 53, 54, '2024-07-17 11:10:09'),
+(11, 53, 54, '2024-07-17 11:10:40'),
+(12, 53, 54, '2024-07-17 11:22:04'),
+(13, 53, 54, '2024-07-17 11:22:58'),
+(14, 53, 54, '2024-07-17 11:31:22'),
+(15, 53, 54, '2024-07-17 11:34:12'),
+(16, 53, 54, '2024-07-17 11:34:15'),
+(17, 53, 54, '2024-07-17 11:37:06'),
+(18, 53, 54, '2024-07-17 11:37:44'),
+(19, 53, 54, '2024-07-17 11:40:41'),
+(20, 53, 54, '2024-07-17 11:47:47'),
+(21, 53, 54, '2024-07-17 11:48:03'),
+(22, 53, 54, '2024-07-17 12:20:09'),
+(23, 53, 54, '2024-07-17 12:20:16'),
+(24, 53, 54, '2024-07-17 12:20:26'),
+(25, 53, 54, '2024-07-17 12:20:49'),
+(26, 53, 54, '2024-07-17 12:20:52'),
+(27, 53, 54, '2024-07-17 12:23:56'),
+(28, 53, 54, '2024-07-17 12:24:04'),
+(29, 53, 54, '2024-07-17 12:24:13'),
+(30, 53, 54, '2024-07-17 12:24:42'),
+(31, 53, 54, '2024-07-17 12:24:47'),
+(32, 54, 53, '2024-07-17 12:28:59');
 
 -- --------------------------------------------------------
 
@@ -424,25 +402,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=366;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=668;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -454,7 +432,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `profile_views`
 --
 ALTER TABLE `profile_views`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
