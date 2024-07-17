@@ -57,7 +57,7 @@
 require("connection.php");
 
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 
 $notifications = $db->prepare('SELECT 
     notifications.message,

@@ -1,8 +1,8 @@
 <?php
-
 session_start();
 
-if(!isset($_SESSION["user"])) {
-   header("location:index.php");
-} 
+if (!isset($_COOKIE['user'])) {
+    header("location: index.php");
+    exit;
+}
 ?>

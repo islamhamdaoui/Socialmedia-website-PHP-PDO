@@ -4,7 +4,7 @@ require("auth.php");
 require("connection.php"); 
 
 if(isset($_POST["content"])) {
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_COOKIE['user_id'];
     $content = $_POST['content'];
     
 

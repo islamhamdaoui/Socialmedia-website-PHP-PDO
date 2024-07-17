@@ -2,9 +2,9 @@
 require("connection.php");
 require("auth.php");
 
-if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])) {
-    $id = $_SESSION["user_id"];
-    $username = $_SESSION["username"];
+if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
+    $id = $_COOKIE["user_id"];
+    $username = $_COOKIE["username"];
     $respond = $db -> query("SELECT * FROM users");
     $column = $respond -> columnCount();
     // $data = $respond -> fetch();
@@ -96,7 +96,7 @@ if (isset($_POST['all'])) {
     function displayAll(){
 require("connection.php");
 
-$user = $_SESSION["user_id"];
+$user = $_COOKIE["user_id"];
 
 
 
@@ -131,7 +131,7 @@ $show->execute([$user]);
 while ($data = $show->fetch()) {
 echo '<div class="post" id="post_' . $data['post_id'] . '">';
 echo "<div class='username' onclick=\"";
-if ($data['username'] === $_SESSION['username']) {
+if ($data['username'] === $_COOKIE['username']) {
 echo "window.location.href = 'profile.php';";
 } else {
 echo "window.location.href = 'profileview.php?id={$data['user_id']}';";
@@ -190,7 +190,7 @@ echo '</div>';
  function displayFollowed(){
     
     require('connection.php');
-    $follower_id = $_SESSION['user_id'];
+    $follower_id = $_COOKIE['user_id'];
 
     $followed = $db->prepare("
     SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
@@ -210,7 +210,7 @@ echo '</div>';
  while ($data = $followed->fetch(PDO::FETCH_ASSOC)) {
     echo '<div class="post">';
     echo "<div class='username' onclick=\"";
-    if ($data['username'] === $_SESSION['username']) {
+    if ($data['username'] === $_COOKIE['username']) {
         echo "window.location.href = 'profile.php';";
     } else {
         echo "window.location.href = 'info.php?id={$data['id']}';";
@@ -260,7 +260,7 @@ echo '</div>';
 
         .suggestions {
             position: absolute;
-            top: 9%;
+            top: 5%;
             z-index: 400;
             right: 4%;
         }

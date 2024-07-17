@@ -1,12 +1,12 @@
 <?php
 require("connection.php");
 session_start();
-$user_id =  $_SESSION['user_id'];
-$username = $_SESSION['username'];
+$user_id =  $_COOKIE['user_id'];
+$username = $_COOKIE['username'];
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 $followed_id = $_GET['followed_id'];
-$follower_id = $_SESSION['user_id'];
+$follower_id = $_COOKIE['user_id'];
 $follow = $db -> prepare("INSERT INTO follow(follower_id, followed_id, status)VALUES(:follower_id, :followed_id, 'followed')");
 
 $follow -> execute(array(

@@ -3,7 +3,7 @@ require("connection.php");
 session_start();
 
 $followed_id = $_GET['followed_id'];
-$follower_id = $_SESSION['user_id'];
+$follower_id = $_COOKIE['user_id'];
 
 $unfollow = $db -> prepare("DELETE FROM follow WHERE follower_id = :follower_id AND followed_id = :followed_id");
 

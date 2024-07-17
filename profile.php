@@ -4,7 +4,7 @@
 require("auth.php");
 require("connection.php");
 // following code
-$follower_id = $_SESSION["user_id"];
+$follower_id = $_COOKIE['user_id'];
 $following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
 $following -> execute(array("follower_id"=> $follower_id));
 
@@ -14,7 +14,7 @@ $followingCount = $following -> fetch();
 
 <?php
 // followers code
-$followed_id = $_SESSION["user_id"];
+$followed_id = $_COOKIE['user_id'];
 $followers = $db -> prepare("SELECT count(follower_id) as follower_num FROM follow WHERE followed_id = :followed_id");
 $followers -> execute(array("followed_id"=> $followed_id));
 
@@ -46,7 +46,7 @@ $followersCount = $followers -> fetch();
     <b>Followers</b><br>
     <?php
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 
 $followersP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
     FROM users
@@ -96,7 +96,7 @@ echo '<img src="uploads/default.png" alt="default Image">';
     <b>following</b><br>
     <?php
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 
 $followingP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
     FROM users
@@ -146,7 +146,7 @@ echo '<img src="uploads/default.png" alt="default Image">';
 
 
 
- $id = $_SESSION["user_id"];
+ $id = $_COOKIE['user_id'];
  $select = $db ->prepare("SELECT * FROM users WHERE id= :id");
  $select -> execute(array("id"=> $id));
 
@@ -193,7 +193,7 @@ if($data['verified']) {
     <div class="stats">
     <div >   
         <b><?php 
-        $id = $_SESSION['user_id'];
+        $id = $_COOKIE['user_id'];
         $likes = $db -> prepare('SELECT COUNT(id) as likes_num FROM likes WHERE owner_id = :user_id');
         $likes -> execute(array('user_id'=> $id));
         $liked = $likes -> fetch();
@@ -249,7 +249,7 @@ if($data['verified']) {
     <div class="posts">
       <div style="max-width: 470px; width:100%;"><h3 style="margin-top: 0;">Your posts</h3></div>
     <?php
-$userid = $_SESSION["user_id"];
+$userid = $_COOKIE['user_id'];
 
 // $show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, 
 //                             users.username, users.id , users.pdp, 

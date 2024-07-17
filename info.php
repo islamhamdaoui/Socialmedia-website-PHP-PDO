@@ -36,7 +36,7 @@ $followersCount = $followers -> fetch();
 
 <?php
 // status code
-$follower_id = $_SESSION['user_id'];
+$follower_id = $_COOKIE['user_id'];
 $followed_id = $_GET['id'];
 
 $statusRespond = $db->prepare("SELECT status FROM follow WHERE follower_id = :follower_id and followed_id = :followed_id" );

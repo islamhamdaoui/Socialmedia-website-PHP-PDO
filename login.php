@@ -2,11 +2,14 @@
 require("connection.php");
 session_start(); 
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $_SESSION['user'] = true;
+        setcookie('user', true, time() + (86400 * 30), "/");
 
         // Prepare the SQL statement
         $stmt = $db->prepare("SELECT id, username, password FROM users WHERE username = :username");
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email']; 
         $password = $_POST['password'];
         $_SESSION['user'] = true;
-
+        setcookie('user', true, time() + (86400 * 30), "/");
         
         $stmt = $db->prepare("SELECT id, username, password FROM users WHERE email = :email"); 
 
@@ -57,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && $password === $user['password']) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            setcookie('user_id', $user['id'], time() + (86400 * 30), "/");
+            setcookie('username', $user['username'], time() + (86400 * 30), "/");
             header('location:home.php');
            
             exit; 

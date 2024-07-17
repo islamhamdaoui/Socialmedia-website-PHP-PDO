@@ -3,10 +3,10 @@ session_start();
 require("connection.php");
 
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 $post_id = $_GET['post_id'];
 $owner_id = $_GET['owner_id'];
-$username = $_SESSION['username'];
+$username = $_COOKIE['username'];
 
 $add = $db->prepare("INSERT INTO likes(post_id, user_id, status,owner_id) VALUES(:post_id, :user_id, 'liked',:owner_id)");
 $add->execute(array(

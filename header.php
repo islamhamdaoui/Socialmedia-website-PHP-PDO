@@ -138,10 +138,10 @@ left: 50%;
 
 <?php
 require("connection.php");
-if(isset($_SESSION["user"])) {
+if(isset($_COOKIE['user'])) {
    
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 $notificNum = $db->prepare('SELECT COUNT(*) as notific_num
 FROM notifications
 WHERE owner_id = :user_id AND user_id != :user_id AND is_read = "No"');
@@ -155,7 +155,7 @@ $totalNotifications = $countResult['notific_num'];
 ?>
     <header>
         <a  href="home.php">Home</a>
-        <?php if(empty($_SESSION['user'])): ?>
+        <?php if(empty($_COOKIE['user'])): ?>
             <a  href="index.php">Login</a>
             <a href="signupform.php">Signup</a>
             <?php  else: ?>

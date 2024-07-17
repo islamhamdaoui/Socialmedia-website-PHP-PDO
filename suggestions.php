@@ -1,7 +1,7 @@
 <?php
 
  require("connection.php");
- $user_id = $_SESSION['user_id'];
+ $user_id = $_COOKIE['user_id'];
  $suggestions = $db ->prepare("SELECT * FROM users WHERE  id != :user_id ORDER BY RAND() LIMIT 5");
  $suggestions->execute(array(
    'user_id' =>$user_id

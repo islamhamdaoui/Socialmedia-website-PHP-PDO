@@ -1,11 +1,11 @@
 <?php
 session_start();
 require("connection.php");
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 $comment = $_POST['comment'];
 $post_id = $_POST['post_id'];
 $owner_id = $_POST['owner_id'];
-$username = $_SESSION['username'];
+$username = $_COOKIE['username'];
 
 
 $add = $db ->prepare("INSERT INTO comments(post_id, user_id, comment)VALUES(:post_id, :user_id, :comment)");

@@ -3,7 +3,7 @@
   require("connection.php");
 
   session_start();
-  $id = $_SESSION['user_id'];
+  $id = $_COOKIE['user_id'];
 
   $select = $db -> prepare("SELECT * FROM users WHERE id= :id");
   $select -> execute(array('id'=>$id ));
