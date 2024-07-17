@@ -29,6 +29,7 @@ $notification -> execute(array(
 
 ));
 
-header("Location: home.php#post_$post_id");
+
+echo '<script>window.history.back();</script>';
 exit();
 

@@ -26,9 +26,6 @@ $notification -> execute(array(
     "message"=> $message,
 
 ));
-
-    header("location: info.php?id=$followed_id");
-    
-    
-    exit();    
+echo '<script>window.history.back();</script>';
+    exit();
 }

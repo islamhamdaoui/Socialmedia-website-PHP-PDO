@@ -15,5 +15,6 @@ $unfollow -> execute(array(
     $dislike = $db -> prepare('DELETE FROM notifications WHERE user_id = :user_id and post_id is NULL');
     $dislike -> execute(array('user_id'=> $follower_id ));
 
-     header("location: info.php?id=$followed_id");
-    exit();    
+    //hadi to go back to last page
+    echo '<script>window.history.back();</script>';
+    exit();

@@ -108,6 +108,21 @@
         font-size: 11px;
         right: -15%;
     }
+
+    .clearDiv {
+        width: 100%;
+        margin-bottom:10px;
+        height: 20px;
+       
+       
+    }
+
+    .clearDiv span {
+       color: red;
+      text-decoration: underline;
+      font-size: 14px;
+      cursor: pointer;
+    }
     @media (max-width: 615px) {
 
 .notific {
@@ -156,7 +171,7 @@ $totalNotifications = $countResult['notific_num'];
     </header>
 
     <div class="notific" id="notifications">
-
+<div class="clearDiv" onclick="window.location.href='delete/clearNotifications.php'"><span>Clear all notifications</span></div>
 <div class="close">
 <b>Notifications</b><br>
 <img onclick="closeNotifications()" src="icons/close.png" alt="close">

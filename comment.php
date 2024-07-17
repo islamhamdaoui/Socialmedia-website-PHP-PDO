@@ -46,4 +46,5 @@ $notification -> execute(array(
         
         ));
  }}
- header("location:postview.php?id=$post_id");
+ echo  '<script>window.history.back()</script>';
+ exit();

@@ -19,4 +19,5 @@ $dislike -> execute(array(
     'user_id'=> $user_id,
     'post_id'=> $post_id
  ));
-header("location:home.php#post_$post_id");
+ echo '<script>window.history.back();</script>';
+ exit();

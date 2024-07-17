@@ -14,6 +14,6 @@ $dislike -> execute(array(
     'post_id'=> $post_id
  ));
 
-header("location:../postview.php?id=$post_id");
-exit();
+ echo  '<script>window.history.back()</script>';
+ exit();
 
