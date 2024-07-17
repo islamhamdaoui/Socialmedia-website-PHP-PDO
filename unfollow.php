@@ -1,6 +1,6 @@
 <?php
 require("connection.php");
-session_start();
+
 
 $followed_id = $_GET['followed_id'];
 $follower_id = $_COOKIE['user_id'];

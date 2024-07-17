@@ -1,6 +1,6 @@
 <?php
 require("connection.php");
-session_start();
+
 $user_id =  $_COOKIE['user_id'];
 $username = $_COOKIE['username'];
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
