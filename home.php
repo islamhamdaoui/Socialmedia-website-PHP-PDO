@@ -134,7 +134,7 @@ echo "<div class='username' onclick=\"";
 if ($data['username'] === $_SESSION['username']) {
 echo "window.location.href = 'profile.php';";
 } else {
-echo "window.location.href = 'info.php?id={$data['user_id']}';";
+echo "window.location.href = 'profileview.php?id={$data['user_id']}';";
 }
 echo "\">";
 

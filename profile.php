@@ -307,6 +307,7 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo "<span>" .$data['post_date'] . "</span>";
     echo '</div>';
 
+    echo "<div class='deleteBtn'><div onclick=\"window.location.href= 'delete/deletepost.php?post_id=".$data['post_id']."'\">Delete</div></div>";
     echo "</div>";
 
     
@@ -649,6 +650,30 @@ margin: 0;
         .reactions div:hover {
             background-color: #F2F2F2;
         }
+
+        .deleteBtn {
+    width:100%;
+    max-width: 400px;
+
+}
+
+.deleteBtn div{
+    background-color: red;
+    color: white;
+  
+    float: right;
+    height: fit-content;
+    padding: 5px 7px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 8px;
+    margin-right: 0;
+    margin-left: auto;
+   
+}
+.deleteBtn div:hover {
+    opacity: 0.5;
+}
 
 
         @media (max-width: 768px) {

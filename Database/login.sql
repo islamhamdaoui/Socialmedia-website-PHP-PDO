@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 05:34 PM
+-- Generation Time: Jul 17, 2024 at 01:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -128,7 +128,8 @@ INSERT INTO `follow` (`id`, `follower_id`, `followed_id`, `status`) VALUES
 (41, 53, 89, 'followed'),
 (70, 53, 54, 'followed'),
 (78, 55, 53, 'followed'),
-(82, 54, 53, 'followed');
+(82, 54, 53, 'followed'),
+(84, 53, 61, 'followed');
 
 -- --------------------------------------------------------
 
@@ -157,7 +158,10 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `status`, `owner_id`) VALUES
 (346, 92, 54, 'liked', 53),
 (347, 91, 54, 'liked', 53),
 (348, 90, 54, 'liked', 53),
-(349, 89, 54, 'liked', 53);
+(349, 89, 54, 'liked', 53),
+(350, 90, 53, 'liked', 53),
+(351, 98, 53, 'liked', 53),
+(352, 101, 54, 'liked', 53);
 
 -- --------------------------------------------------------
 
@@ -203,7 +207,7 @@ INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, 
 (562, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-15 16:12:57'),
 (563, 92, 54, 53, 'rayanmazouni commented on your post.', 'YES', '2024-07-15 16:25:21'),
 (564, 92, 55, 53, 'user commented on your post.', 'YES', '2024-07-15 18:48:06'),
-(565, 92, 55, 54, 'user mentioned you in a comment.', 'No', '2024-07-15 18:48:06'),
+(565, 92, 55, 54, 'user mentioned you in a comment.', 'YES', '2024-07-15 18:48:06'),
 (566, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:50:03'),
 (567, 92, 54, 53, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:12'),
 (568, 94, 54, 54, 'rayanmazouni commented on your post.', 'No', '2024-07-16 14:54:34'),
@@ -214,15 +218,22 @@ INSERT INTO `notifications` (`id`, `post_id`, `user_id`, `owner_id`, `message`, 
 (575, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:44'),
 (576, 89, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:19:47'),
 (578, 94, 53, 54, 'islamputh liked your post.', 'No', '2024-07-16 15:31:00'),
-(579, 94, 53, 54, 'islamputh liked your post.', 'No', '2024-07-16 15:31:40'),
+(579, 94, 53, 54, 'islamputh liked your post.', 'YES', '2024-07-16 15:31:40'),
 (580, 86, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:35'),
 (581, 92, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:32:58'),
 (582, 91, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:33:00'),
 (583, 94, 54, 54, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:13'),
 (584, 92, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:16'),
 (585, 91, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:17'),
-(586, 90, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:18'),
-(587, 89, 54, 53, 'rayanmazouni liked your post.', 'No', '2024-07-16 15:33:21');
+(586, 90, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-16 15:33:18'),
+(587, 89, 54, 53, 'rayanmazouni liked your post.', 'YES', '2024-07-16 15:33:21'),
+(588, 90, 53, 53, 'islamputh liked your post.', 'No', '2024-07-16 15:34:52'),
+(590, NULL, 53, 61, 'islamputh followed you.', 'No', '2024-07-16 15:35:03'),
+(592, NULL, 53, 54, 'root viewed your profile.', 'YES', '2024-07-17 10:36:31'),
+(593, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 10:39:29'),
+(594, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 10:39:41'),
+(595, NULL, 54, 53, 'rayanmazouni viewed your profile.', 'No', '2024-07-17 10:44:52'),
+(609, NULL, 53, 54, 'islamputh viewed your profile.', 'No', '2024-07-17 11:05:37');
 
 -- --------------------------------------------------------
 
@@ -259,6 +270,34 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `name`, `image`) 
 (91, 53, 'sss', '2024-07-15 15:32:59', '', ''),
 (92, 53, 'ss', '2024-07-15 15:33:16', 'goju_satoru_by_ranshiiki_dfy2isq-fullview.jpg', './uploads/goju_satoru_by_ranshiiki_dfy2isq-fullview.jpg'),
 (94, 54, 'Xd', '2024-07-15 23:34:55', 'FB_IMG_1721078611604.jpg', './uploads/FB_IMG_1721078611604.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_views`
+--
+
+CREATE TABLE `profile_views` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `viewer_id` int(11) NOT NULL,
+  `viewed_id` int(11) NOT NULL,
+  `viewed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `profile_views`
+--
+
+INSERT INTO `profile_views` (`id`, `viewer_id`, `viewed_id`, `viewed_at`) VALUES
+(1, 53, 54, '2024-07-17 10:29:18'),
+(2, 53, 54, '2024-07-17 10:32:16'),
+(3, 53, 54, '2024-07-17 10:35:23'),
+(4, 53, 54, '2024-07-17 10:35:50'),
+(5, 53, 54, '2024-07-17 10:36:31'),
+(6, 53, 54, '2024-07-17 10:39:29'),
+(7, 53, 54, '2024-07-17 10:39:41'),
+(8, 54, 53, '2024-07-17 10:44:52'),
+(9, 53, 54, '2024-07-17 11:05:37');
 
 -- --------------------------------------------------------
 
@@ -364,6 +403,14 @@ ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `profile_views`
+--
+ALTER TABLE `profile_views`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `viewer_id` (`viewer_id`),
+  ADD KEY `viewed_id` (`viewed_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -377,31 +424,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=350;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=588;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+
+--
+-- AUTO_INCREMENT for table `profile_views`
+--
+ALTER TABLE `profile_views`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -426,6 +479,13 @@ ALTER TABLE `follow`
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
   ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `profile_views`
+--
+ALTER TABLE `profile_views`
+  ADD CONSTRAINT `profile_views_ibfk_1` FOREIGN KEY (`viewer_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `profile_views_ibfk_2` FOREIGN KEY (`viewed_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
