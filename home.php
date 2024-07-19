@@ -206,7 +206,7 @@ echo '</div>';
  
  $followed ->execute(array("follower_id"=> $follower_id));
 
-
+if($followed ->rowCount() > 0){
  while ($data = $followed->fetch(PDO::FETCH_ASSOC)) {
     echo '<div class="post">';
     echo "<div class='username' onclick=\"";
@@ -236,6 +236,10 @@ echo '</div>';
     
     echo '</div>';
 }
+} else {
+    echo "No friends posts found!";
+}
+
 }
 ?>
     </div>
