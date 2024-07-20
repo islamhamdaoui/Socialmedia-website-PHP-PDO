@@ -256,22 +256,80 @@ if($data['verified']) {
     <div style="max-width: 470px; width:100%;"><h3 style="margin-top: 0;">Posts</h3></div>
     <?php
 
- $show = $db->prepare('SELECT posts.content, users.username 
- FROM posts 
- INNER JOIN users ON posts.user_id = users.id 
- WHERE users.id=:id ORDER BY posts.created_at DESC');
 
 
+$liker_id = $_COOKIE['user_id'];
 
-$show->execute(array('id' => $id));
+$show = $db->prepare('SELECT 
+posts.id as post_id, 
+posts.content, 
+DATE(posts.created_at) as post_date, 
+users.username,
+users.verified, 
+users.pdp ,
+users.id as user_id, 
+image,
+COUNT(DISTINCT comments.id) as comments_count, 
+COUNT(DISTINCT likes.id) as likes_count,
+SUM(CASE WHEN likes.user_id = :liker_id THEN 1 ELSE 0 END) as liked_by_user
+FROM 
+posts 
+INNER JOIN 
+users ON posts.user_id = users.id 
+LEFT JOIN 
+comments ON posts.id = comments.post_id
+LEFT JOIN 
+likes ON posts.id = likes.post_id
+ WHERE users.id = :id
+GROUP BY 
+posts.id, posts.content, users.username, users.id, users.pdp
+ORDER BY 
+posts.created_at DESC');
+
+$show->execute(array('id' => $id,
+'liker_id'=> $liker_id
+));
               
 if($show->rowCount() > 0) {
 
 
 while ($data = $show->fetch(PDO::FETCH_ASSOC)){
     echo '<div class="post">';
-    echo '<h3>' . htmlspecialchars($data['username']) . '</h3>';
+    echo "<div class='username'>";
+    
+    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
+    echo "<div class='userdiv' >";
+    echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
+    echo "<span>" .$data['post_date'] . "</span>";
+    echo '</div>';
+
+    echo "</div>";
+
+    
     echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+    if ( $data['image'] !== '') {
+        echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
+    }
+    echo "<div class='reactions'>";
+    if ($data['liked_by_user'] > 0) { 
+
+        echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
+        echo "<img class='like' src='icons/liked.png'> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
+        } else { 
+        
+        echo "<div onclick=\"window.location.href='like.php?post_id={$data['post_id']}&owner_id={$data['user_id']}'\">";
+        echo "<img class='like' src='icons/like.png'> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
+        } 
+
+    echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
+    echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' ><span> Share</span></div>";
+ 
+    echo '</div>';
     echo '</div>';
 }
 } else {
@@ -334,23 +392,33 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
 }
 
 
-
 .posts {
-    margin-top: 50px;
+            margin-top: 50px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
            padding: 0 10px;
-}
-.post {
-    width: 400px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #e0f2f1;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        }
+        .post {
+            width: 100%;
+            max-width: 470px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+
+.postImg {
+            max-width: 100%;
+    height: auto;
+    display: block; 
+    margin: auto;
+    border-top: 1px solid rgba(0, 0, 0 , 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0 , 0.1);
+        }
 
 
 .userprofile {
@@ -459,6 +527,75 @@ margin: 0;
            -webkit-user-drag: none;
             
         }
+
+
+        .username {
+            display: flex;
+            align-items: center;
+        }
+        .username img {
+            width: 38px;
+            margin-right: 7px;
+            height: 38px;
+           
+        }
+    
+        .username h3 {
+            margin: 0;
+        }
+
+        .userdiv span {
+            font-size: 12px;
+            color: rgb(101, 103, 107);
+        }
+
+        .usertop {
+            display: flex;
+           align-items: center;
+          }
+        .usertop img {
+            margin:0 3px;
+            height: 18px;
+            width: 18px;
+           user-select: none;
+         
+           -webkit-user-drag: none;
+            
+        }
+
+        .reactions {
+            
+           
+            cursor: pointer;
+            color: #65676B;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+   
+        
+        .reactions img {
+            height: 22px;
+            width: 22px;
+            margin-right: 5px;
+            
+        }
+
+        .reactions div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            flex: 1;
+            border-radius: 4px;
+            padding: 4px 0;
+        }
+
+        .reactions div:hover {
+            background-color: #F2F2F2;
+        }
+
+
 
         @media (max-width: 768px) {
 

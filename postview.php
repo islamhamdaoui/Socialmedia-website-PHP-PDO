@@ -100,7 +100,7 @@ if ($data['pdp'] === 'default') {
                 while ($comment = $showComments->fetch(PDO::FETCH_ASSOC)) {
                    
                     echo "<div class='commentContainer'>";
-                    if($comment['username'] === $_SESSION['username']){
+                    if($comment['username'] === $_COOKIE['username']){
                         echo'<div class="deletebtn">';
 echo "<div  onclick=\"window.location.href='delete/deletecomment.php?id=" . $comment['comment_id'] . "&post_id=" . $data['post_id'] . "'\">Delete</div>";
 echo"</div>";

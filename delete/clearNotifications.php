@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("../connection.php");
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 
 $clear = $db -> prepare('DELETE FROM notifications WHERE owner_id = :user_id');
 $clear -> execute(['user_id'=> $user_id]);

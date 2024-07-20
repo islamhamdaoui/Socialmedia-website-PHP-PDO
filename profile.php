@@ -251,15 +251,6 @@ if($data['verified']) {
     <?php
 $userid = $_COOKIE['user_id'];
 
-// $show = $db->prepare('SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, 
-//                             users.username, users.id , users.pdp, 
-//                             COUNT(comments.id) as comments_count
-//                      FROM posts 
-//                      INNER JOIN users ON posts.user_id = users.id 
-//                      LEFT JOIN comments ON posts.id = comments.post_id
-//                      WHERE users.id = :user_id
-//                      GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
-//                      ORDER BY posts.created_at DESC');
 
 $show = $db->prepare('SELECT 
 posts.id as post_id, 
@@ -416,21 +407,14 @@ input[type=submit]:hover {
 }
 
 
-.post {
-    width:100%;
-    max-width: 400px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #e0f2f1;
-    border-radius: 8px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-}
 
 .postImg {
             max-width: 100%;
     height: auto;
     display: block; 
     margin: auto;
+    border-top: 1px solid rgba(0, 0, 0 , 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0 , 0.1);
         }
 
 .stats {
