@@ -190,20 +190,7 @@ echo '<img src="uploads/default.png" alt="default Image">';
 
 <div class="userpdp">
     <?php
-if ($data['pdp'] === 'default') {
-echo '<img src="uploads/default.png" alt="default Image">';
-} elseif ($data['pdp'] === 'sara') {
-echo "<img src='uploads/sara.png' alt='sara Image'>";
-} elseif ($data['pdp'] === 'dalia') {
-echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-}  elseif ($data['pdp'] === 'islam') {
-echo"<img src='uploads/islam.png' alt='islam Image'>";
-}
-elseif ($data['pdp'] === 'mohamed') {
-echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-} else {
-echo '<img src="uploads/default.png" alt="default Image">';
-}
+echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
 
 ?>
 </div>

@@ -5,7 +5,9 @@ require("auth.php");
 require("connection.php");
 // following code
 $follower_id = $_COOKIE['user_id'];
-$following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id");
+$following = $db -> prepare("SELECT count(followed_id) as following_num FROM follow WHERE follower_id = :follower_id 
+
+");
 $following -> execute(array("follower_id"=> $follower_id));
 
 $followingCount = $following -> fetch();
@@ -51,7 +53,9 @@ $user_id = $_COOKIE['user_id'];
 $followersP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
     FROM users
     JOIN follow ON users.id = follow.follower_id
-    WHERE follow.followed_id = :user_id");
+    WHERE follow.followed_id = :user_id
+    ORDER BY id DESC
+    ");
     $followersP -> execute(array("user_id"=> $user_id));
 
     while($peoplefollow = $followersP -> fetch()){
@@ -62,20 +66,9 @@ $followersP = $db ->prepare ("SELECT users.id as id, users.username, users.email
             
             <?php
             
-if ($peoplefollow['pdp'] === 'default') {
-echo '<img src="uploads/default.png" alt="default Image">';
-} elseif ($peoplefollow['pdp'] === 'sara') {
-echo "<img src='uploads/sara.png' alt='sara Image'>";
-} elseif ($peoplefollow['pdp'] === 'dalia') {
-echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-}  elseif ($peoplefollow['pdp'] === 'islam') {
-echo"<img src='uploads/islam.png' alt='islam Image'>";
-}
-elseif ($peoplefollow['pdp'] === 'mohamed') {
-echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-} else {
-echo '<img src="uploads/default.png" alt="default Image">';
-}
+
+echo "<img src='uploads/{$peoplefollow['pdp']}.png' alt='{$peoplefollow['pdp']} Image'>";
+
 
 ?>
                 <div class="followersInfo" >
@@ -101,7 +94,9 @@ $user_id = $_COOKIE['user_id'];
 $followingP = $db ->prepare ("SELECT users.id as id, users.username, users.email, users.pdp
     FROM users
     JOIN follow ON users.id = follow.followed_id
-    WHERE follow.follower_id = :user_id");
+    WHERE follow.follower_id = :user_id
+    ORDER BY id DESC
+    ");
     $followingP -> execute(array("user_id"=> $user_id));
 
     while($peopleIfollow = $followingP -> fetch()){
@@ -111,20 +106,10 @@ $followingP = $db ->prepare ("SELECT users.id as id, users.username, users.email
 <div class="followersProfile" onclick="window.location.href = 'info.php?id=<?php echo $peopleIfollow['id']; ?>'">
             
             <?php
-if ($peopleIfollow['pdp'] === 'default') {
-echo '<img src="uploads/default.png" alt="default Image">';
-} elseif ($peopleIfollow['pdp'] === 'sara') {
-echo "<img src='uploads/sara.png' alt='sara Image'>";
-} elseif ($peopleIfollow['pdp'] === 'dalia') {
-echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-}  elseif ($peopleIfollow['pdp'] === 'islam') {
-echo"<img src='uploads/islam.png' alt='islam Image'>";
-}
-elseif ($peopleIfollow['pdp'] === 'mohamed') {
-echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-} else {
-echo '<img src="uploads/default.png" alt="default Image">';
-}
+
+ echo "<img src='uploads/{$peopleIfollow['pdp']}.png' alt='{$peopleIfollow['pdp']} Image'>";
+
+
 
 ?>
                 <div class="followersInfo" >
@@ -158,20 +143,8 @@ echo '<img src="uploads/default.png" alt="default Image">';
         <?php
 
         
-if ($data['pdp'] === 'default') {
-    echo '<img src="uploads/default.png" alt="default Image">';
-} elseif ($data['pdp'] === 'sara') {
-    echo "<img src='uploads/sara.png' alt='sara Image'>";
-} elseif ($data['pdp'] === 'dalia') {
-    echo "<img  src='uploads/dalia.png' alt='dalia Image'>";
-}  elseif ($data['pdp'] === 'islam') {
-    echo"<img src='uploads/islam.png' alt='islam Image'>";
-}
-elseif ($data['pdp'] === 'mohamed') {
-    echo"<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-} else {
-    echo '<img src="uploads/default.png" alt="default Image">';
-}
+echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
 
 ?>
     </div>
@@ -219,20 +192,8 @@ if($data['verified']) {
     <form action="post.php" method="post" enctype="multipart/form-data">
     <div class="input">
         <?php
-        // Display profile picture based on $data['pdp'] value
-        if ($data['pdp'] === 'default') {
-            echo '<img src="uploads/default.png" alt="default Image">';
-        } elseif ($data['pdp'] === 'sara') {
-            echo "<img src='uploads/sara.png' alt='sara Image'>";
-        } elseif ($data['pdp'] === 'dalia') {
-            echo "<img src='uploads/dalia.png' alt='dalia Image'>";
-        } elseif ($data['pdp'] === 'islam') {
-            echo "<img src='uploads/islam.png' alt='islam Image'>";
-        } elseif ($data['pdp'] === 'mohamed') {
-            echo "<img class='image' src='uploads/mohamed.png' alt='mohamed Image'>";
-        } else {
-            echo '<img src="uploads/default.png" alt="default Image">';
-        }
+      echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
         ?>
         
         <textarea name="content" placeholder="Add new post..." required></textarea>

@@ -268,6 +268,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
             align-items: center;
             position: relative;
             min-height: 100vh;
+           
 
         }
 
