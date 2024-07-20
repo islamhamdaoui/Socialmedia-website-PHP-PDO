@@ -16,5 +16,5 @@ $deleteLikes -> execute(array("post_id"=> $post_id));
 $deletePost = $db ->prepare("DELETE FROM posts WHERE id = :post_id");
 $deletePost -> execute(array("post_id"=> $post_id));
 
-header("location:../profile.php");
-exit();
+echo '<script>window.history.back();</script>';
+    exit();
