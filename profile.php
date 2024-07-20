@@ -259,7 +259,7 @@ DATE(posts.created_at) as post_date,
 users.username,
 users.verified, 
 users.pdp ,
-users.id, 
+users.id as user_id, 
 image,
 COUNT(DISTINCT comments.id) as comments_count, 
 COUNT(DISTINCT likes.id) as likes_count,
@@ -307,7 +307,19 @@ while ($data = $show->fetch(PDO::FETCH_ASSOC)){
         echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
     }
     echo "<div class='reactions'>";
-    echo '<div><span class="like-count">' . $data['likes_count'] . ' Likes</span></div>';
+    if ($data['liked_by_user'] > 0) { 
+
+        echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
+        echo "<img class='like' src='icons/liked.png'> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
+        } else { 
+        
+        echo "<div onclick=\"window.location.href='like.php?post_id={$data['post_id']}&owner_id={$data['user_id']}'\">";
+        echo "<img class='like' src='icons/like.png'> ";
+        echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+        echo '</div>';
+        } 
 
     echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
     echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' ><span> Share</span></div>";

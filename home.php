@@ -72,8 +72,10 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
 <div class="homeContainer">
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <button type="submit" name="all">Show All</button>
-    <button type="submit" name="followed">Show Followed</button>
+    <div class="filters">
+    <div class="filter"><button type="submit" name="all">Show All</button></div>
+    <div class="filter"> <button type="submit" name="followed">Show Followed</button></div>
+    </div>
 </form>
 
 
@@ -192,49 +194,98 @@ echo '</div>';
     require('connection.php');
     $follower_id = $_COOKIE['user_id'];
 
-    $followed = $db->prepare("
-    SELECT posts.id as post_id, posts.content, DATE(posts.created_at) as post_date, users.username, users.id, users.pdp, COUNT(comments.id) as comments_count
-    FROM posts
-    INNER JOIN users ON posts.user_id = users.id
-    INNER JOIN follow ON users.id = follow.followed_id
-    LEFT JOIN comments ON posts.id = comments.post_id
-    WHERE follow.follower_id = :follower_id
-    GROUP BY posts.id, posts.content, users.username, users.id, users.pdp
-    ORDER BY posts.created_at DESC");
+    
+    $followed = $db->prepare('SELECT 
+    posts.id AS post_id, 
+    posts.content, 
+    DATE(posts.created_at) AS post_date, 
+    users.username,
+    users.verified, 
+    users.pdp AS pdp,
+    users.id AS user_id, 
+    posts.image, 
+    COUNT(DISTINCT comments.id) AS comments_count, 
+    COUNT(DISTINCT likes.id) AS likes_count,
+    SUM(CASE WHEN likes.user_id = :follower_id THEN 1 ELSE 0 END) AS liked_by_user
+FROM 
+    posts
+INNER JOIN 
+    users ON posts.user_id = users.id 
+LEFT JOIN 
+    comments ON posts.id = comments.post_id
+LEFT JOIN 
+    likes ON posts.id = likes.post_id
+INNER JOIN 
+    follow ON posts.user_id = follow.followed_id
+WHERE 
+    follow.follower_id = :follower_id
+GROUP BY 
+    posts.id, 
+    posts.content, 
+    posts.created_at, 
+    users.username, 
+    users.verified, 
+    users.pdp, 
+    users.id, 
+    posts.image
+ORDER BY 
+    posts.created_at DESC');
 
-
+  
  
  $followed ->execute(array("follower_id"=> $follower_id));
 
 if($followed ->rowCount() > 0){
- while ($data = $followed->fetch(PDO::FETCH_ASSOC)) {
-    echo '<div class="post">';
-    echo "<div class='username' onclick=\"";
-    if ($data['username'] === $_COOKIE['username']) {
-        echo "window.location.href = 'profile.php';";
-    } else {
-        echo "window.location.href = 'info.php?id={$data['id']}';";
-    }
-    echo "\">";
-    
-    echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
-
-    echo "<div class='userdiv' >";
-    echo "<h3 >" . htmlspecialchars($data['username']) . '</h3>';
-    echo "<span>" .$data['post_date'] . "</span>";
-    echo '</div>';
-
-    echo "</div>";
-
-    
-    echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+while ($data = $followed->fetch()) {
+echo '<div class="post" id="post_' . $data['post_id'] . '">';
+echo "<div class='username' onclick=\"";
+if ($data['username'] === $_COOKIE['username']) {
+echo "window.location.href = 'profile.php';";
+} else {
+echo "window.location.href = 'profileview.php?id={$data['user_id']}';";
+}
+echo "\">";
 
 
-    echo "<div><div class='comment' onclick=\"window.location.href='postview.php?id={$data['post_id']}'\">{$data['comments_count']} Comment</div> </div>";
-    
-    
-    
-    echo '</div>';
+echo "<img src='uploads/{$data['pdp']}.png' alt='{$data['pdp']} Image'>";
+
+echo "<div class='userdiv'>";
+echo "<div class='usertop'>";
+echo "<h3>" . htmlspecialchars($data['username']) . '</h3>';
+if ($data['verified']) {
+echo "<img src='icons/verified.png' class='verified'>";
+}
+echo "</div>";
+echo "<span>" . $data['post_date'] . "</span>";
+echo '</div>';
+echo "</div>";
+echo '<p>' . htmlspecialchars($data['content']) . '</p>'; 
+
+if ( $data['image'] !== '') {
+    echo "<img class='postImg' src='" . htmlspecialchars($data['image']) . "' alt='Image'>";
+}
+
+
+echo "<div class='reactions'>";
+if ($data['liked_by_user'] > 0) { 
+
+echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
+echo "<img class='like' src='icons/liked.png'> ";
+echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+echo '</div>';
+} else { 
+
+echo "<div onclick=\"window.location.href='like.php?post_id={$data['post_id']}&owner_id={$data['user_id']}'\">";
+echo "<img class='like' src='icons/like.png'> ";
+echo '<span class="like-count">' . $data['likes_count'] . ' Likes</span>';
+echo '</div>';
+} 
+
+echo "<div  onclick=\"window.location.href='postview.php?id={$data['post_id']}'\"><img src='icons/comment.png'><span>{$data['comments_count']} Comment</span></div> ";
+echo "<div onclick=\"copyToClipboard('http://localhost/login/postview.php?id={$data['post_id']}')\"><img src='icons/share.png' ><span> Share</span></div>";
+echo "</div>";
+
+echo '</div>';
 }
 } else {
     echo "No friends posts found!";
@@ -277,7 +328,7 @@ if($followed ->rowCount() > 0){
 
         }
         .posts {
-            margin-top: 50px;
+            margin-top: 10px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -377,6 +428,50 @@ if($followed ->rowCount() > 0){
             height: 22px;
             width: 22px;
         }
+
+
+        .filters {
+            display: flex;
+            background-color: #fff;
+           
+            width: 470px;
+            border-radius: 8px;
+           box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter {
+           
+           width: 50%;
+           max-width: 235px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           height: 53px;
+           color: #536471;
+          
+        }
+        .filter button {
+            background-color: transparent;
+            border: 0;
+           
+            color: #536471;
+            width: 100%;
+            font-size: 15px;
+            cursor: pointer;
+            height: 53px;
+        }
+
+        .filter button:hover {
+            background-color: #E7E7E8;
+            color: #000;
+        }
+
+      
+
+
+
+
+
         @media (max-width: 1180px) {
 
 .suggestions {
@@ -420,6 +515,12 @@ display: none;
             width: 15px;
            
             
+        }
+  }
+
+  @media (max-width: 515px) {
+        .filters {
+            width: 320px;
         }
   }
 

@@ -20,6 +20,7 @@
             align-items: center;
             justify-content: center;
             position: fixed;
+           
             background-color: #FFF;
             height: 50px;
             box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.2);

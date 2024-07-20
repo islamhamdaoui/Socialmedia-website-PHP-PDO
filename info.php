@@ -646,6 +646,16 @@ font-size: 14px;
                let following =document.getElementById('following')
         following.style.display = 'flex'
            }
+
+
+           
+    function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Post link copied to clipboard');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
 </script>
 </body>
 </html>
