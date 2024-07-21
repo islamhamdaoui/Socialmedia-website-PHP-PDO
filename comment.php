@@ -7,7 +7,7 @@ $post_id = $_POST['post_id'];
 $owner_id = $_POST['owner_id'];
 $username = $_COOKIE['username'];
 
-
+//Insert comment to database
 $add = $db ->prepare("INSERT INTO comments(post_id, user_id, comment)VALUES(:post_id, :user_id, :comment)");
 $add -> execute(array(
     "user_id"=> $user_id, 
@@ -15,7 +15,7 @@ $add -> execute(array(
     "post_id"=> $post_id
 ));
 
-
+//Send notification message to user
 $message = "{$username} commented on your post.";
 
 $notification = $db->prepare("INSERT INTO notifications (post_id, user_id,owner_id, message ,is_read) VALUES (:post_id, :user_id,:owner_id, :message, 'No')");
@@ -28,7 +28,7 @@ $notification -> execute(array(
 ));
 
 
-
+//send notification for user when you mention him
  $user = $db -> prepare("SELECT username,id FROM users");
  $user->execute();
 

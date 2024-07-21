@@ -1,5 +1,6 @@
 <?php
 session_start();  
+//this will take u home if u already logged in
 if(isset($_COOKIE['user'])){
   header('location:home.php');
 }
@@ -29,6 +30,7 @@ if(isset($_COOKIE['user'])){
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Password" required>
     <?php
+    //show a message if user email or password are wrong
      if (isset($_COOKIE['wrong']) && $_COOKIE['wrong'] == 'true') {
         echo '<div><span>Wrong email or password</span></div>';
        

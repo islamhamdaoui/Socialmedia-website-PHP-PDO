@@ -23,14 +23,244 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .user {
-            background-color: #f1f1f1;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-    </style>
+       
+
+
+
+       *{
+          box-sizing: border-box;
+         
+       }
+          
+          .homeContainer {
+              padding: 60px 0;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              position: relative;
+              min-height: 100vh;
+             
+  
+          }
+  
+          .suggestions {
+              position: absolute;
+              top: 10%;
+              z-index: 400;
+              right: 4%;
+          }
+  
+          .suggestions div:first-child {
+              display: flex;
+              justify-content: space-between;
+           padding: 0 10px;
+           margin-bottom: 5px;
+  
+          }
+          .posts {
+              margin-top: 10px;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 0 15px;
+             
+          }
+          .post {
+              width: 100%;
+              max-width: 470px;
+              padding: 10px;
+              margin-bottom: 15px;
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+          }
+  
+          .postImg {
+              max-width: 100%;
+      height: auto;
+      display: block; 
+      margin: auto;
+      border-top: 1px solid rgba(0, 0, 0 , 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0 , 0.1);
+          }
+          .reactions {
+              
+             
+              cursor: pointer;
+              color: #65676B;
+              margin-top: 5px;
+              display: flex;
+              justify-content: space-between;
+          }
+     
+  
+          .reactions img {
+              height: 22px;
+              width: 22px;
+              margin-right: 5px;
+              
+          }
+  
+          .reactions div {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              
+              flex: 1;
+              border-radius: 4px;
+              padding: 4px 0;
+          }
+  
+          .reactions div:hover {
+              background-color: #F2F2F2;
+          }
+  
+  
+          .username {
+              display: flex;
+              align-items: center;
+          }
+          .username img {
+              width: 38px;
+              margin-right: 7px;
+              height: 38px;
+             
+          }
+      
+          .username h3 {
+              margin: 0;
+          }
+  
+          .userdiv span {
+              font-size: 12px;
+              color: rgb(101, 103, 107);
+          }
+          
+            .usertop {
+              display: flex;
+             align-items: center;
+            }
+          .usertop img {
+              margin:0 3px;
+              height: 14px;
+              width: 14px;
+             user-select: none;
+           
+             -webkit-user-drag: none;
+              
+          }
+          .followed {
+             display: none;
+             
+              margin-top: 10px;
+              width: 100%;
+            
+              flex-direction: column;
+              align-items: center;
+              padding: 0 15px;
+          }
+  
+          .like {
+              height: 22px;
+              width: 22px;
+          }
+  
+  
+          .filters {
+              display: flex;
+              background-color: #fff;
+             
+              width: 470px;
+              border-radius: 8px;
+             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+          }
+  
+          .filter {
+             
+             width: 50%;
+             max-width: 235px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             height: 53px;
+             color: #536471;
+             font-size: 15px;
+             cursor: pointer;
+            border-radius: 0 8px 8px 0;
+          }
+     
+  
+          .filter:hover {
+              background-color: #E7E7E8;
+              color: #000;
+          }
+  
+         #allDiv {
+              background-color: #F0F2F5;
+             font-weight: bold;
+              border-radius: 8px 0 0 8px;
+          }
+        
+  
+  
+  
+  
+  
+          @media (max-width: 1180px) {
+  
+  .suggestions {
+  display: none;
+  }
+  
+  
+    }
+    @media (max-width: 415px) {
+      .reactions span{
+     font-size: 15px;
+  }
+  
+  .reactions img {
+              height: 19px;
+              width: 19px;
+             
+              
+          }
+    }
+  
+    @media (max-width: 380px) {
+      .reactions span{
+     font-size: 14px;
+  }
+  
+  .reactions img {
+              height: 18px;
+              width: 18px;
+             
+              
+          }
+    }
+    @media (max-width: 322px) {
+      .reactions span{
+     font-size: 11px;
+  }
+  
+  .reactions img {
+              height: 15px;
+              width: 15px;
+             
+              
+          }
+    }
+  
+    @media (max-width: 515px) {
+          .filters {
+              width: 320px;
+          }
+    }
+  
+              </style>
 </head>
 <body>
 <?php
@@ -82,6 +312,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
 
         $user = $_COOKIE["user_id"];
 
+        //show all users posts in for you page
         $show = $db->prepare('SELECT 
         posts.id as post_id, 
         posts.content, 
@@ -136,6 +367,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
             }
 
             echo "<div class='reactions'>";
+            //this code shows liked icon when user already liked it and the opposite
             if ($data['liked_by_user'] > 0) { 
                 echo "<div onclick=\"window.location.href='dislike.php?id={$data['post_id']}'\">";
                 echo "<img class='like' src='icons/liked.png'> ";
@@ -161,6 +393,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
         require('connection.php');
         $follower_id = $_COOKIE['user_id'];
 
+        //Shows only the posts from users that u follow
         $followed = $db->prepare('SELECT 
         posts.id AS post_id, 
         posts.content, 
@@ -250,245 +483,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
     </div>
 </div>
 
-    <style>
-       
 
-
-
-     *{
-        box-sizing: border-box;
-       
-     }
-        
-        .homeContainer {
-            padding: 60px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            min-height: 100vh;
-           
-
-        }
-
-        .suggestions {
-            position: absolute;
-            top: 5%;
-            z-index: 400;
-            right: 4%;
-        }
-
-        .suggestions div:first-child {
-            display: flex;
-            justify-content: space-between;
-         padding: 0 10px;
-         margin-bottom: 5px;
-
-        }
-        .posts {
-            margin-top: 10px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 15px;
-           
-        }
-        .post {
-            width: 100%;
-            max-width: 470px;
-            padding: 10px;
-            margin-bottom: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .postImg {
-            max-width: 100%;
-    height: auto;
-    display: block; 
-    margin: auto;
-    border-top: 1px solid rgba(0, 0, 0 , 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0 , 0.1);
-        }
-        .reactions {
-            
-           
-            cursor: pointer;
-            color: #65676B;
-            margin-top: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
-   
-
-        .reactions img {
-            height: 22px;
-            width: 22px;
-            margin-right: 5px;
-            
-        }
-
-        .reactions div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            flex: 1;
-            border-radius: 4px;
-            padding: 4px 0;
-        }
-
-        .reactions div:hover {
-            background-color: #F2F2F2;
-        }
-
-
-        .username {
-            display: flex;
-            align-items: center;
-        }
-        .username img {
-            width: 38px;
-            margin-right: 7px;
-            height: 38px;
-           
-        }
-    
-        .username h3 {
-            margin: 0;
-        }
-
-        .userdiv span {
-            font-size: 12px;
-            color: rgb(101, 103, 107);
-        }
-        
-          .usertop {
-            display: flex;
-           align-items: center;
-          }
-        .usertop img {
-            margin:0 3px;
-            height: 14px;
-            width: 14px;
-           user-select: none;
-         
-           -webkit-user-drag: none;
-            
-        }
-        .followed {
-           display: none;
-           
-            margin-top: 10px;
-            width: 100%;
-          
-            flex-direction: column;
-            align-items: center;
-            padding: 0 15px;
-        }
-
-        .like {
-            height: 22px;
-            width: 22px;
-        }
-
-
-        .filters {
-            display: flex;
-            background-color: #fff;
-           
-            width: 470px;
-            border-radius: 8px;
-           box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter {
-           
-           width: 50%;
-           max-width: 235px;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           height: 53px;
-           color: #536471;
-           font-size: 15px;
-           cursor: pointer;
-          border-radius: 0 8px 8px 0;
-        }
-   
-
-        .filter:hover {
-            background-color: #E7E7E8;
-            color: #000;
-        }
-
-       #allDiv {
-            background-color: #F0F2F5;
-           font-weight: bold;
-            border-radius: 8px 0 0 8px;
-        }
-      
-
-
-
-
-
-        @media (max-width: 1180px) {
-
-.suggestions {
-display: none;
-}
-
-
-  }
-  @media (max-width: 415px) {
-    .reactions span{
-   font-size: 15px;
-}
-
-.reactions img {
-            height: 19px;
-            width: 19px;
-           
-            
-        }
-  }
-
-  @media (max-width: 380px) {
-    .reactions span{
-   font-size: 14px;
-}
-
-.reactions img {
-            height: 18px;
-            width: 18px;
-           
-            
-        }
-  }
-  @media (max-width: 322px) {
-    .reactions span{
-   font-size: 11px;
-}
-
-.reactions img {
-            height: 15px;
-            width: 15px;
-           
-            
-        }
-  }
-
-  @media (max-width: 515px) {
-        .filters {
-            width: 320px;
-        }
-  }
-
-            </style>
 
       
 <script>

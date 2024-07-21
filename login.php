@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "email" => $email, 
         ));
 
-        // Fetch the user
+       
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verify password

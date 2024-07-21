@@ -2,6 +2,7 @@
 
  require("connection.php");
  $user_id = $_COOKIE['user_id'];
+ //shows 5 random suggestions everytime u refrech
  $suggestions = $db ->prepare("SELECT * FROM users WHERE  id != :user_id ORDER BY RAND() LIMIT 5");
  $suggestions->execute(array(
    'user_id' =>$user_id

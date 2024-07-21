@@ -151,6 +151,7 @@ if(isset($_COOKIE['user'])) {
    
 
 $user_id = $_COOKIE['user_id'];
+//show how many notifications u have in the red dot
 $notificNum = $db->prepare('SELECT COUNT(*) as notific_num
 FROM notifications
 WHERE owner_id = :user_id AND user_id != :user_id AND is_read = "No"');

@@ -1,5 +1,5 @@
 <?php
-
+//This code for editing ur own profile from editform.php
 require("connection.php");
 $id= $_POST['id'];
 $username= $_POST['username'];

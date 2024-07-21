@@ -3,6 +3,8 @@ session_start();
 require("connection.php");
 $viewer_id = $_COOKIE['user_id'];
 $viewed_id = $_GET['id'];
+
+//these codes are made to insert and show who viewed ur profile 
 $visits = $db -> prepare("INSERT INTO profile_views (viewer_id,viewed_id)VALUES(:viewer_id,:viewed_id)");
 $visits->execute(array(
     "viewer_id"=> $viewer_id,

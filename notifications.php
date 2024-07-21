@@ -58,7 +58,7 @@ require("connection.php");
 
 
 $user_id = $_COOKIE['user_id'];
-
+//shows notifications
 $notifications = $db->prepare('SELECT 
     notifications.message,
     users.pdp,
@@ -67,7 +67,7 @@ $notifications = $db->prepare('SELECT
     notifications.user_id,
     notifications.id,
     is_read,
-    
+    -- this code here *this code bellow is not mine* is to count time of when notification was added
     CASE
         WHEN TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(SECOND, notifications.created_at, NOW()), "s ago")
         WHEN TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, notifications.created_at, NOW()), "m ago")
