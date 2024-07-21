@@ -1,16 +1,12 @@
 <?php
 require("connection.php");
 require("auth.php");
-
+$id = null;
 if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
     $id = $_COOKIE["user_id"];
     $username = $_COOKIE["username"];
     $respond = $db -> query("SELECT * FROM users");
     $column = $respond -> columnCount();
-    // $data = $respond -> fetch();
-    
-    
-       
 }
 ?>
 
@@ -104,6 +100,9 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
 
         while ($data = $show->fetch()) {
             echo '<div class="post" id="post_' . $data['post_id'] . '">';
+            if ($id == 1) {
+                echo "<div class='deleteBtn'><div onclick=\"window.location.href= 'delete/deletepost.php?post_id=".$data['post_id']."'\">Delete</div></div>";
+            }
             echo "<div class='username' onclick=\"";
             if ($data['username'] === $_COOKIE['username']) {
                 echo "window.location.href = 'profile.php';";
