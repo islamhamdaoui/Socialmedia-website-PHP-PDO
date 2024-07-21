@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost'; 
-$dbname = 'login';
+$dbname = 'socialmedia';
 $username = 'root';
 $password = '';
 
