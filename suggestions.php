@@ -31,7 +31,7 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SocialDZ</title>
     <style>
          .results {
             margin-top: 50px;

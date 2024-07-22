@@ -21,7 +21,7 @@ if (isset($_COOKIE["user_id"]) && isset($_COOKIE["username"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SocialDZ</title>
     <link rel="stylesheet" href="styles/home.css">
 </head>
 <body>
