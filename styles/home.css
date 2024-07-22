@@ -124,6 +124,31 @@ border-bottom: 1px solid rgba(0, 0, 0 , 0.1);
       -webkit-user-drag: none;
        
    }
+
+   .deleteBtn {
+    width:100%;
+    max-width: 400px;
+    
+    }
+    
+    .deleteBtn div{
+    background-color: red;
+    color: white;
+    
+    float: right;
+    height: fit-content;
+    padding: 5px 7px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 8px;
+    margin-right: 0;
+    margin-left: auto;
+    
+    }
+    .deleteBtn div:hover {
+    opacity: 0.5;
+    }
+    
    .followed {
       display: none;
       
